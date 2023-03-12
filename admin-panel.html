@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Classes - admin panel</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="admin-panel.css" />
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="#">upgrade your browser</a> to improve your experience.
+      </p>
+    <![endif]-->
+    <div class="container-xxl vw-100 p-0">
+      <div class="grid gap-0">
+        <div class="row mx-auto">
+          <div class="col">
+            <div class="row m-3">
+              <div class="btn-group" role="group" aria-label="Filters">
+                <input
+                  type="checkbox"
+                  class="btn-check"
+                  id="btncheck1"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="btncheck1"
+                  >Admin</label
+                >
+
+                <input
+                  type="checkbox"
+                  class="btn-check"
+                  id="btncheck2"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="btncheck2"
+                  >Regular</label
+                >
+              </div>
+            </div>
+            <div class="row m-3">
+              <input type="text" placeholder="Search" class="form-control" />
+            </div>
+            <div class="row">
+              <div class="container card w-auto rounded-pill mx-auto my-1">
+                <div class="hstack gap-3">
+                  <div class="m-1">
+                    <img
+                      src="./images/how-to-watch-john-wick (2).jpg"
+                      class="object-fit-contain rounded-circle"
+                    />
+                  </div>
+                  <div>
+                    <div class="vstack g-0">
+                      <p class="name fs-5 m-0">John Wick</p>
+                      <p class="name fs-6 m-0">@wickjohn</p>
+                    </div>
+                  </div>
+                  <div class="hstack">
+                    <div class="vr"></div>
+                    <div class="vstack gap-0 text-center my-auto mx-2">
+                      <div>
+                        <span class="badge bg-red">Admin</span>
+                      </div>
+                      <p class="p-0 m-0">+38098*****93</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="container card w-auto rounded-pill mx-auto my-1">
+                <div class="hstack gap-3">
+                  <div class="m-1">
+                    <img
+                      src="./images/ryan_gosling.jpg"
+                      class="object-fit-contain rounded-circle"
+                    />
+                  </div>
+                  <div>
+                    <div class="vstack g-0">
+                      <p class="name fs-5 m-0">Ryan Gosling</p>
+                      <p class="name fs-6 m-0">@drivergosling</p>
+                    </div>
+                  </div>
+                  <div class="hstack">
+                    <div class="vr"></div>
+                    <div class="vstack gap-0 text-center my-auto mx-2">
+                      <div>
+                        <span class="badge bg-secondary">Regular</span>
+                      </div>
+                      <p class="p-0 m-0">+38096*****54</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg">
+            <div
+              class="container-lg d-none d-lg-block card bg-light h-100 rounded-5 m-2"
+            >
+              <div class="container mx-auto">
+                <h2 class="px-2 py-3">Edit a user</h2>
+              </div>
+              <hr class="m-0" />
+
+              <div class="container m-1 text-center">
+                <img
+                  src="./images/how-to-watch-john-wick (2).jpg"
+                  class="rounded-circle"
+                />
+                <div class="input-group m-1 my-3">
+                  <label class="input-group-text" for="inputGroupFile01"
+                    >Upload</label
+                  >
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="inputGroupFile01"
+                    accept=".gif,.jpg,.jpeg,.png"
+                  />
+                </div>
+              </div>
+              <div class="p-1">
+                <label for="nicknameControl" class="form-label">Nickname</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="nicknameControl"
+                  placeholder="johnsmith"
+                  value="johnwick"
+                />
+              </div>
+              <div class="p-1">
+                <label for="firstNameForm" class="form-label">First name</label>
+                <input
+                  type="text"
+                  class="form-control m-1"
+                  id="firstNameForm"
+                  placeholder="John"
+                  value="John"
+                />
+              </div>
+              <div class="p-1">
+                <label for="lastNameForm" class="form-label">Last name</label>
+                <input
+                  type="text"
+                  class="form-control m-1"
+                  id="lastNameForm"
+                  placeholder="Smith"
+                  value="Wick"
+                />
+              </div>
+              <div class="p-1">
+                <label for="emailFormControl" class="form-label"
+                  >Email address</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="emailFormControl"
+                  placeholder="name@email.com"
+                  value="johnwick@gmail.com"
+                />
+              </div>
+              <div class="p-1">
+                <label for="phoneNumberControl" class="form-label"
+                  >Phone number</label
+                >
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="phoneNumberControl"
+                  placeholder="+38098000000"
+                  value="+380987669293"
+                />
+              </div>
+              <div class="container mx-auto my-3 text-center">
+                <button type="button" class="btn btn-primary">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="filters.js"></script>
+  </body>
+</html>
