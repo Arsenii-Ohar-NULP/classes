@@ -15,38 +15,56 @@
         <a href="#">upgrade your browser</a> to improve your experience.
       </p>
     <![endif]-->
-    <div class="card">
-      <form name="form" class="main" novalidate>
-        <h2 class="sign-in-text">Hi, please log in.</h2>
-        <input
-          type="input"
-          placeholder="Username or email"
-          id="username"
-          class="username-text-box"
-          minlength="8"
-        />
-        <br />
-        <input
-          id="password"
-          placeholder="Password"
-          type="password"
-          class="password-text-box"
-          minlength="8"
-        />
-        <div class="remember-me-div">
-          <input
-            id="remember-me"
-            name="remember-me"
-            class="remember-me-checkbox"
-            type="checkbox"
-          />
-          <label for="remember-me" class="remember-me-text">Remember me</label>
-        </div>
-        <button class="log-in-button" type="submit">Log in</button>
-        <a class="forgot-password-link" href="http://example.com">
-          Forgot password?
-        </a>
-      </form>
+    <div class="d-flex align-items-center justify-content-center vh-100">
+      <div class="d-flex card text-center shadow rounded-5 p-4">
+        <form name="form" class="main" novalidate>
+          <p class="fs-3 p-3">Hi, please log in.</p>
+          <div class="my-2">
+            <input
+              type="input"
+              placeholder="Username or email"
+              id="username"
+              class="form-control-lg rounded-4 p-1 px-2"
+              minlength="8"
+            />
+          </div>
+          <div class="my-2">
+            <input
+              id="password"
+              placeholder="Password"
+              type="password"
+              class="form-control-lg rounded-4 p-1 px-2"
+              minlength="8"
+            />
+          </div>
+          <div class="form-check mx-auto text-start">
+            <input
+              id="remember-me"
+              name="remember-me"
+              class="form-check-input"
+              type="checkbox"
+              value=""
+            />
+            <label for="remember-me" class="form-check-label"
+              >Remember me</label
+            >
+          </div>
+          <div class="row m-2 g-0">
+            <div class="col-lg text-center m-1">
+              <button class="btn btn-primary rounded-pill" type="submit">
+                Log in
+              </button>
+            </div>
+            <div class="col-lg text-center m-1">
+              <button class="btn btn-secondary rounded-pill" type="submit">
+                Sign up
+              </button>
+            </div>
+          </div>
+
+          <a class="m-3" href="http://example.com"> Forgot password? </a>
+        </form>
+      </div>
     </div>
 
     <script src="" async defer></script>
