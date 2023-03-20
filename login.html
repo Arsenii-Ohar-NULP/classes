@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Classes - log in</title>
+    <meta name="description" content="Register on our class system" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="login.css" />
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="#">upgrade your browser</a> to improve your experience.
+      </p>
+    <![endif]-->
+    <div class="card">
+      <form name="form" class="main" novalidate>
+        <h2 class="sign-in-text">Hi, please log in.</h2>
+        <input
+          type="input"
+          placeholder="Username or email"
+          id="username"
+          class="username-text-box"
+          minlength="8"
+        />
+        <br />
+        <input
+          id="password"
+          placeholder="Password"
+          type="password"
+          class="password-text-box"
+          minlength="8"
+        />
+        <div class="remember-me-div">
+          <input
+            id="remember-me"
+            name="remember-me"
+            class="remember-me-checkbox"
+            type="checkbox"
+          />
+          <label for="remember-me" class="remember-me-text">Remember me</label>
+        </div>
+        <button class="log-in-button" type="submit">Log in</button>
+        <a class="forgot-password-link" href="http://example.com">
+          Forgot password?
+        </a>
+      </form>
+    </div>
+
+    <script src="" async defer></script>
+  </body>
+</html>
