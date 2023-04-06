@@ -6,7 +6,7 @@
     <title>Classes - log in</title>
     <meta name="description" content="Register on our class system" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="login.css" />
+    <link rel="stylesheet" href="login/login.css" />
   </head>
   <body>
     <!--[if lt IE 7]>
@@ -15,9 +15,11 @@
         <a href="#">upgrade your browser</a> to improve your experience.
       </p>
     <![endif]-->
+    <script type="module" src="./login/login.js"></script>
+
     <div class="d-flex align-items-center justify-content-center vh-100">
       <div class="d-flex card text-center shadow rounded-5 p-4">
-        <form name="form" class="main" novalidate>
+        <form name="form" class="main has-validation needs-validation" id="form">
           <p class="fs-3 p-3">Hi, please log in.</p>
           <div class="my-2">
             <input
@@ -26,7 +28,11 @@
               id="username"
               class="form-control-lg rounded-4 p-1 px-2"
               minlength="8"
+              required
             />
+            <div class="invalid-feedback">
+              Not good!
+            </div>
           </div>
           <div class="my-2">
             <input
@@ -35,7 +41,11 @@
               type="password"
               class="form-control-lg rounded-4 p-1 px-2"
               minlength="8"
+              required
             />
+            <div class="invalid-feedback">
+              Not good!
+            </div>
           </div>
           <div class="form-check mx-auto text-start">
             <input
@@ -50,22 +60,24 @@
             >
           </div>
           <div class="row m-2 g-0">
-            <div class="col-lg text-center m-1">
-              <button class="btn btn-primary rounded-pill" type="submit">
+            <div class="col-md text-center m-1">
+              <button class="btn btn-primary rounded-pill" type="button" id="loginButton">
                 Log in
               </button>
             </div>
-            <div class="col-lg text-center m-1">
-              <button class="btn btn-secondary rounded-pill" type="submit">
+            <div class="col-md text-center m-1">
+              
+              <button 
+              class="btn btn-secondary rounded-pill" 
+              type="button"
+              onclick="window.location.href='../registration/registration.html'">
                 Sign up
               </button>
+            </a>
             </div>
           </div>
-
         </form>
       </div>
     </div>
-
-    <script src="" async defer></script>
   </body>
 </html>
