@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Sign up</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="registration.css" />
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="#">upgrade your browser</a> to improve your experience.
+      </p>
+    <![endif]-->
+    <div class="container w-100 h-100 p-2 ">
+        <div class="grid">
+          <div class="row">
+            <h1 class="p-3">Sign up.</h1>
+            <hr />
+          </div>
+          <div class="row">
+            <form id="form" name="form" class="needs-validation">
+                    <div class="row">
+                      <div class="p-1 ">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="username"
+                          placeholder="Nickname"
+                          minlength="8"
+                          required
+                        />
+                        <div class="invalid-feedback">
+                          Not good!
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="p-1 ">
+                        <input
+                          type="password"
+                          class="form-control"
+                          id="password"
+                          placeholder="Password"
+                          minlength="8"
+                          required
+                        />
+                        <div class="invalid-feedback">
+                          Not good!
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg p-1 ">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="firstName"
+                          placeholder="First name"
+                          required
+                        />
+                        <div class="invalid-feedback">
+                          Not good!
+                        </div>
+                      </div>
+                      <div class="col-lg p-1 ">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="lastName"
+                          placeholder="Last name"
+                          
+                          required
+                        />
+                        <div class="invalid-feedback">
+                          Not good!
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg p-1 ">
+                          <input
+                            type="email"
+                            class="form-control"
+                            placeholder="Email"
+                            aria-label="Email"
+                            id="email"
+                            required
+                          />
+                          <div class="invalid-feedback">
+                            Not good!
+                          </div>
+                      </div>
+        
+                      <div class="col-lg p-1 ">
+                        <div class="input-group has-validation">
+                          <input
+                            type="tel"
+                            class="form-control"
+                            id="phone"
+                            placeholder="Phone number"
+                            minlength="8"
+                            required
+                          />
+                          <div class="invalid-feedback">
+                            Not good!
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <hr/>
+
+                    <div class="container mx-auto my-3 text-center p-3 start-0">
+        
+                      <button id="signUpButton" type="button" class="btn btn-primary rounded-4 p-2 px-4">
+                        Sign up
+                      </button>
+                    </div>
+            </form>
+          </div>
+      </div>
+    </div>
+    <script type="module" src="registration.js"></script>
+  </body>
+</html>

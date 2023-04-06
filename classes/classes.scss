@@ -1,0 +1,15 @@
+@use 'base';
+$primary: base.$color-1;
+@import '../node_modules/bootstrap/scss/bootstrap';
+
+.fill-white {
+  fill: white;
+}
+
+.poiner {
+  cursor: pointer;
+}
+
+.h-2 {
+  height: 2px;
+}
