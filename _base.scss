@@ -9,3 +9,12 @@ $color-1-hover: #5caf74;
 $color-1-semi-transparent: #7cea9bb6;
 
 $primary: $color-1;
+
+
+.invalid-input{
+    border-color:red;
+}
+
+.invalid:focus{
+    border-color:red;
+}
