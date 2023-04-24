@@ -16,6 +16,8 @@ import InvalidCredentials from 'pages/errors/InvalidCredentials';
 import sendIcon from 'icons/send.svg';
 import Image from 'next/image';
 import Forbidden from 'pages/errors/Forbidden';
+import Message from './Message';
+
 function Loading() {
   return (
     <div className="">
@@ -46,7 +48,7 @@ function MessageCard({ message }: { message: Message }) {
   );
 }
 
-function MessageInput({forbidden}: {forbidden: boolean}) {
+function MessageInput({ forbidden }: { forbidden: boolean }) {
   return (
     <div className="fixed-bottom">
       <form>
@@ -65,7 +67,7 @@ function MessageInput({forbidden}: {forbidden: boolean}) {
   );
 }
 
-function MessagesBar({ cls }: { cls: Class }) {
+function MessagesBar({ cls, onForbidden }: { cls: Class, onForbidden: () => void }) {
   const [messages, setMessages] = useState<Message[]>(null);
   const messageRepository = useMessagesRepository();
   const router = useRouter();
@@ -85,6 +87,7 @@ function MessagesBar({ cls }: { cls: Class }) {
 
           if (e instanceof Forbidden) {
             setForbidden(true);
+            onForbidden();
           }
         });
     }
@@ -92,9 +95,7 @@ function MessagesBar({ cls }: { cls: Class }) {
   if (isForbidden) {
     return (
       <div>
-        <h5 className="p-2">
-          You have to join this class to access messages.
-        </h5>
+        <h5 className="p-2">You have to join this class to access messages.</h5>
       </div>
     );
   }
@@ -116,7 +117,7 @@ function MessagesBar({ cls }: { cls: Class }) {
             </div>
           ))}
       </div>
-      <MessageInput forbidden={isForbidden}/>
+      <MessageInput forbidden={isForbidden} />
     </div>
   );
 }
@@ -126,18 +127,18 @@ export default function ClassPage() {
   const router = useRouter();
   const classRepository = useClassRepository();
   const thumbnailRepository = useThumbnailRepository();
-  const [_class, setClass] = useState<Class>(null);
+  const [cls, setClass] = useState<Class>(null);
   const [image, setImage] = useState(null);
-
+  const [joined, setJoined] = useState<boolean>(true);
   useEffect(() => {
-    if (!_class) {
+    if (!cls) {
       return;
     }
 
-    thumbnailRepository.findClassThumbnail(_class.id).then((data) => {
+    thumbnailRepository.findClassThumbnail(cls.id).then((data) => {
       setImage(`data:image/png; base64, ${data}`);
     });
-  }, [_class, image]);
+  }, [cls, image]);
 
   function redirectToUnknown() {
     router.push('/404');
@@ -149,9 +150,12 @@ export default function ClassPage() {
 
   function fetchClass() {
     const id = Number.parseInt(router.query.id as string);
-    classRepository.find(id).then((cls) => {
+    classRepository
+    .find(id)
+    .then((cls) => {
       setClass(cls);
-    });
+    })
+    .catch((e) => console.log(e));
   }
 
   useEffect(() => {
@@ -159,16 +163,16 @@ export default function ClassPage() {
       return;
     }
 
-    if (!_class) {
+    if (!cls) {
       try {
         fetchClass();
       } catch (e) {
         redirectToUnknown();
       }
     }
-  }, [_class, router.query]);
+  }, [cls, router.query]);
 
-  if (!_class)
+  if (!cls)
     return (
       <div className="vh-100 d-flex justify-content-center align-items-center">
         <Loading />
@@ -178,7 +182,7 @@ export default function ClassPage() {
     <>
       <div>
         <Head>
-          <title>Classes - {_class?.title ? _class.title : 'loading'}</title>
+          <title>Classes - {cls?.title ? cls.title : 'loading'}</title>
         </Head>
         <div className="container">
           <div className="container card bg-secondary text-white w-auto rounded shadow mt-sm-1 py-2">
@@ -193,15 +197,15 @@ export default function ClassPage() {
               <div className="d-flex flex-column align-items-center">
                 <div>
                   <div className="pt-lg-3 px-3 pb-0">
-                    <p className="m-0 fs-3">{_class.title}</p>
+                    <p className="m-0 fs-3">{cls.title}</p>
                   </div>
                   <div className="px-3">
                     <a>
-                      <p className="fs-5">{`${_class['teacher_first_name']} ${_class['teacher_last_name']}`}</p>
+                      <p className="fs-5">{`${cls['teacher_first_name']} ${cls['teacher_last_name']}`}</p>
                     </a>
                   </div>
                   <div className="px-3">
-                    <p className="fs-6">{_class.description}</p>
+                    <p className="fs-6">{cls.description}</p>
                   </div>
                 </div>
               </div>
@@ -211,11 +215,11 @@ export default function ClassPage() {
                   styles['join-button']
                 }
               >
-                <button className="btn btn-primary mx-3">Join</button>
+                <button className="btn btn-primary mx-3">{joined ? "Leave" : "Join"}</button>
               </div>
             </div>
           </div>
-          <MessagesBar cls={_class} />
+          <MessagesBar cls={cls} onForbidden={() => setJoined(false)}/>
         </div>
       </div>
     </>

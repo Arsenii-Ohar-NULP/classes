@@ -111,6 +111,22 @@ function useMainPageRedirect() {
   )
 }
 
+
+function useMessageReplacer(replacers: object) {
+  function normalize(message: string) {
+    for (const replacer of Object.keys(replacers)) {
+      message = message.replace(
+        replacer.toString(),
+        replacers[replacer.toString()].toString()
+      );
+    }
+
+    return message;
+  }
+
+  return normalize;
+}
+
 export {
   useAuthService,
   useLoginRedirect,
@@ -121,5 +137,6 @@ export {
   useSingUpService,
   useMessagesRepository,
   useUserService,
-  useMainPageRedirect
+  useMainPageRedirect,
+  useMessageReplacer
 };

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useMainPageRedirect, useSingUpService } from 'pages/utils/hooks';
+import { useMainPageRedirect, useSingUpService, useMessageReplacer } from 'pages/utils/hooks';
 import Logo from 'pages/logo';
 
 function useUsername() {
@@ -18,21 +18,6 @@ function useUsername() {
   });
 
   return username;
-}
-
-function useMessageNormalizer(replacers: object) {
-  function normalize(message: string) {
-    for (const replacer of Object.keys(replacers)) {
-      message = message.replace(
-        replacer.toString(),
-        replacers[replacer.toString()].toString()
-      );
-    }
-
-    return message;
-  }
-
-  return normalize;
 }
 
 function useSignUpForm() {
@@ -78,7 +63,7 @@ function SignUpInput({
   error,
   ...other
 }: SignUpInputProps) {
-  const normalizer = useMessageNormalizer({
+  const normalizer = useMessageReplacer({
     FirstName: 'First Name',
     LastName: 'Last Name',
     PhoneNumber: 'Phone Number',

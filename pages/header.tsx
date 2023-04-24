@@ -8,6 +8,7 @@ import Account from './account';
 import Logo from './logo';
 import Script from 'next/script';
 import ClassPage from './class/[id]';
+import User from './User';
 
 function LogoutButton() {
   const tokenService = useTokenPersistanceService();
@@ -48,6 +49,26 @@ function Loading() {
 type HeaderParams = {
   currentComponent: JSX.Element;
 };
+
+function AccountButton({ user }: { user: User }) {
+  function getProfilePicSource(): string {
+    return user
+      ? `https://api.dicebear.com/6.x/lorelei/svg/seed=${user.username}`
+      : '';
+  }
+  return (
+    <Link href={'/account'} className={"nav-link px-2 text-secondary d-inline"}>
+      <img
+        id="profilePic"
+        height="48"
+        width="48"
+        className={"rounded-circle bg-light border border-primary mx-2 " + styles['account-button']}
+        alt={`Profile picture for ${user ? user.username : 'user'}`}
+        src={getProfilePicSource()}
+      />
+    </Link>
+  );
+}
 function Header({ currentComponent }: HeaderParams) {
   const tabs = [Classes, Account, ClassPage];
 
@@ -55,13 +76,8 @@ function Header({ currentComponent }: HeaderParams) {
     return <></>;
 
   const user = useUserData();
-  function getProfilePicSource(): string {
-    return user
-      ? `https://api.dicebear.com/6.x/lorelei/svg/seed=${user.username}`
-      : '';
-  }
 
-  function headerDiv() {
+  function HeaderDiv() {
     return (
       <header className="p-3 bg-dark text-white">
         {/* <Script src={"./node_modules/bootstrap/dist/js/bootstrap.bundle"}/> */}
@@ -92,18 +108,7 @@ function Header({ currentComponent }: HeaderParams) {
               </li>
             </ul>
             <div className="text-center text-lg-end">
-              {user ? (
-                <img
-                  id="profilePic"
-                  height="48"
-                  width="48"
-                  className="rounded-circle bg-light border border-primary mx-2"
-                  alt={`Profile picture for ${user ? user.username : 'user'}`}
-                  src={getProfilePicSource()}
-                />
-              ) : (
-                <Loading />
-              )}
+              {user ? <AccountButton user={user} /> : <Loading />}
               <LogoutButton />
             </div>
           </div>
@@ -112,9 +117,9 @@ function Header({ currentComponent }: HeaderParams) {
       </header>
     );
   }
-  
+
   return tabs.find((element) => element.name == currentComponent.type.name) ? (
-    headerDiv()
+    HeaderDiv()
   ) : (
     <></>
   );

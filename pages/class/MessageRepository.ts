@@ -1,6 +1,7 @@
 import Forbidden from 'pages/errors/Forbidden';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
 import { AuthService } from 'pages/login/authService';
+import Message from './Message';
 
 export default class MessageRepository {
   private authService: AuthService;
@@ -36,7 +37,7 @@ export default class MessageRepository {
     throw new Error("Couldn't get messages. Please try again later");
   }
 
-  private async fetchMessages(classId: number) {
+  private async fetchMessages(classId: number): Promise<Response> {
     const messagesEndpoint = this.getMessagesEndpoint(classId);
     const messagesHeader = this.getMessagesHeader();
 

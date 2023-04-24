@@ -1,5 +1,6 @@
 import React from 'react';
 import { useUserData, useLoginRedirect } from 'pages/utils/hooks';
+
 type SimpleValueOutputProps = {
   title: string;
   value: string | number;
@@ -19,9 +20,9 @@ export default function Account() {
   const user = useUserData();
   if (!user) return <></>;
   return (
-    <div className='text-center'>
-      <h1>
-        {user.firstName} {user.lastName}
+    <div className='container text-center'>
+      <h1 className='p-2'>
+        Personal Information
       </h1>
       <hr />
       <div>
