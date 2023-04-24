@@ -1,0 +1,16 @@
+.thumbnail{
+    width: 100%;
+    max-width: 268px;
+    height: auto;
+}
+
+
+.class-block{
+    transition: 0.2s;
+}
+
+.class-block:hover{
+    transform: scale(1.1);
+    transition: 0.2s;
+}
+

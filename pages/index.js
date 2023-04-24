@@ -1,7 +1,7 @@
-import { AccessTokenKey } from './contexts';
-import { AuthService } from './authService';
+import { AccessTokenKey } from 'pages/utils/contexts';
+import { AuthService } from 'pages/login/authService';
 import React, { useContext, useEffect } from 'react';
-import Login from './login';
+import Login from 'pages/login';
 import { useRouter } from 'next/router';
 
 export default function Index() {

@@ -1,4 +1,5 @@
-import { ApiUrlEnvKey } from './contexts';
+import InvalidCredentials from 'pages/errors/InvalidCredentials';
+
 interface Credentials{
     username: string;
     password: string;
@@ -11,8 +12,6 @@ class AuthService{
     }
 
     private getApiUrl(): string{
-        console.log(ApiUrlEnvKey);
-        console.log(process.env);
         return process.env["NEXT_PUBLIC_API_URL"]; 
     }
 
@@ -29,7 +28,6 @@ class AuthService{
     private async auth(credentials: Credentials){
         const url = this.getLoginUrl();
         const headers = this.getLoginHeaders();
-        console.log(credentials);
         const response = await fetch(
                 url,
                 {
@@ -42,7 +40,7 @@ class AuthService{
         return response;
     }
 
-    private async getErrorMessage(response): Promise<string>{
+    private async getErrorMessage(response: Response): Promise<string>{
         const typicalMessage = "Something is wrong, try again later";
         let message: string;
         try{
@@ -52,7 +50,7 @@ class AuthService{
         catch(e){
             message = typicalMessage;
         }
-        throw new Error(message);
+        throw new InvalidCredentials(message);
     }
 
     public getAccessToken() : string {
@@ -72,6 +70,7 @@ class AuthService{
         return (await response.json())['access_token'];
     }
 }
+
 class TokenPersistanceService{
     accessTokenKey: string;
     constructor(accessTokenKey: string){
@@ -93,6 +92,16 @@ class TokenPersistanceService{
         }
 
         this.saveInLocal(token);
+    }
+
+    public removeToken(){
+        if (sessionStorage.getItem(this.accessTokenKey)){
+            sessionStorage.removeItem(this.accessTokenKey);
+        }
+
+        if (localStorage.getItem(this.accessTokenKey)){
+            localStorage.removeItem(this.accessTokenKey);
+        }
     }
 }
 export { AuthService, TokenPersistanceService };

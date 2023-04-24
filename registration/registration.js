@@ -20,7 +20,6 @@ const redirectLogin = () => {
 };
 const signUp = async (e) => {
     // validation
-    // console.log(e);
     if (!validate(e)) {
         return;
     }
