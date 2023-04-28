@@ -1,107 +1,89 @@
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
 
-interface Credentials{
-    username: string;
-    password: string;
+const accessTokenKey = 'accessToken';
+
+interface Credentials {
+  username: string;
+  password: string;
 }
-class AuthService{
-    accessTokenKey: string;
+const getApiUrl = (): string => {
+  return process.env['NEXT_PUBLIC_API_URL'];
+};
 
-    constructor(accessTokenKey: string){
-        this.accessTokenKey = accessTokenKey;
-    }
+const getLoginUrl = (): string => {
+  return getApiUrl() + '/api/v1/user/login';
+};
 
-    private getApiUrl(): string{
-        return process.env["NEXT_PUBLIC_API_URL"]; 
-    }
+const getLoginHeaders = (): HeadersInit => {
+  return {
+    'Content-Type': 'application/json',
+  };
+};
 
-    private getLoginUrl(): string {
-        return this.getApiUrl() + "/api/v1/user/login";
-    }
+const auth = async (credentials: Credentials) => {
+  const url = getLoginUrl();
+  const headers = getLoginHeaders();
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(credentials),
+  });
 
-    private getLoginHeaders(): HeadersInit {
-        return {
-            'Content-Type': 'application/json'
-        };
-    }
+  return response;
+};
 
-    private async auth(credentials: Credentials){
-        const url = this.getLoginUrl();
-        const headers = this.getLoginHeaders();
-        const response = await fetch(
-                url,
-                {
-                    method: 'POST',
-                    headers: headers,
-                    body: JSON.stringify(credentials) 
-                }
-            );
+const getErrorMessage = async (response: Response): Promise<string> => {
+  const typicalMessage = 'Something is wrong, try again later';
+  let message: string;
+  try {
+    const json = await response.json();
+    message = json?.msg ? json.msg : typicalMessage;
+  } catch (e) {
+    message = typicalMessage;
+  }
+  throw new InvalidCredentials(message);
+};
 
-        return response;
-    }
+export const getAccessToken = (): string => {
+  const localToken = localStorage.getItem(accessTokenKey);
+  const sessionToken = sessionStorage.getItem(accessTokenKey);
 
-    private async getErrorMessage(response: Response): Promise<string>{
-        const typicalMessage = "Something is wrong, try again later";
-        let message: string;
-        try{
-            const json = await response.json();
-            message = json?.msg ? json.msg : typicalMessage;
-        }
-        catch(e){
-            message = typicalMessage;
-        }
-        throw new InvalidCredentials(message);
-    }
+  return localToken ? localToken : sessionToken;
+};
 
-    public getAccessToken() : string {
-        const localToken = localStorage.getItem(this.accessTokenKey);
-        const sessionToken = sessionStorage.getItem(this.accessTokenKey);
+export const login = async (credentials: Credentials) => {
+  const response = await auth(credentials);
 
-        return localToken ? localToken : sessionToken;
-    }
+  if (!response.ok) {
+    await getErrorMessage(response);
+  }
 
-    public async login(credentials: Credentials){
-        const response = await this.auth(credentials);
-        
-        if (!response.ok){
-            await this.getErrorMessage(response);
-        }
+  return (await response.json())['access_token'];
+};
 
-        return (await response.json())['access_token'];
-    }
-}
+const saveInSession = (token) => {
+  sessionStorage.setItem(accessTokenKey, token);
+};
 
-class TokenPersistanceService{
-    accessTokenKey: string;
-    constructor(accessTokenKey: string){
-        this.accessTokenKey = accessTokenKey;
-    }
+const saveInLocal = (token) => {
+  localStorage.setItem(accessTokenKey, token);
+};
 
-    private saveInSession(token) {
-        sessionStorage.setItem(this.accessTokenKey, token);
-    }
-    
-    private saveInLocal(token){
-        localStorage.setItem(this.accessTokenKey, token);
-    }
-    
-    public saveToken(token, remember) {
-        if (!remember){
-            this.saveInSession(token);
-            return;
-        }
+export const saveToken = (token, remember) => {
+  if (!remember) {
+    saveInSession(token);
+    return;
+  }
 
-        this.saveInLocal(token);
-    }
+  saveInLocal(token);
+};
 
-    public removeToken(){
-        if (sessionStorage.getItem(this.accessTokenKey)){
-            sessionStorage.removeItem(this.accessTokenKey);
-        }
+export const removeToken = () => {
+  if (sessionStorage.getItem(accessTokenKey)) {
+    sessionStorage.removeItem(accessTokenKey);
+  }
 
-        if (localStorage.getItem(this.accessTokenKey)){
-            localStorage.removeItem(this.accessTokenKey);
-        }
-    }
-}
-export { AuthService, TokenPersistanceService };
+  if (localStorage.getItem(accessTokenKey)) {
+    localStorage.removeItem(accessTokenKey);
+  }
+};

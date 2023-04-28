@@ -1,22 +1,15 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import {
-  useClassRepository,
   useLoginRedirect,
-  useMessagesRepository,
-  useThumbnailRepository,
-  useTokenPersistanceService,
-  useUserData,
 } from 'pages/utils/hooks';
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Class from 'pages/classes/Class';
 import styles from 'pages/class/class.module.scss';
-import InvalidCredentials from 'pages/errors/InvalidCredentials';
-import sendIcon from 'icons/send.svg';
-import Image from 'next/image';
-import Forbidden from 'pages/errors/Forbidden';
-import Message from './Message';
+import { findClassThumbnail } from 'pages/ClassThumbnailService';
+import { MessagesBar } from './MessagesBar';
+import { findClass } from 'pages/ClassService';
 
 function Loading() {
   return (
@@ -28,114 +21,20 @@ function Loading() {
   );
 }
 
-function MessageCard({ message }: { message: Message }) {
-  const userInfo = useUserData();
-  return (
-    <div className="d-flex p-2 flex-row align-items-center gap-3">
-      <img
-        className="border rounded-circle"
-        height={48}
-        width={48}
-        src={
-          message.user === userInfo?.id
-            ? `https://api.dicebear.com/6.x/lorelei/svg/seed=${userInfo.username}`
-            : `https://api.dicebear.com/6.x/lorelei/svg/seed=${message.id}`
-        }
-        alt={'Pic'}
-      />
-      <p className="card p-2 m-0 fs-5 rounded-4 px-3">{message.content}</p>
-    </div>
-  );
-}
-
-function MessageInput({ forbidden }: { forbidden: boolean }) {
-  return (
-    <div className="fixed-bottom">
-      <form>
-        <div className="input-group">
-          <input
-            className="form-control bg-dark text-light"
-            placeholder="Enter any message you like"
-            disabled={forbidden}
-          ></input>
-          <button type="submit" className="btn btn-primary">
-            <Image alt={'Send Icon'} src={sendIcon} width={24} height={24} />
-          </button>
-        </div>
-      </form>
-    </div>
-  );
-}
-
-function MessagesBar({ cls, onForbidden }: { cls: Class, onForbidden: () => void }) {
-  const [messages, setMessages] = useState<Message[]>(null);
-  const messageRepository = useMessagesRepository();
-  const router = useRouter();
-  const tokenPersistanceService = useTokenPersistanceService();
-  const [isForbidden, setForbidden] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (!messages) {
-      messageRepository
-        .getMessages({ classId: cls.id })
-        .then((data) => setMessages(data.filter((_, index) => index < 5)))
-        .catch((e) => {
-          if (e instanceof InvalidCredentials) {
-            tokenPersistanceService.removeToken();
-            router.push('/login');
-          }
-
-          if (e instanceof Forbidden) {
-            setForbidden(true);
-            onForbidden();
-          }
-        });
-    }
-  }, [messages]);
-  if (isForbidden) {
-    return (
-      <div>
-        <h5 className="p-2">You have to join this class to access messages.</h5>
-      </div>
-    );
-  }
-  return (
-    <div>
-      <div className="fs-3 px-2 py-1">
-        <b>Messages</b>
-        {messages &&
-          (messages.length === 0 ? (
-            <h5 className="p-2">
-              There are no messages in this class. Be the first one to text
-              something.
-            </h5>
-          ) : (
-            <div>
-              {messages.map((msg) => {
-                return <MessageCard key={msg.id} message={msg} />;
-              })}
-            </div>
-          ))}
-      </div>
-      <MessageInput forbidden={isForbidden} />
-    </div>
-  );
-}
 
 export default function ClassPage() {
   useLoginRedirect();
   const router = useRouter();
-  const classRepository = useClassRepository();
-  const thumbnailRepository = useThumbnailRepository();
   const [cls, setClass] = useState<Class>(null);
   const [image, setImage] = useState(null);
-  const [joined, setJoined] = useState<boolean>(true);
+  const [joined, setJoined] = useState<boolean>(false);
+
   useEffect(() => {
     if (!cls) {
       return;
     }
 
-    thumbnailRepository.findClassThumbnail(cls.id).then((data) => {
+    findClassThumbnail(cls.id).then((data) => {
       setImage(`data:image/png; base64, ${data}`);
     });
   }, [cls, image]);
@@ -150,8 +49,7 @@ export default function ClassPage() {
 
   function fetchClass() {
     const id = Number.parseInt(router.query.id as string);
-    classRepository
-    .find(id)
+    findClass(id)
     .then((cls) => {
       setClass(cls);
     })
@@ -197,7 +95,7 @@ export default function ClassPage() {
               <div className="d-flex flex-column align-items-center">
                 <div>
                   <div className="pt-lg-3 px-3 pb-0">
-                    <p className="m-0 fs-3">{cls.title}</p>
+                    <p className="m-0 fs-3">{cls.title} {joined && <span className="badge badge-primary align-middle text-dark bg-primary fs-6">Joined</span>}</p>
                   </div>
                   <div className="px-3">
                     <a>

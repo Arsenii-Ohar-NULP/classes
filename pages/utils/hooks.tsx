@@ -1,74 +1,45 @@
-import { useContext, useEffect, useState } from 'react';
-import { AuthService, TokenPersistanceService } from 'pages/login/authService';
-import { AccessTokenKey } from 'pages/utils/contexts';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import ClassRepository from 'pages/ClassRepository';
-import UserService from 'pages/userService';
-import ClassThumbnailRepository from 'pages/ClassThumbnailRepository';
-import SignUpService from 'pages/signUp/signUpService';
+import { AuthStatus, authActions } from 'pages/redux/auth';
+import { useAppSelector, useAppDispatch } from 'pages/redux/store';
 import User from 'pages/User';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
-import MessageRepository from 'pages/class/MessageRepository';
-
-function useAuthService() {
-  const accessTokenKey = useContext(AccessTokenKey);
-  const authService = new AuthService(accessTokenKey);
-
-  return authService;
-}
+import { getUserInfo } from 'pages/UserService';
+import { getAccessToken, removeToken } from 'pages/login/authService';
 
 function useLoginRedirect() {
-  const authService = useAuthService();
   const router = useRouter();
+  const authStatus = useAppSelector((state) => state.auth.status);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const getAccessToken = () => authService.getAccessToken();
 
     if (!getAccessToken()) {
-      router.push("/login"); 
+      if (authStatus !== AuthStatus.LOGGED_OUT) {
+        dispatch(authActions.logout());
+      }
+
+      router.push('/login');
     }
-  });
-
-  return authService;
-}
-
-function useClassRepository() {
-  const authService = useAuthService();
-  const classRepository = new ClassRepository(authService);
-
-  return classRepository;
-}
-
-function useThumbnailRepository(): ClassThumbnailRepository {
-  const thumbnailRepository = new ClassThumbnailRepository();
-
-  return thumbnailRepository;
-}
-
-function useTokenPersistanceService() {
-  const accessTokenKey = useContext(AccessTokenKey);
-  const tokenPersistanceService = new TokenPersistanceService(accessTokenKey);
-
-  return tokenPersistanceService;
+  }, [authStatus]);
 }
 
 function useUserData() {
-  const authService = useAuthService();
-  const tokenPersistanceService = useTokenPersistanceService();
   const router = useRouter();
-  const userService = new UserService();
   const [user, setUser] = useState<User>(null);
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     if (!user) {
-      const token = authService.getAccessToken();
-      userService
-        .getUserInfo(token)
+      const token = getAccessToken();
+      getUserInfo(token)
         .then((fetchedUser) => setUser(fetchedUser))
         .catch((e) => {
-            if (e instanceof InvalidCredentials){
-                tokenPersistanceService.removeToken();
-                router.push('/login');
-            }
+          if (e instanceof InvalidCredentials) {
+            removeToken();
+            dispatch(authActions.logout());
+            router.push('/login');
+          }
         });
     }
   });
@@ -76,41 +47,21 @@ function useUserData() {
   return user;
 }
 
-function useUserService(): UserService {
-  const userService = new UserService();
-
-  return userService;
-}
-
-function useSingUpService(){
-  const service = new SignUpService();
-
-  return service;
-}
-
-function useMessagesRepository(){
-  const authService = useAuthService();
-  const messageRepository = new MessageRepository(authService);
-
-  return messageRepository;
-}
-
 function useMainPageRedirect() {
   const mainPagePath = '/classes';
-  const authService = useAuthService();
-  const userService = useUserService();
   const router = useRouter();
-
-  useEffect(
-      () => {
-          const token = authService.getAccessToken();
-          if (token) {
-              userService.getUserInfo(token).then(() => router.push(mainPagePath));
-          }
+  const authStatus = useAppSelector((state) => state.auth.status);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    const token = getAccessToken();
+    if (token) {
+      if (authStatus === AuthStatus.LOGGED_OUT) {
+        dispatch(authActions.login);
       }
-  )
+      getUserInfo(token).then(() => router.push(mainPagePath));
+    }
+  }, [authStatus]);
 }
-
 
 function useMessageReplacer(replacers: object) {
   function normalize(message: string) {
@@ -126,17 +77,16 @@ function useMessageReplacer(replacers: object) {
 
   return normalize;
 }
+function useBootstrap() {
+  useEffect(() => {
+    require('bootstrap/dist/js/bootstrap.bundle.js');
+  });
+}
 
 export {
-  useAuthService,
   useLoginRedirect,
-  useClassRepository,
-  useTokenPersistanceService,
   useUserData,
-  useThumbnailRepository,
-  useSingUpService,
-  useMessagesRepository,
-  useUserService,
   useMainPageRedirect,
-  useMessageReplacer
+  useMessageReplacer,
+  useBootstrap,
 };

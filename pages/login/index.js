@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useTokenPersistanceService, useAuthService, useMainPageRedirect } from 'pages/utils/hooks';
+import { useMainPageRedirect } from 'pages/utils/hooks';
 import { useRouter } from 'next/router';
 import Logo from 'pages/logo';
 import PropTypes from 'prop-types';
@@ -10,6 +10,7 @@ import Image from 'next/image';
 import smilingFace from 'public/images/Slightly Smiling Face.svg';
 import Head from 'next/head';
 import * as yup from "yup";
+import { login, saveToken } from 'pages/login/authService.ts';
 
 function useLoginForm() {
     const schema = yup.object(
@@ -148,17 +149,15 @@ export default function Login() {
     const [serverError, setServerError] = useState();
     const [isLogging, setIsLogging] = useState(false);
     const router = useRouter();
-    const authService = useAuthService();
-    const tokenService = useTokenPersistanceService();
 
     useMainPageRedirect();
 
-    const login = async (credentials) => {
+    const onLoginClick = async (credentials) => {
         credentials = { username: credentials.Username, password: credentials.Password }
         setIsLogging(true);
         try {
-            const accessToken = await authService.login(credentials);
-            tokenService.saveToken(accessToken, isRemember);
+            const accessToken = await login(credentials);
+            saveToken(accessToken, isRemember);
         }
         catch (e) {
             setServerError(e.message);
@@ -207,7 +206,7 @@ export default function Login() {
                     <RememberMe onChange={setRememberMe} />
                     <ServerError errors={errors} serverError={serverError} />
                     <div className="d-flex my-2 gap-2 h-50 justify-content-center">
-                        <LoginButton onSubmit={handleSubmit(login)} isLogging={isLogging} />
+                        <LoginButton onSubmit={handleSubmit(onLoginClick)} isLogging={isLogging} />
                         <div className='vr m-1'></div>
                         <SignUpButton router={router} getUsername={() => getValues().Username} />
                     </div>

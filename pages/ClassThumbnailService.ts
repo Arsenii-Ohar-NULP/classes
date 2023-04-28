@@ -1,18 +1,17 @@
-export default class ClassThumbnailRepository{
-    private getEndpointUrl(id: number){
+    const getEndpointUrl = (id: number) =>{
         const apiUrl = process.env["NEXT_PUBLIC_API_URL"];
         return `${apiUrl}/api/v1/class/img/${id}`;
     }
 
-    private getHeaders(): HeadersInit{
+    const getHeaders = (): HeadersInit => {
         return {
             'Content-Type': 'application/json',
         };
     }
     
-    private async fetchThumbnail(id: number){
-        const url = this.getEndpointUrl(id);
-        const headers = this.getHeaders();
+    const fetchThumbnail = async (id: number) => {
+        const url = getEndpointUrl(id);
+        const headers = getHeaders();
         const response = await fetch(
             url,
             {
@@ -24,8 +23,8 @@ export default class ClassThumbnailRepository{
         return response;
     }
 
-    public async findClassThumbnail(id: number): Promise<string>{
-        const response = await this.fetchThumbnail(id);
+    export const findClassThumbnail = async (id: number): Promise<string> => {
+        const response = await fetchThumbnail(id);
 
         if (!response.ok){
             throw new Error(`Couldn't get image of a class ${id}`)
@@ -40,4 +39,3 @@ export default class ClassThumbnailRepository{
             throw new Error(`Couldn't get JSON data from the response of thumbnail request of class ${id}`);
         }
     }
-}

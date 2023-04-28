@@ -5,8 +5,9 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useMainPageRedirect, useSingUpService, useMessageReplacer } from 'pages/utils/hooks';
+import { useMainPageRedirect, useMessageReplacer } from 'pages/utils/hooks';
 import Logo from 'pages/logo';
+import { signUp } from './signUpService';
 
 function useUsername() {
   const router = useRouter();
@@ -140,7 +141,6 @@ function FormTop() {
 export default function SignUp({}) {
   const { register, handleSubmit, errors } = useSignUpForm();
   const [serverError, setServerError] = useState(null);
-  const signUpService = useSingUpService();
   const initialUsername = useUsername();
   const router = useRouter();
 
@@ -157,10 +157,9 @@ export default function SignUp({}) {
     };
   }
 
-  function signUp(userInfo) {
+  function onSignUpClick(userInfo) {
     userInfo = parseUserInfo(userInfo);
-    signUpService
-      .signUp(userInfo)
+    signUp(userInfo)
       .then(() => {
         router.push('/login');
       })
@@ -240,7 +239,7 @@ export default function SignUp({}) {
               </div>
               <hr />
               <div className="container d-flex gap-2 justify-content-center mx-auto my-3 text-center p-3 start-0">
-                <SignUpButton onClick={handleSubmit(signUp)} />
+                <SignUpButton onClick={handleSubmit(onSignUpClick)} />
                 <div className="vr my-1"></div>
                 <LogInButton />
               </div>

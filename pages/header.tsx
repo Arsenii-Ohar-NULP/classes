@@ -1,7 +1,7 @@
 import Classes from 'pages/classes/index';
 import React from 'react';
 import Link from 'next/link';
-import { useTokenPersistanceService, useUserData } from 'pages/utils/hooks';
+import { useUserData } from 'pages/utils/hooks';
 import { useRouter } from 'next/router';
 import styles from 'pages/header.module.scss';
 import Account from './account';
@@ -9,13 +9,17 @@ import Logo from './logo';
 import Script from 'next/script';
 import ClassPage from './class/[id]';
 import User from './User';
+import { useAppDispatch } from './redux/store';
+import { authActions } from './redux/auth';
+import { removeToken } from './login/authService';
 
 function LogoutButton() {
-  const tokenService = useTokenPersistanceService();
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
-  function removeToken() {
-    tokenService.removeToken();
+  function onRemoveToken() {
+    removeToken();
+    dispatch(authActions.logout());
     router.push('/login');
   }
 
@@ -23,7 +27,7 @@ function LogoutButton() {
     <button
       type="button"
       className="btn btn-outline-primary"
-      onClick={removeToken}
+      onClick={onRemoveToken}
     >
       Logout
     </button>
