@@ -4,30 +4,26 @@ import Link from 'next/link';
 import { useUserData } from 'pages/utils/hooks';
 import { useRouter } from 'next/router';
 import styles from 'pages/header.module.scss';
-import Account from './account';
-import Logo from './logo';
-import Script from 'next/script';
-import ClassPage from './class/[id]';
-import User from './User';
-import { useAppDispatch } from './redux/store';
-import { authActions } from './redux/auth';
-import { removeToken } from './login/authService';
+import AccountPage from '../account';
+import Logo from '../logo';
+import ClassPage from '../class/[id]';
+import User, { Role } from '../User';
+import { useAppDispatch } from '../redux/store';
+import Requests from '../requests/[id]';
+import ProfilePicture from '../ProfilePic';
+import { logout } from '../login/authService';
+import AddClassPage from 'pages/addClass';
+import EditAccountPage from 'pages/account/edit';
 
 function LogoutButton() {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  function onRemoveToken() {
-    removeToken();
-    dispatch(authActions.logout());
-    router.push('/login');
-  }
-
   return (
     <button
       type="button"
       className="btn btn-outline-primary"
-      onClick={onRemoveToken}
+      onClick={() => logout(dispatch, router)}
     >
       Logout
     </button>
@@ -55,26 +51,15 @@ type HeaderParams = {
 };
 
 function AccountButton({ user }: { user: User }) {
-  function getProfilePicSource(): string {
-    return user
-      ? `https://api.dicebear.com/6.x/lorelei/svg/seed=${user.username}`
-      : '';
-  }
+  
   return (
     <Link href={'/account'} className={"nav-link px-2 text-secondary d-inline"}>
-      <img
-        id="profilePic"
-        height="48"
-        width="48"
-        className={"rounded-circle bg-light border border-primary mx-2 " + styles['account-button']}
-        alt={`Profile picture for ${user ? user.username : 'user'}`}
-        src={getProfilePicSource()}
-      />
+      <ProfilePicture user={user} hoverOn={true}/>
     </Link>
   );
 }
 function Header({ currentComponent }: HeaderParams) {
-  const tabs = [Classes, Account, ClassPage];
+  const tabs = [Classes, AccountPage, ClassPage, Requests, AddClassPage, EditAccountPage];
 
   if (!tabs.find((element) => element.name == currentComponent.type.name))
     return <></>;
@@ -112,12 +97,12 @@ function Header({ currentComponent }: HeaderParams) {
               </li>
             </ul>
             <div className="text-center text-lg-end">
+              {/* { user?.role === Role.Teacher && <AddClassButton/>} */}
               {user ? <AccountButton user={user} /> : <Loading />}
               <LogoutButton />
             </div>
           </div>
         </div>
-        <Script src="" />
       </header>
     );
   }

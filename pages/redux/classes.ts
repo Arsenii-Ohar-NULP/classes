@@ -15,10 +15,10 @@ export const classSlice = createSlice(
         name: 'auth',
         initialState,
         reducers: {
-            fetchUserClasses(state, { payload }){
+            putUserClasses(state, { payload }){
                 state.userClasses = payload;
             },
-            fetchJoinRequests(state, { payload }){
+            putJoinRequests(state, { payload }){
                 state.joinRequests = payload;
             },
             addJoinRequest(state, { payload }){
@@ -26,6 +26,9 @@ export const classSlice = createSlice(
                     state.joinRequests = [];
                 }
                 state.joinRequests.push(payload);
+            },
+            deleteUserClass(state, { payload }){
+                state.userClasses = state.userClasses.filter((cls) => cls.id !== payload);
             }
         }
     }

@@ -1,4 +1,5 @@
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
+import { authActions } from 'pages/redux/auth';
 
 const accessTokenKey = 'accessToken';
 
@@ -60,6 +61,12 @@ export const login = async (credentials: Credentials) => {
 
   return (await response.json())['access_token'];
 };
+
+export const logout = (dispatch, router) => {
+  removeToken();
+  dispatch(authActions.logout());
+  router.push('/login');
+}
 
 const saveInSession = (token) => {
   sessionStorage.setItem(accessTokenKey, token);

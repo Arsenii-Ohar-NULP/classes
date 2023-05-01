@@ -2,6 +2,7 @@ import Forbidden from 'pages/errors/Forbidden';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
 import Message from './Message';
 import { getAccessToken } from 'pages/login/authService';
+import { request } from 'pages/Service';
 
 const getApiUrl = () => {
   return process.env['NEXT_PUBLIC_API_URL'];
@@ -70,7 +71,7 @@ const saveMessageHeader = () => {
   };
 };
 
-const pushMessage = async (message: Message) => {
+const postMessage = async ({ message }: {message: Message}) => {
   const endpointUrl = saveMessageEndpoint();
   const headers = saveMessageHeader();
 
@@ -81,18 +82,42 @@ const pushMessage = async (message: Message) => {
   });
 };
 
+const deleteMessage = async ({ message }: { message: Message }) => {
+  const endpointUrl = `${getApiUrl()}/api/v1/class/message/${message.id}`;
+  const headers = saveMessageHeader();
+
+  return await fetch(endpointUrl, {
+    method: 'DELETE',
+    headers,
+  });
+};
+
 export const saveMessage = async ({
   message,
 }: {
   message: Message;
-}): Promise<void> => {
-  const response = await pushMessage(message);
+}): Promise<any> => {
+  return await request({
+    fetchFunction: postMessage,
+    errors: {
+      Error: 'Something went wrong, try again later',
+      JsonError: "Couldn't fetch JSON data.",
+      InvalidCredentials: 'You should be logged in to send a message',
+      Forbidden: "You don't have access to send a message",
+    },
+    args: { message },
+  });
+};
 
-  if (!response.ok) {
-    handleErrors(response, {
-      InvalidCredentials: 'You have to be logged in to save a message.',
-      Forbidden: 'You have not joined the class',
-      Error: 'Something went wrong, please try agian laer.',
-    });
-  }
+export const removeMessage = async (message: Message) => {
+  return await request({
+    fetchFunction: deleteMessage,
+    errors: {
+      Error: 'Something went wrong, try again later',
+      JsonError: "Couldn't fetch JSON data.",
+      InvalidCredentials: 'You should be logged in to delete a message',
+      Forbidden: "You don't have access to delete a message",
+    },
+    args: { message },
+  });
 };

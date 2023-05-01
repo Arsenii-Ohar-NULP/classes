@@ -4,7 +4,7 @@ import { AuthStatus, authActions } from 'pages/redux/auth';
 import { useAppSelector, useAppDispatch } from 'pages/redux/store';
 import User from 'pages/User';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
-import { getUserInfo } from 'pages/UserService';
+import { getUserInfo } from 'pages/userService';
 import { getAccessToken, removeToken } from 'pages/login/authService';
 
 function useLoginRedirect() {
@@ -77,6 +77,7 @@ function useMessageReplacer(replacers: object) {
 
   return normalize;
 }
+
 function useBootstrap() {
   useEffect(() => {
     require('bootstrap/dist/js/bootstrap.bundle.js');

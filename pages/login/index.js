@@ -11,6 +11,9 @@ import smilingFace from 'public/images/Slightly Smiling Face.svg';
 import Head from 'next/head';
 import * as yup from "yup";
 import { login, saveToken } from 'pages/login/authService.ts';
+import { useAppDispatch } from 'pages/redux/store';
+import { authActions } from 'pages/redux/auth';
+import { getUserInfo } from 'pages/userService';
 
 function useLoginForm() {
     const schema = yup.object(
@@ -149,6 +152,7 @@ export default function Login() {
     const [serverError, setServerError] = useState();
     const [isLogging, setIsLogging] = useState(false);
     const router = useRouter();
+    const dispatch = useAppDispatch();
 
     useMainPageRedirect();
 
@@ -158,6 +162,8 @@ export default function Login() {
         try {
             const accessToken = await login(credentials);
             saveToken(accessToken, isRemember);
+            const user = await getUserInfo(accessToken);
+            dispatch(authActions.login(user));
         }
         catch (e) {
             setServerError(e.message);

@@ -1,5 +1,7 @@
 import React from 'react';
-import { useUserData, useLoginRedirect } from 'pages/utils/hooks';
+import PersonalInfoBar from './PersonalInfoBar';
+import Link from 'next/link';
+import { useUserData } from 'pages/utils/hooks';
 
 type SimpleValueOutputProps = {
   title: string;
@@ -15,22 +17,22 @@ function SimpleValueOutput({ title, value }: SimpleValueOutputProps) {
   );
 }
 
-export default function Account() {
-  useLoginRedirect();
+export default function AccountPage() {
   const user = useUserData();
-  if (!user) return <></>;
+
+  if (!user){
+    return <></>;
+  }
   return (
-    <div className='container text-center'>
-      <h1 className='p-2'>
-        Personal Information
-      </h1>
-      <hr />
-      <div>
-        {Object.keys(user).sort((a, b) => -a.localeCompare(b)).filter((el) => el !== 'password' && el !== 'id').map(function (prop) {
-          return (
-            <SimpleValueOutput key={prop.toString()} title={prop.toString()} value={user[prop]} />
-          );
-        })}
+    <div className="container">
+      <h1 className="p-2 text-center">Personal Information</h1>
+      <div className="d-flex justify-content-center">
+        <PersonalInfoBar user={user}/>
+      </div>
+      <div className="text-center">
+        <Link href={'/account/edit'}>
+          <button className="btn btn-primary">Edit</button>
+        </Link>
       </div>
     </div>
   );

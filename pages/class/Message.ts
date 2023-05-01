@@ -1,7 +1,9 @@
 export default interface Message{
-    id: number;
+    id?: number;
     content: string;
-    date: string;
+    date?: string;
     user: number;
-    class: number;
+    cls: number;
+    fullname?: string;
+    username?: string;
 }

@@ -5,10 +5,12 @@ import { useLoginRedirect, useUserData } from 'pages/utils/hooks';
 import Head from 'next/head';
 import styles from 'pages/classes/classes.module.scss';
 import Link from 'next/link';
-import { findAllClasses, findUserClasses } from 'pages/ClassService';
+import { findAllClasses, findUserClasses } from 'pages/class/ClassService';
 import { ClassUI } from './ClassUI';
+import { useAppSelector } from 'pages/redux/store';
+import { Role } from 'pages/User';
 
-function Greeting({ firstName }: { firstName: string }) {
+function Greeting({ firstName, role }: { firstName: string, role: Role}) {
   function getGreetingText(): string {
     const date = new Date(Date.now());
     const hours = date.getHours();
@@ -33,7 +35,7 @@ function Greeting({ firstName }: { firstName: string }) {
   }
   return (
     <div className="p-3 bg-secondary text-light">
-      <h2 className="ms-3">{getGreetingText()}</h2>
+      <h2 className="ms-3">{getGreetingText()} - {Role[role]}</h2>
     </div>
   );
 }
@@ -75,7 +77,7 @@ function RecommendedClasses() {
 }
 
 function UserClasses() {
-  const user = useUserData();
+  const user = useAppSelector((state) => state.auth.user);
   const [classes, initClasses] = useState<Class[]>([]);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -97,7 +99,7 @@ function UserClasses() {
   }
   return (
     <div>
-      <h2>Classes that you might be interested in</h2>
+      <h2>Your classes</h2>
       <div className={'row justify-content-center'}>
         {isLoaded &&
           classes.length !== 0 &&
@@ -126,7 +128,7 @@ export default function Classes({}): React.ReactNode {
       <Head>
         <title>Classes</title>
       </Head>
-      {user ? <Greeting firstName={user?.firstName} /> : ''}
+      {user && <Greeting firstName={user?.firstName} role={user.role}/>}
       <div className="p-2 m-2 text-center">
         <RecommendedClasses />
         <UserClasses />

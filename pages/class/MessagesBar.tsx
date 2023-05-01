@@ -1,33 +1,79 @@
 import React, { useState } from 'react';
-import { useUserData } from 'pages/utils/hooks';
 import Message from './Message';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useAppDispatch } from 'pages/redux/store';
-import { getMessages } from './MessageService';
-import { removeToken } from 'pages/login/authService';
+import { useAppDispatch, useAppSelector } from 'pages/redux/store';
+import { getMessages, removeMessage } from './MessageService';
+import { logout, removeToken } from 'pages/login/authService';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
 import { authActions } from 'pages/redux/auth';
 import Forbidden from 'pages/errors/Forbidden';
 import { MessageInput } from './MessageInput';
 import Class from 'pages/classes/Class';
+import deleteIcon from 'icons/delete.svg';
+import Image from 'next/image';
+import { useDispatch } from 'react-redux';
+import { Role } from 'pages/User';
 
-function MessageCard({ message }: { message: Message }) {
-  const userInfo = useUserData();
-  return (
-    <div className="d-flex p-2 flex-row align-items-center gap-3">
-      <img
-        className="border rounded-circle"
-        height={48}
-        width={48}
-        src={
-          message.user === userInfo?.id
-            ? `https://api.dicebear.com/6.x/lorelei/svg/seed=${userInfo.username}`
-            : `https://api.dicebear.com/6.x/lorelei/svg/seed=${message.id}`
+function DeleteMessageButton({
+  message,
+  onDelete,
+}: {
+  message: Message;
+  onDelete: () => void;
+}) {
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  function deleteMessage() {
+    removeMessage(message)
+      .then(() => onDelete())
+      .catch((error) => {
+        if (error instanceof InvalidCredentials) {
+          logout(dispatch, router);
         }
-        alt={'Pic'}
-      />
-      <p className="card p-2 m-0 fs-5 rounded-4 px-3">{message.content}</p>
+      });
+  }
+
+  return (
+    <div>
+      <button className="btn btn-danger" onClick={deleteMessage}>
+        <Image src={deleteIcon} width={24} height={24} alt={'Delete'} />
+      </button>
+    </div>
+  );
+}
+
+function MessageCard({
+  message,
+  onDelete,
+}: {
+  message: Message;
+  onDelete: () => void;
+}) {
+  const role = useAppSelector((state) => state.auth?.user?.role);
+  return (
+    <div>
+      <div className="d-flex p-2 flex-row align-items-center gap-3">
+        <img
+          className="border rounded-circle"
+          height={48}
+          width={48}
+          src={`https://api.dicebear.com/6.x/lorelei/svg/seed=${message.username}`}
+          alt={'Pic'}
+        />
+        <div>
+          <div className="vstack inline card p-2 m-0 fs-5 rounded-4 px-3">
+            <div className="inline fs-6">
+              <b>{message.fullname}</b>
+            </div>
+            <div className="inline fs-6">{message.content}</div>
+          </div>
+        </div>
+        {role === Role.Teacher && (
+          <DeleteMessageButton message={message} onDelete={onDelete} />
+        )}
+      </div>
     </div>
   );
 }
@@ -70,7 +116,7 @@ export function MessagesBar({
     );
   }
   return (
-    <div>
+    <div className='mb-5'>
       <div className="fs-3 px-2 py-1">
         <b>Messages</b>
         {messages &&
@@ -81,13 +127,27 @@ export function MessagesBar({
             </h5>
           ) : (
             <div>
-              {messages.map((msg) => {
-                return <MessageCard key={msg.id} message={msg} />;
+              {messages.map((msg, index) => {
+                return (
+                  <MessageCard
+                    key={msg.id}
+                    message={msg}
+                    onDelete={() =>
+                      setMessages(
+                        messages.filter((message) => message.id !== msg.id)
+                      )
+                    }
+                  />
+                );
               })}
             </div>
           ))}
       </div>
-      <MessageInput forbidden={isForbidden} />
+      <MessageInput
+        classId={cls.id}
+        forbidden={isForbidden}
+        onSend={(message) => setMessages(messages.concat(message))}
+      />
     </div>
   );
 }

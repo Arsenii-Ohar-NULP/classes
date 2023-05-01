@@ -92,11 +92,8 @@ function SignUpInput({
 function Footer() {
   return (
     <footer className="d-flex justify-content-center p-3 align-items-end">
-      <a
-        href="example.com"
-        className='text-decoration-none'
-      >
-       <Logo />
+      <a href="example.com" className="text-decoration-none">
+        <Logo />
       </a>
     </footer>
   );
@@ -146,14 +143,14 @@ export default function SignUp({}) {
 
   useMainPageRedirect();
 
-  function parseUserInfo(user){
+  function parseUserInfo(user) {
     return {
       username: user.Username,
       password: user.Password,
       firstName: user.FirstName,
       lastName: user.LastName,
       email: user.Email,
-      phone: user.PhoneNumber
+      phone: user.PhoneNumber,
     };
   }
 
@@ -234,9 +231,7 @@ export default function SignUp({}) {
                   error={errors?.PhoneNumber?.message.toString()}
                 />
               </div>
-              <div className={'invalid'}>
-                {serverError ? serverError : ''}
-              </div>
+              <div className={'invalid'}>{serverError ? serverError : ''}</div>
               <hr />
               <div className="container d-flex gap-2 justify-content-center mx-auto my-3 text-center p-3 start-0">
                 <SignUpButton onClick={handleSubmit(onSignUpClick)} />

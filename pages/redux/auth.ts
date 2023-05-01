@@ -1,35 +1,44 @@
 import { createSlice } from '@reduxjs/toolkit';
+import User from 'pages/User';
 
-export enum AuthStatus{
-    LOGGED_IN,
-    LOGGED_OUT
+export enum AuthStatus {
+  LOGGED_IN,
+  LOGGED_OUT,
 }
 
 export interface IAuthState {
-    status: AuthStatus;
+  status: AuthStatus;
+  user: User;
 }
 
-const initialState: IAuthState = { status: AuthStatus.LOGGED_OUT }
+const initialState: IAuthState = { status: AuthStatus.LOGGED_OUT, user: null };
 
-export const authSlice = createSlice(
-    {
-        name: 'auth',
-        initialState,
-        reducers: {
-            login(state){
-                return {
-                    ...state,
-                    status: AuthStatus.LOGGED_IN
-                }
-            },
-            logout(state){
-                return {
-                    ...state,
-                    status: AuthStatus.LOGGED_OUT
-                };
-            }
-        }
-    }
-) 
+export const authSlice = createSlice({
+  name: 'auth',
+  initialState,
+  reducers: {
+    login(state, action) {
+      return {
+        ...state,
+        status: AuthStatus.LOGGED_IN,
+        user: action.payload,
+      };
+    },
+    logout(state) {
+      return {
+        ...state,
+        status: AuthStatus.LOGGED_OUT,
+        user: null,
+      };
+    },
+
+    updateUser(state, action) {
+      return {
+        ...state,
+        user: { ...state.user, ...action.payload },
+      };
+    },
+  },
+});
 
 export const authActions = authSlice.actions;

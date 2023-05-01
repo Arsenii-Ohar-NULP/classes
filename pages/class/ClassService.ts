@@ -1,9 +1,15 @@
 import Class from 'pages/classes/Class';
-import InvalidCredentials from './errors/InvalidCredentials';
-import Forbidden from './errors/Forbidden';
-import { getAccessToken } from './login/authService';
+import InvalidCredentials from '../errors/InvalidCredentials';
+import { getAccessToken } from '../login/authService';
+import { JoinRequest } from './JoinRequest';
+import { request } from '../Service';
 
 const classesEndpoint = '/api/v1/class';
+
+export type DirtyJoinRequest = {
+  class_id: number;
+  user_id: number;
+};
 
 const getApiUrl = () => {
   return process.env['NEXT_PUBLIC_API_URL'];
@@ -28,6 +34,7 @@ const getAllClasses = async (): Promise<Response> => {
     headers: getClassesHeader,
   });
 };
+
 const getClassEndpoint = (id: number): string => {
   return getApiUrl() + classesEndpoint + `/${id}`;
 };
@@ -71,73 +78,52 @@ const fetchUserClasses = async ({
   });
 };
 
-const postRequest = async ({ classId }: {classId: number}): Promise<Response> => {
+const postRequest = async ({
+  classId,
+}: {
+  classId: number;
+}): Promise<Response> => {
   const endpointUrl = `${getApiUrl()}/api/v1/student/request/${classId}`;
   const headers = getAuthHeaders();
 
-  return await fetch(
-    endpointUrl, 
-    {
-      method: 'POST',
-      headers: headers
-    }
-  );
+  return await fetch(endpointUrl, {
+    method: 'POST',
+    headers: headers,
+  });
+};
+
+const fetchUserJoinRequests = async (): Promise<Response> => {
+  const endpointUrl = `${getApiUrl()}/api/v1/student/requests`;
+  const headers = getAuthHeaders();
+
+  return await fetch(endpointUrl, {
+    method: 'GET',
+    headers,
+  });
+};
+
+const fetchJoinRequsts = async ({classId}: {classId: number}) => {
+  const endpointUrl = `${getApiUrl()}/api/v1/class/requests/${classId}`;
+  const headers = getAuthHeaders();
+
+  return await fetch(endpointUrl, {
+    method: 'GET',
+    headers
+  });
 }
 
-const fetchJoinRequests = async (): Promise<Response> =>{
-  const endpointUrl = `${getApiUrl()}/api/v1/student/requests`;
+const deleteClass = async ({classId}: {classId: number}) => {
+  const endpointUrl = `${getApiUrl()}/api/v1/class/${classId}`;
   const headers = getAuthHeaders();
 
   return await fetch(
     endpointUrl,
     {
-      method: 'GET',
+      method: 'DELETE',
       headers
     }
   )
 }
-
-interface IErrors {
-  InvalidCredentials: string;
-  Forbidden: string;
-  Error: string;
-  JsonError: string;
-}
-const request = async ({
-  fetchFunction,
-  errors,
-  args,
-}: {
-  fetchFunction: (() => Promise<Response>) | ((o: object) => Promise<Response>);
-  errors: IErrors;
-  args?: object;
-}) => {
-  const response = args
-    ? await fetchFunction(args)
-    : await (fetchFunction as () => Promise<Response>)();
-
-  if (!response.ok) {
-    // TODO: You better change this to a custom one
-    if (response.status == 401) {
-      throw new InvalidCredentials(errors[InvalidCredentials.name]);
-    }
-
-    if (response.status == 403) {
-      throw new Forbidden(errors[Forbidden.name]);
-    }
-
-    throw new Error(errors[Error.name]);
-  }
-
-  try {
-    return await response.json();
-  } catch (e) {
-    // TODO: Change this to a custom Error if possible
-    throw new Error(errors['JsonError']);
-  }
-};
-
-
 
 export const findAllClasses = async (): Promise<Class[]> => {
   return await request({
@@ -182,24 +168,64 @@ export const sendRequest = async (classId: number): Promise<void> => {
   return await request({
     fetchFunction: postRequest,
     errors: {
-      InvalidCredentials: 
-        `Couldn't send a request to join ${classId}`,
-        Forbidden: `You are not allowed to join this class`,
-        Error: `Something went wrong while requesting to join class id=${classId}`,
-        JsonError: `Couldn't get JSON from send request response; class id=${classId}`
+      InvalidCredentials: `Couldn't send a request to join ${classId}`,
+      Forbidden: `You are not allowed to join this class`,
+      Error: `Something went wrong while requesting to join class id=${classId}`,
+      JsonError: `Couldn't get JSON from send request response; class id=${classId}`,
     },
-    args: {classId}
-  })
-}
+    args: { classId },
+  });
+};
 
-export const getJoinRequests = async (): Promise<void> => {
-  return await request({
-    fetchFunction: fetchJoinRequests,
+export const getUserJoinRequests = async (): Promise<JoinRequest[]> => {
+  
+
+  const requests = await request<DirtyJoinRequest[]>({
+    fetchFunction: fetchUserJoinRequests,
     errors: {
       InvalidCredentials: `Couldn't fetch join requests.`,
       Forbidden: `You are not allowed to fetch join requests`,
       Error: `Something went wrong while fetching classes`,
-      JsonError: `Couldn't get JSON from send requests`
+      JsonError: `Couldn't get JSON from send requests`,
     }
-  })
+  });
+
+  return requests.map((request) => {
+    return { classId: request.class_id, userId: request.user_id };
+  });
+};
+
+export const getJoinRequests = async (classId): Promise<JoinRequest[]> => {
+  type DirtyJoinRequest = {
+    class_id: number;
+    user_id: number;
+  };
+
+  const requests = await request<DirtyJoinRequest[]>({
+    fetchFunction: fetchJoinRequsts,
+    errors: {
+      InvalidCredentials: `Couldn't fetch join requests.`,
+      Forbidden: `You are not allowed to fetch join requests`,
+      Error: `Something went wrong while fetching classes`,
+      JsonError: `Couldn't get JSON from send requests`,
+    },
+    args: {classId}
+  });
+
+  return requests.map((request) => {
+    return { classId: request.class_id, userId: request.user_id };
+  });
+}
+
+export const removeClass = async(classId) => {
+  return await request({
+    fetchFunction: deleteClass,
+    errors: {
+      InvalidCredentials: `Couldn't delete a class id=${classId}. Try again later`,
+      Forbidden: `You are not allowed to delete a class id=${classId}`,
+      Error: `Couldn't delete a class id=${classId}. Please try again later`,
+      JsonError: `Couldn't get json from a deleted class response id=${classId}.`,
+    },
+    args: { classId },
+  });
 }

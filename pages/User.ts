@@ -1,3 +1,7 @@
+export enum Role{
+    Teacher, Student
+}
+
 export default interface User{
     id: number;
     username: string;
@@ -5,5 +9,5 @@ export default interface User{
     lastName: string;
     email: string;
     phone: string;
-    role: string;   
+    role: Role;   
 }
