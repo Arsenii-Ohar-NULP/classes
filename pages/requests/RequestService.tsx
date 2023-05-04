@@ -1,4 +1,4 @@
-import { request } from 'pages/Service';
+import { request } from 'pages/utils/Service';
 import { JoinRequest } from 'pages/class/JoinRequest';
 import { getAccessToken } from 'pages/login/authService';
 

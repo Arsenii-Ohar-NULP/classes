@@ -5,33 +5,22 @@ import styles from 'pages/class/class.module.scss';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useLoginRedirect } from 'pages/utils/hooks';
-import { findClassThumbnail } from 'pages/header/ClassThumbnailService';
-import { findClass, sendRequest } from 'pages/class/ClassService';
+import { findClass } from 'pages/class/ClassService';
 import { MessagesBar } from './MessagesBar';
-import { useAppDispatch, useAppSelector } from 'pages/redux/store';
-import { classesActions } from 'pages/redux/classes';
+import { useAppSelector } from 'pages/redux/store';
 import { RequestsButton } from './RequestsButton';
 import DeleteClassButton from './DeleteClassButton';
 import JoinButton from './JoinButton';
 import ClassThumbnail from 'pages/classes/ClassThumbnail';
-
-export function Loading() {
-  return (
-    <div className="">
-      <div className="spinner-border text-primary text-center" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    </div>
-  );
-}
-
+import { Loading } from 'pages/class/Loading';
+import DeleteClassModal from './DeleteClassModal';
 export default function ClassPage() {
   useLoginRedirect();
   const router = useRouter();
   const [cls, setClass] = useState<Class>(null);
-  const [image, setImage] = useState(null);
   const [joined, setJoined] = useState<boolean>(false);
   const userId = useAppSelector((state) => state.auth.user?.id);
+  const [showDelete, setShowDelete] = useState<boolean>();
 
   function redirectToUnknown() {
     router.push('/404');
@@ -51,16 +40,6 @@ export default function ClassPage() {
   }
 
   useEffect(() => {
-    if (!cls) {
-      return;
-    }
-
-    findClassThumbnail(cls.id).then((data) => {
-      setImage(`data:image/png; base64, ${data}`);
-    });
-  }, [cls, image]);
-
-  useEffect(() => {
     if (noIdSpecified()) {
       return;
     }
@@ -72,7 +51,7 @@ export default function ClassPage() {
         redirectToUnknown();
       }
     }
-  }, [cls, router.query]);
+  }, [cls]);
 
   if (!cls)
     return (
@@ -126,7 +105,8 @@ export default function ClassPage() {
                 <div className="d-flex align-items-center flex-column gap-2">
                   <JoinButton userId={userId} cls={cls} />
                   <RequestsButton classId={cls.id} />
-                  <DeleteClassButton classId={cls.id} />
+                  <DeleteClassButton onDelete={() => setShowDelete(true)}/>
+                  <DeleteClassModal classId={cls.id} onDelete={() => null} show={showDelete} close={() => setShowDelete(false)}/>
                 </div>
               </div>
             </div>

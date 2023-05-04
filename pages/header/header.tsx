@@ -1,14 +1,13 @@
 import Classes from 'pages/classes/index';
 import React from 'react';
 import Link from 'next/link';
-import { useUserData } from 'pages/utils/hooks';
 import { useRouter } from 'next/router';
-import styles from 'pages/header.module.scss';
+import styles from 'pages/header/header.module.scss';
 import AccountPage from '../account';
-import Logo from '../logo';
+import Logo from '../utils/logo';
 import ClassPage from '../class/[id]';
-import User, { Role } from '../User';
-import { useAppDispatch } from '../redux/store';
+import User from '../account/User';
+import { useAppDispatch, useAppSelector } from '../redux/store';
 import Requests from '../requests/[id]';
 import ProfilePicture from '../ProfilePic';
 import { logout } from '../login/authService';
@@ -58,13 +57,14 @@ function AccountButton({ user }: { user: User }) {
     </Link>
   );
 }
+
 function Header({ currentComponent }: HeaderParams) {
   const tabs = [Classes, AccountPage, ClassPage, Requests, AddClassPage, EditAccountPage];
 
   if (!tabs.find((element) => element.name == currentComponent.type.name))
     return <></>;
 
-  const user = useUserData();
+  const user = useAppSelector((state) => state.auth.user);
 
   function HeaderDiv() {
     return (

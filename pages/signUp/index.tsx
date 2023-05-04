@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMainPageRedirect, useMessageReplacer } from 'pages/utils/hooks';
-import Logo from 'pages/logo';
+import Logo from 'pages/utils/logo';
 import { signUp } from './signUpService';
 
 function useUsername() {

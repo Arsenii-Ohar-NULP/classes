@@ -1,5 +1,6 @@
 import { findUserClasses, getUserJoinRequests } from 'pages/class/ClassService';
 import { classesActions } from './classes';
+import { authActions } from './auth';
 
 
 
@@ -18,5 +19,6 @@ export function fetchUserData(userId: number) {
 
         await fetchUserClasses(dispatch);
         await fetchJoinRequests(dispatch);
+        dispatch(authActions.fetch());
     }
 }

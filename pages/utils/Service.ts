@@ -1,5 +1,5 @@
-import Forbidden from './errors/Forbidden';
-import InvalidCredentials from './errors/InvalidCredentials';
+import Forbidden from '../errors/Forbidden';
+import InvalidCredentials from '../errors/InvalidCredentials';
 
 interface IErrors {
   InvalidCredentials: string;

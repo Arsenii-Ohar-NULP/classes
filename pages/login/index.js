@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMainPageRedirect } from 'pages/utils/hooks';
 import { useRouter } from 'next/router';
-import Logo from 'pages/logo';
+import Logo from 'pages/utils/logo';
 import PropTypes from 'prop-types';
 import Image from 'next/image';
 import smilingFace from 'public/images/Slightly Smiling Face.svg';
@@ -13,7 +13,7 @@ import * as yup from "yup";
 import { login, saveToken } from 'pages/login/authService.ts';
 import { useAppDispatch } from 'pages/redux/store';
 import { authActions } from 'pages/redux/auth';
-import { getUserInfo } from 'pages/userService';
+import { getUserInfo } from 'pages/account/UserService';
 
 function useLoginForm() {
     const schema = yup.object(

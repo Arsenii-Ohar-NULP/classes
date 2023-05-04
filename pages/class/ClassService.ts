@@ -2,7 +2,7 @@ import Class from 'pages/classes/Class';
 import InvalidCredentials from '../errors/InvalidCredentials';
 import { getAccessToken } from '../login/authService';
 import { JoinRequest } from './JoinRequest';
-import { request } from '../Service';
+import { request } from '../utils/Service';
 
 const classesEndpoint = '/api/v1/class';
 

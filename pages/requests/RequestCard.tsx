@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAccessToken, logout } from 'pages/login/authService';
-import { getUserInfo } from 'pages/userService';
-import User from 'pages/User';
+import { getUserInfo } from 'pages/account/UserService';
+import User from 'pages/account/User';
 import ProfilePicture from 'pages/ProfilePic';
 import { acceptRequest, declineRequest } from './RequestService';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
@@ -25,7 +25,12 @@ export default function RequestCard({
     const token = getAccessToken();
     getUserInfo(token, userId)
       .then((user) => setUser(user))
-      .catch((error) => alert(error));
+      .catch((error) => {
+        alert(error);
+        if (error instanceof InvalidCredentials) {
+          logout(dispatch, router);
+        }
+      });
   }
 
   useEffect(() => {
@@ -45,7 +50,7 @@ export default function RequestCard({
   }
 
   function decline() {
-    declineRequest({ userId, classId})
+    declineRequest({ userId, classId })
       .then(onResolved)
       .catch((error) => {
         if (error instanceof InvalidCredentials) {

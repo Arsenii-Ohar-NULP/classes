@@ -7,6 +7,7 @@ import Message from 'pages/class/Message';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
 import { authActions } from 'pages/redux/auth';
 import { useRouter } from 'next/router';
+import {Button} from 'react-bootstrap';
 
 export function MessageInput({
   forbidden,
@@ -18,12 +19,14 @@ export function MessageInput({
   classId: number;
 }) {
   const [messageText, setMessage] = useState<string>(null);
+  
   const userId = useAppSelector((state) => state.auth.user?.id);
-  const dispatch = useAppDispatch();
-  const router = useRouter();
   const username = useAppSelector((state) => state.auth.user?.username);  
   const firstName = useAppSelector((state) => state.auth.user?.firstName);
   const lastName = useAppSelector((state) => state.auth.user?.lastName);
+
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
   function send() {
     const message = {
@@ -47,7 +50,7 @@ export function MessageInput({
       });
   }
 
-  function isEmptyOrSpaces(str) {
+  function isEmptyOrSpaces(str: string) {
     return str === null || str.match(/^ *$/) !== null;
   }
 
@@ -62,18 +65,17 @@ export function MessageInput({
             value={messageText}
             disabled={forbidden}
           ></input>
-          <button
-            type="button"
+          <Button
+            variant='primary'
             className={
-              'btn btn-primary ' + ((messageText == null ||
+              (messageText == null || 
               isEmptyOrSpaces(messageText))
-                ? 'visually-hidden'
-                : '')
+                && 'visually-hidden'
             }
             onClick={send}
           >
             <Image alt={'Send Icon'} src={sendIcon} width={24} height={24} />
-          </button>
+          </Button>
         </div>
       </form>
     </div>

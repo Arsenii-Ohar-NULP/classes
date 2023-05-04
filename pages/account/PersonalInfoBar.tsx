@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLoginRedirect, useUserData } from 'pages/utils/hooks';
 import PersonalInfoCard from './PersonalInfoCard';
-import User from 'pages/User';
+import User from 'pages/account/User';
 
 export default function PersonalInfoBar({user}: {user: User}) {
   useLoginRedirect();

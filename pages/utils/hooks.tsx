@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { AuthStatus, authActions } from 'pages/redux/auth';
 import { useAppSelector, useAppDispatch } from 'pages/redux/store';
-import User from 'pages/User';
+import User from 'pages/account/User';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
-import { getUserInfo } from 'pages/userService';
+import { getUserInfo } from 'pages/account/UserService';
 import { getAccessToken, removeToken } from 'pages/login/authService';
 
 function useLoginRedirect() {

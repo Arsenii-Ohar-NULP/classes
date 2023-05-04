@@ -1,7 +1,7 @@
-import { request } from './Service';
+import { request } from '../utils/Service';
 import User, { Role } from './User';
-import InvalidCredentials from './errors/InvalidCredentials';
-import { getAccessToken } from './login/authService';
+import InvalidCredentials from '../errors/InvalidCredentials';
+import { getAccessToken } from '../login/authService';
 
 const getEndpointUrl = (id?: number) => {
   return (
@@ -63,10 +63,10 @@ export const editUser = async (changedData) => {
   return await request({
     fetchFunction: putUser,
     errors: {
-      InvalidCredentials: `Couldn't fetch join requests.`,
-      Forbidden: `You are not allowed to fetch join requests`,
-      Error: `Something went wrong while fetching classes`,
-      JsonError: `Couldn't get JSON from send requests`,
+      InvalidCredentials: `You have to be logged in to edit a user.`,
+      Forbidden: `You are not allowed to edit a user`,
+      Error: `Something went wrong while editing a user. Check the fields and try again later.`,
+      JsonError: `Couldn't get JSON from edting a user`,
     },
     args: { changedData }
   });

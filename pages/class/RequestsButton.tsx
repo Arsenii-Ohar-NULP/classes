@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { Role } from 'pages/User';
+import { Role } from 'pages/account/User';
 import { useAppSelector } from 'pages/redux/store';
 import React from 'react';
 export function RequestsButton({ classId }: { classId: number }) {

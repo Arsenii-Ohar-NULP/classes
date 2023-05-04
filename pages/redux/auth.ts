@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import User from 'pages/User';
+import User from 'pages/account/User';
 
 export enum AuthStatus {
+  LOGGED_IN_FETCHED,
   LOGGED_IN,
-  LOGGED_OUT,
+  LOGGED_OUT
 }
 
 export interface IAuthState {
@@ -17,6 +18,9 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    fetch(state){
+      state.status = AuthStatus.LOGGED_IN_FETCHED;
+    },
     login(state, action) {
       return {
         ...state,

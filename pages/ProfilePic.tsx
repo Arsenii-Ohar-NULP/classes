@@ -1,7 +1,8 @@
 import React from 'react';
-import User from './User';
-import styles from 'pages/header.module.scss';
-import { Loading } from './class/[id]';
+import User from './account/User';
+import styles from 'pages/header/header.module.scss';
+import { Loading } from 'pages/class/Loading';
+
 export default function ProfilePicture({
   user,
   hoverOn,

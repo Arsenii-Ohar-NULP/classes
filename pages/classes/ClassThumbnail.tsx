@@ -17,7 +17,8 @@ export default function ClassThumbnail({ cls }: { cls: Class }) {
   const [image, setImage] = useState(null);
 
   useEffect(() => {
-    findClassThumbnail(cls.id)
+    if (!image){
+      findClassThumbnail(cls.id)
       .then((data) => {
         if (data == null) {
           throw new Error();
@@ -27,7 +28,9 @@ export default function ClassThumbnail({ cls }: { cls: Class }) {
       .catch(() => {
         setImage(unknownPic.src);
       });
-  }, [image]);
+    }
+    
+  }, [cls.id]);
 
   return (
     <>

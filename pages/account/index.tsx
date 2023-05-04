@@ -3,20 +3,6 @@ import PersonalInfoBar from './PersonalInfoBar';
 import Link from 'next/link';
 import { useUserData } from 'pages/utils/hooks';
 
-type SimpleValueOutputProps = {
-  title: string;
-  value: string | number;
-};
-function SimpleValueOutput({ title, value }: SimpleValueOutputProps) {
-  return (
-    <div>
-      <h3>
-        {title.toUpperCase()}: {value.toString().toUpperCase()}
-      </h3>
-    </div>
-  );
-}
-
 export default function AccountPage() {
   const user = useUserData();
 
