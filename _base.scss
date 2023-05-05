@@ -9,3 +9,24 @@ $color-1-hover: #5caf74;
 $color-1-semi-transparent: #7cea9bb6;
 
 $primary: $color-1;
+
+@import 'bootstrap/scss/bootstrap.scss';
+
+.invalid-input{
+    border-color:red;
+}
+
+.invalid:focus{
+    border-color:red;
+}
+
+.classes-pic{
+    filter: invert(1);
+}
+
+.invalid{
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #dc3545;
+}

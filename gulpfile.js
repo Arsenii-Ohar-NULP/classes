@@ -1,22 +1,20 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass')(require('sass'));
+const gulp = require('gulp');
+const sass = require('gulp-sass')(require('sass'));
 
-gulp.task('sass', function(cb) {
-  gulp
-    .src('*.scss')
-    .pipe(sass())
-    .pipe(
-      gulp.dest(function(f) {
-        return f.base;
-      })
-    );
-  cb();
+gulp.task('sass', (cb) => {
+    gulp
+        .src('*.scss')
+        .pipe(sass())
+        .pipe(
+            gulp.dest((f) => f.base),
+        );
+    cb();
 });
 
 gulp.task(
-  'default',
-  gulp.series('sass', function(cb) {
-    gulp.watch('*.scss', gulp.series('sass'));
-    cb();
-  })
+    'default',
+    gulp.series('sass', (cb) => {
+        gulp.watch('*.scss', gulp.series('sass'));
+        cb();
+    }),
 );
