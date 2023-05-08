@@ -11,7 +11,18 @@ import { logout } from 'pages/login/authService';
 import { useRouter } from 'next/router';
 import { authActions } from 'pages/redux/auth';
 
+interface IChangedData {
+  Password: string;
+  Email: string;
+  Phone: string;
+}
+
 export default function EditAccountForm() {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const user = useAppSelector((state) => state.auth.user);
+  const [error, setError] = useState('');
+
   const schema = yup
     .object({
       Password: yup.string().notRequired(),
@@ -19,33 +30,48 @@ export default function EditAccountForm() {
       Email: yup.string().email().notRequired(),
     })
     .required();
-  const user = useAppSelector((state) => state.auth.user);
-  const dispatch = useAppDispatch();
-  const router = useRouter();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    watch
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const [error, setError] = useState('');
+  const password = watch('Password', '');
+  const email = watch('Email', user?.email ? user.email : '');
+  const phone = watch('Phone', user?.phone ? user.phone : '');
+
+  const cleanChangedData = (data: IChangedData) => {
+    const changedData = {};
+    if (!user){
+      return changedData;
+    }
+    for (const key of Object.keys(data)) {
+      if (user[key.toLowerCase()] !== data[key] && data[key] !== '') {
+        changedData[key.toLowerCase()] = data[key];
+      }
+    }
+
+    return changedData;
+  };
+
+  const hasDataChanged = (data) => {
+    console.log(Object.keys(data).length !== 0);
+    return Object.keys(data).length !== 0;
+  };
 
   const onSubmit = (data: {
     Password: string;
     Phone: string;
     Email: string;
   }) => {
-    console.log("in");
-    const changedData = { id: user.id };
-    for (const key of Object.keys(data)) {
-      if (user[key.toLowerCase()] !== data[key] && data[key] !== '') {
-        changedData[key.toLowerCase()] = data[key];
-      }
-    }
-    console.log(Object.keys(changedData));
-    if (Object.keys(changedData).length === 1) {
-      alert("You haven't changed the data");
+    const changedData = cleanChangedData(data);
+    changedData['id'] = user.id;
+
+    if (!hasDataChanged(changedData)) {
+      alert('Data has not been changed');
       return;
     }
 
@@ -64,7 +90,7 @@ export default function EditAccountForm() {
 
   return (
     <div className="d-flex align-items-center flex-column container">
-      <h3 className='p-3'>Edit account information</h3>
+      <h3 className="p-3">Edit account information</h3>
       <form>
         <EditAccountInput
           type={'password'}
@@ -90,8 +116,15 @@ export default function EditAccountForm() {
         />
         <hr />
         <h6>{error}</h6>
+        <EditButton
+          onClick={handleSubmit(onSubmit)}
+          disabled={!hasDataChanged(cleanChangedData({
+            Email: email,
+            Phone: phone,
+            Password: password
+          }))}
+        />
       </form>
-      <EditButton onClick={handleSubmit(onSubmit)}/>
     </div>
   );
 }

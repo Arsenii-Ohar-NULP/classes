@@ -107,10 +107,8 @@ function Header({ currentComponent }: HeaderParams) {
     );
   }
 
-  return tabs.find((element) => element.name == currentComponent.type.name) ? (
+  return tabs.find((element) => element.name == currentComponent.type.name) && (
     HeaderDiv()
-  ) : (
-    <></>
   );
 }
 

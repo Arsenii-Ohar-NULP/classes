@@ -4,6 +4,8 @@ import { useAppDispatch } from 'pages/redux/store';
 import { Button, Modal } from 'react-bootstrap';
 import { classesActions } from 'pages/redux/classes';
 import { removeClass } from './ClassService';
+import InvalidCredentials from 'pages/errors/InvalidCredentials';
+import { logout } from 'pages/login/authService';
 
 
 export default function DeleteClassModal({
@@ -21,11 +23,15 @@ export default function DeleteClassModal({
     const dispatch = useAppDispatch();
   
     function deleteClass() {
-        return;
-        // removeClass(classId).then(() => {
-        //     dispatch(classesActions.deleteUserClass(classId));
-        //     router.push('/classes');
-        //   });
+        removeClass(classId).then(() => {
+            dispatch(classesActions.deleteUserClass(classId));
+            router.push('/classes');
+          })
+          .catch((error) => {
+            if (error instanceof InvalidCredentials){
+              logout(dispatch, router);
+            }
+          });
     }
   
     return (
