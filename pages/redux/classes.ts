@@ -23,7 +23,7 @@ export const classSlice = createSlice(
             },
             addJoinRequest(state, { payload }){
                 if (!state.joinRequests){
-                    state.joinRequests = [];
+                    state.joinRequests = [payload];
                 }
                 state.joinRequests.push(payload);
             },
@@ -34,4 +34,5 @@ export const classSlice = createSlice(
     }
 ) 
 
+export const classesInitialState = initialState;
 export const classesActions = classSlice.actions;

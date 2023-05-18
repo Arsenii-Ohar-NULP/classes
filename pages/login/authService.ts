@@ -1,9 +1,9 @@
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
 import { authActions } from 'pages/redux/auth';
 
-const accessTokenKey = 'accessToken';
+export const accessTokenKey = 'accessToken';
 
-interface Credentials {
+export interface Credentials {
   username: string;
   password: string;
 }
@@ -42,7 +42,7 @@ const getErrorMessage = async (response: Response): Promise<string> => {
   } catch (e) {
     message = typicalMessage;
   }
-  throw new InvalidCredentials(message);
+  return Promise.reject(new InvalidCredentials(message));
 };
 
 export const getAccessToken = (): string => {

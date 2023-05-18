@@ -35,10 +35,11 @@ function FormInput({ errorMessage, id, placeholder, registration, ...other }) {
             placeholder={placeholder}
             id={id}
             className={"form-control-lg rounded-4 p-1 px-2" + (errorMessage ? " invalid-input" : "")}
+            data-testid={id}
             {...registration}
             {...other}
         />
-        <div className={'invalid'}>{errorMessage ? errorMessage : ""}</div>
+        <div className={'invalid'} data-testid={`${id}-Error`}>{errorMessage ? errorMessage : ""}</div>
     </div>
 }
 FormInput.propTypes = {
@@ -127,7 +128,8 @@ function TopSection() {
 }
 
 function ServerError({ serverError, errors }) {
-    return <p className={serverError && (!errors.Password && !errors.Username) ? 'invalid' : 'visually-hidden'}>
+    return <p className={serverError && (!errors.Password && !errors.Username) 
+    ? 'invalid' : 'visually-hidden'} data-testid={'error'}>
         {serverError}
     </p>;
 }
@@ -146,7 +148,7 @@ function Footer() {
 
 
 
-export default function Login() {
+export default function LoginPage() {
     const { register, handleSubmit, errors, getValues } = useLoginForm();
     const [isRemember, setRememberMe] = useState(false);
     const [serverError, setServerError] = useState();
@@ -196,14 +198,14 @@ export default function Login() {
                     <TopSection />
 
                     <FormInput
-                        placeholder="Username or email"
+                        placeholder="Enter a username"
                         id="Username"
                         type="text"
                         registration={register("Username")}
                         errorMessage={errors.Username?.message}
                     />
                     <FormInput
-                        placeholder="Password"
+                        placeholder="Enter a password"
                         id="Password"
                         type="password"
                         registration={register("Password")}

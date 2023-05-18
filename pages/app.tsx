@@ -40,7 +40,7 @@ export default function App({ component }: AppParams) {
 
   return (
     <div>
-      <Header currentComponent={component} />
+      <Header currentComponent={component.type} />
       {component}
     </div>
   );

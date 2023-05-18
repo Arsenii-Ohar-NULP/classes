@@ -1,8 +1,8 @@
 import Class from 'pages/classes/Class';
 import InvalidCredentials from '../errors/InvalidCredentials';
-import { getAccessToken } from '../login/authService';
+import { getAccessToken } from 'pages/login/authService';
 import { JoinRequest } from './JoinRequest';
-import { request } from '../utils/Service';
+import { request } from 'pages/utils/Service';
 
 const classesEndpoint = '/api/v1/class';
 
@@ -51,6 +51,7 @@ const getClass = async ({ id }: { id: number }): Promise<Response> => {
 
 const getAuthHeaders = (): HeadersInit => {
   const token = getAccessToken();
+  console.log(token);
 
   if (!token) {
     throw new InvalidCredentials(
@@ -178,8 +179,6 @@ export const sendRequest = async (classId: number): Promise<void> => {
 };
 
 export const getUserJoinRequests = async (): Promise<JoinRequest[]> => {
-  
-
   const requests = await request<DirtyJoinRequest[]>({
     fetchFunction: fetchUserJoinRequests,
     errors: {

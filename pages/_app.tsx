@@ -1,5 +1,5 @@
-import '_base.scss';
 import React from 'react';
+import 'pages/_base.scss';
 import App from 'pages/app';
 import { useBootstrap } from 'pages/utils/hooks';
 import { Provider } from 'react-redux';

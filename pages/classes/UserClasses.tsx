@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from 'pages/classes/classes.module.scss';
 import Link from 'next/link';
-import { ClassUI } from './ClassUI';
+import { ClassUI } from 'pages/classes/ClassUI';
 import { useAppSelector } from 'pages/redux/store';
 
 export default function UserClasses() {
@@ -11,8 +11,9 @@ export default function UserClasses() {
   if (!user || !classes || classes?.length === 0) {
     return <></>;
   }
+  
   return (
-    <div>
+    <div data-testid={'user-classes'}>
       <h2>Your classes</h2>
       <div className={'row justify-content-center'}>
         {classes?.map((cls) => (

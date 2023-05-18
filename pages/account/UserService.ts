@@ -2,11 +2,12 @@ import { request } from '../utils/Service';
 import User, { Role } from './User';
 import InvalidCredentials from '../errors/InvalidCredentials';
 import { getAccessToken } from '../login/authService';
+import Forbidden from 'pages/errors/Forbidden';
 
 const getEndpointUrl = (id?: number) => {
   return (
     process.env['NEXT_PUBLIC_API_URL'] + '/api/v1/user' + (id ? `/${id}` : '')
-  );
+    );
 };
 
 const getEndpointHeaders = (token: string): HeadersInit => {
@@ -30,6 +31,9 @@ export const getUserInfo = async (
   token: string,
   userId?: number
 ): Promise<User> => {
+  if (!token){
+    throw new InvalidCredentials('Token should be present to fetch user info');
+  }
   const response = await fetchUserInfo(token, userId);
 
   if (!response.ok) {
@@ -37,6 +41,9 @@ export const getUserInfo = async (
       throw new InvalidCredentials(
         "Couldn't get user info due to invalid credentials"
       );
+    }
+    if (response.status == 403){
+      throw new Forbidden("Forbidden to fetch user info");
     }
 
     throw new Error("Couldn't get user info");

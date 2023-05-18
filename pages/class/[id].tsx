@@ -6,14 +6,14 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useLoginRedirect } from 'pages/utils/hooks';
 import { findClass } from 'pages/class/ClassService';
-import { MessagesBar } from './MessagesBar';
+import { MessagesBar } from 'pages/class/MessagesBar';
 import { useAppSelector } from 'pages/redux/store';
-import { RequestsButton } from './RequestsButton';
-import DeleteClassButton from './DeleteClassButton';
+import { RequestsButton } from 'pages/class/RequestsButton';
+import DeleteClassButton from 'pages/class/DeleteClassButton';
 import JoinButton from './JoinButton';
 import ClassThumbnail from 'pages/classes/ClassThumbnail';
 import { Loading } from 'pages/class/Loading';
-import DeleteClassModal from './DeleteClassModal';
+import DeleteClassModal from 'pages/class/DeleteClassModal';
 export default function ClassPage() {
   useLoginRedirect();
   const router = useRouter();
