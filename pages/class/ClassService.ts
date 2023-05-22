@@ -1,6 +1,6 @@
 import Class from 'pages/classes/Class';
 import InvalidCredentials from '../errors/InvalidCredentials';
-import { getAccessToken } from 'pages/login/authService';
+import { getAccessToken } from 'pages/login/AuthService';
 import { JoinRequest } from './JoinRequest';
 import { request } from 'pages/utils/Service';
 
@@ -10,6 +10,22 @@ export type DirtyJoinRequest = {
   class_id: number;
   user_id: number;
 };
+
+export type UploadThumbnailData = {
+  image: string;
+  id: number;
+}
+
+export type CreateClassData = {
+  title: string;
+  description: string;
+  teacher_id: number;
+}
+
+export type CreateClassResponse = {
+  msg: string;
+  id: number;
+}
 
 const getApiUrl = () => {
   return process.env['NEXT_PUBLIC_API_URL'];
@@ -126,6 +142,34 @@ const deleteClass = async ({classId}: {classId: number}) => {
   )
 }
 
+const postClass = async ({data}: {data: CreateClassData}) => {
+  const endpointUrl = `${getApiUrl()}/api/v1/class`;
+  const headers = getAuthHeaders();
+
+  return await fetch(
+    endpointUrl,
+    {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(data)
+    }
+  )
+}
+
+const postThumbnail = async ({data}: {data: UploadThumbnailData}) => {
+  const endpointUrl = `${getApiUrl()}/api/v1/class/img`;
+  const headers = getAuthHeaders();
+
+  return await fetch(
+    endpointUrl,
+    {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(data)
+    }
+  )
+}
+
 export const findAllClasses = async (): Promise<Class[]> => {
   return await request({
     fetchFunction: getAllClasses,
@@ -227,4 +271,34 @@ export const removeClass = async(classId) => {
     },
     args: { classId },
   });
+}
+
+
+export const createClass = async (cls: CreateClassData) => {
+  return await request<CreateClassResponse>({
+    fetchFunction: postClass,
+    errors: {
+      InvalidCredentials: 'You should be logged in as a teacher to create a class',
+      Forbidden: 'You are not allowed to create a class',
+      Error: 'Something went wrong while creating a class',
+      JsonError: "Couldn't get JSON from response of create a class"
+    },
+    args: {data: cls}
+  })
+}
+
+
+export const uploadThumbnail = async (uploadData: UploadThumbnailData) => {
+  return await request(
+    {
+      fetchFunction: postThumbnail,
+      errors: {
+        InvalidCredentials: `You should be logged in to upload a thumbnail for class ${uploadData.id}`,
+        Forbidden: `You are not allowed to upload a thumbnail for class ${uploadData.id}`,
+        Error: `Something went wrong while uploading a thumbnail for class ${uploadData.id}`,
+        JsonError: `Couldn't fetch JSON from response of uploading a class`
+      },
+      args: {data: uploadData}
+    }
+  )
 }

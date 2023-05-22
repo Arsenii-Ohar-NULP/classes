@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import LoginPage from 'pages/login';
 import { useRouter } from 'next/router';
-import { getAccessToken } from './login/authService';
+import { getAccessToken } from './login/AuthService';
 import { useAppSelector } from './redux/store';
 import { AuthStatus } from './redux/auth';
 

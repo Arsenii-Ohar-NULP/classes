@@ -12,7 +12,7 @@ import { RootState, useAppSelector } from 'pages/redux/store';
 jest.mock('pages/classes/ClassUI');
 jest.mock('pages/redux/store');
 describe('classes page - user classes section test', () => {
-  it('given 5 user classes, render 5 user classes', () => {
+  it('when fetch returns 5 user classes, should render 5 user classes', () => {
     jest.mocked(ClassUI).mockImplementationOnce(ClassMock);
     const state = {
       auth: {
@@ -34,7 +34,7 @@ describe('classes page - user classes section test', () => {
     }
   });
 
-  it('given 0 user classes, return empty fragment', () => {
+  it('when fetch returns 0 user classes, should return empty fragment', () => {
     const state = {
       auth: {
         status: AuthStatus.LOGGED_IN_FETCHED,

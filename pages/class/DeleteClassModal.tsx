@@ -5,7 +5,7 @@ import { Button, Modal } from 'react-bootstrap';
 import { classesActions } from 'pages/redux/classes';
 import { removeClass } from './ClassService';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
-import { logout } from 'pages/login/authService';
+import { logout } from 'pages/login/AuthService';
 
 
 export default function DeleteClassModal({

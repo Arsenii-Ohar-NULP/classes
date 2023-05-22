@@ -5,7 +5,7 @@ import { useAppSelector, useAppDispatch } from 'pages/redux/store';
 import User from 'pages/account/User';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
 import { getUserInfo } from 'pages/account/UserService';
-import { getAccessToken, removeToken } from 'pages/login/authService';
+import { getAccessToken, removeToken } from 'pages/login/AuthService';
 
 function useLoginRedirect() {
   const router = useRouter();

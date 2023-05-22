@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from 'pages/redux/store';
 import EditButton from './EditButton';
 import { editUser } from 'pages/account/UserService';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
-import { logout } from 'pages/login/authService';
+import { logout } from 'pages/login/AuthService';
 import { useRouter } from 'next/router';
 import { authActions } from 'pages/redux/auth';
 

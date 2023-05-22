@@ -1,7 +1,7 @@
 import { request } from '../utils/Service';
 import User, { Role } from './User';
 import InvalidCredentials from '../errors/InvalidCredentials';
-import { getAccessToken } from '../login/authService';
+import { getAccessToken } from '../login/AuthService';
 import Forbidden from 'pages/errors/Forbidden';
 
 const getEndpointUrl = (id?: number) => {

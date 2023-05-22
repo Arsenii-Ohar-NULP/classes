@@ -1,56 +1,64 @@
 import React from 'react';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 
-import LoginPage from 'pages/login/index';
+import LoginPage from 'pages/login';
 import { renderWithProviders } from '../testUtils';
 import { LocalStorageMock } from '__test__/LocalStorageMock';
-import { login, getAccessToken } from 'pages/login/authService';
-import { useRouter } from 'next/router';
+import { login, getAccessToken, saveToken } from 'pages/login/AuthService';
 import { getUserInfo } from 'pages/account/UserService';
 import { sampleUser } from '__test__/data/user';
+import InvalidCredentials from 'pages/errors/InvalidCredentials';
+import { useRouter } from 'next/router';
 
 jest.mock('pages/account/UserService');
-
-// TODO: mock getUserInfo
-jest.mock('pages/login/authService', () => ({
-  login: jest.fn(() => 'ABCD123'),
-  getAccessToken: jest.fn(() => undefined),
-  saveToken: jest.fn()
-}));
-
+jest.mock('pages/login/AuthService');
 Object.defineProperty(window, 'localStorage', {
   value: new LocalStorageMock(),
 });
-const pushMock = jest.fn((url) => console.log(url));
-jest.mock('next/router', () => ({
-  useRouter: () => ({
-    pathname: '/',
-    push: pushMock,
-  }),
-}));
+jest.mock('next/router', () => ({useRouter: jest.fn()}));
 describe('this is a Login Page test', () => {
+  jest.mocked(useRouter).mockReturnValue({push: jest.fn()} as never);
   beforeEach(() => {
     window.localStorage.clear();
     jest.clearAllMocks();
   });
+
+  const fillUsername = (username: string) => {
+    const usernameInput = screen.getByTestId('Username');
+    fireEvent.change(usernameInput, { target: { value: username } });
+  }
+
+  const fillPassword = (password: string) => {
+    const passwordInput = screen.getByTestId('Password');
+    fireEvent.change(passwordInput, {target: {value: password}});
+  }
+
+  const fillUpForm = () => {
+    const sampleUsername = 'senirohar';
+    const samplePassword = 'qwerty1234';
+    
+    fillUsername(sampleUsername);
+    fillPassword(samplePassword);
+  }
 
   it('matches a snapshot', async () => {
     const page = renderWithProviders(<LoginPage />);
     expect(page).toMatchSnapshot();
   });
 
-  it('pushes if a token exists', async () => {
+  it('when token exists, should push to /classes', async () => {
     const token = 'Q2312312321311225';
     jest.mocked(getAccessToken).mockImplementationOnce(() => token);
     jest.mocked(getUserInfo).mockImplementationOnce(() => Promise.resolve(sampleUser));
     renderWithProviders(<LoginPage />);
     await waitFor(() => {
       expect(jest.mocked(useRouter().push)).toBeCalledWith('/classes');
-      expect(getUserInfo).toBeCalled();
+      expect(jest.mocked(getAccessToken)).toBeCalled();
+      expect(jest.mocked(getUserInfo)).toBeCalled();
     });
   });
 
-  it('pushes to sign up page if signup button is clicked', async () => {
+  it('when signup button is clicked, should push to sign up page', async () => {
     renderWithProviders(<LoginPage />);
     const signUpButton = screen.getByText('Sign up');
     fireEvent.click(signUpButton);
@@ -59,16 +67,16 @@ describe('this is a Login Page test', () => {
     );
   });
 
-  it('shows fail message if validation error', async () => {
+  it('when validation error occurs, shows fail message', async () => {
     const mockedLogin = jest.fn();
-    mockedLogin.mockReturnValue('ABCD123');
+    const sampleUsername = 'hell';
+    mockedLogin.mockReturnValueOnce('ABCD123');
     jest.mock('pages/login/authService', () => ({
       login: mockedLogin,
     }));
 
     renderWithProviders(<LoginPage />);
-    const usernameInput = screen.getByTestId('Username');
-    fireEvent.change(usernameInput, { target: { value: 'hell' } });
+    fillUsername(sampleUsername);
     const login = screen.getByText('Log in');
     fireEvent.click(login);
 
@@ -77,23 +85,59 @@ describe('this is a Login Page test', () => {
     expect(error).toHaveTextContent('');
   });
 
-  it('pushes to /signUp/?username= on click, if username is set', async () => {
+  
+
+  it('when backend error, show server error', async ( )=> {
+    jest.mocked(login).mockRejectedValueOnce(() => new InvalidCredentials('error'));
+    
+    renderWithProviders(<LoginPage />);
+    fillUpForm();
+    const loginButton = screen.getByText('Log in');
+    fireEvent.click(loginButton);
+    await waitFor(() => {
+      expect(jest.mocked(login)).toBeCalled();
+      const error = screen.getByTestId('error')
+      expect(error).toBeInTheDocument();
+    });
+  })
+
+  it('when username set and sign up is clicked, should push to /signUp/?username=', async () => {
     jest.mocked(getUserInfo).mockImplementationOnce(() => Promise.resolve(sampleUser));
     renderWithProviders(<LoginPage />);
     const usernameInput = screen.getByTestId('Username');
-    const mockUsername = 'seniorohar';
-    fireEvent.change(usernameInput, { target: { value: mockUsername } });
+    const username = 'seniorohar';
+    fireEvent.change(usernameInput, { target: { value: username } });
     const signUpButton = screen.getByText('Sign up');
     fireEvent.click(signUpButton);
 
     await waitFor(() =>
       expect(jest.mocked(useRouter().push)).toBeCalledWith(
-        `signUp/?username=${mockUsername}`
+        `signUp/?username=${username}`
       )
     );
   });
 
-  it('tries to log in on valid data', async () => {
+  it('when rememberMe is unchecked and clicked log in with valid data, should call save token with remember me to false', async () => {
+    const tickCheckbox = () => {
+      const checkbox = screen.getByTestId('remember-me');
+      fireEvent.click(checkbox);
+    }
+    const token = 'ABCD1234';
+    const rememberMe = false;
+    jest.mocked(login).mockResolvedValueOnce(token);
+    
+    renderWithProviders(<LoginPage />);
+    fillUpForm();
+    tickCheckbox();
+    const loginButton = screen.getByText('Log in');
+    fireEvent.click(loginButton);
+    await waitFor(() => {
+      expect(jest.mocked(login)).toBeCalled();
+      expect(jest.mocked(saveToken)).toBeCalledWith(token, rememberMe);
+    });
+  })
+
+  it('when tries to log in on valid data, should fetch access token and no error should occur', async () => {
     renderWithProviders(<LoginPage />);
     const usernameInput = screen.getByTestId('Username');
     fireEvent.change(usernameInput, { target: { value: 'seniorohar' } });

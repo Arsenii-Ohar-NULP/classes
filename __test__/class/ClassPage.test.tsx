@@ -23,7 +23,7 @@ jest.mock('next/router', () => ({
 }));
 
 describe('class page test', () => {
-  it('matches snapshot', async () => {
+  it('should match a snapshot', async () => {
     jest.mocked(findClass).mockResolvedValueOnce(sampleFiveClasses[0]);
     const page = renderWithProviders(<ClassPage />, {
       preloadedState: {

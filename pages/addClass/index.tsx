@@ -2,26 +2,21 @@ import React from 'react';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { createClass, uploadThumbnail } from 'pages/class/ClassService';
+import { useAppSelector } from 'pages/redux/store';
+import InvalidCredentials from 'pages/errors/InvalidCredentials';
+import { useLogout } from 'pages/login/AuthService';
+import TextInput from './TextInput';
+import FileInput from './FileInput';
+import AddClassButton from './AddClassButton';
 
-function FormInput({ errorMessage, id, placeholder, registration, ...other }:  {
-    errorMessage?: string
-    id: string,
-    placeholder: string,
-    registration: object
-}) {
-    return <div className="my-2 has-validation">
-        <input
-            placeholder={placeholder}
-            id={id}
-            className={"form-control-lg rounded-4 p-1 px-2" + (errorMessage ? " invalid-input" : "")}
-            {...registration}
-            {...other}
-        />
-        <div className={'invalid'}>{errorMessage ? errorMessage : ""}</div>
-    </div>
-}
+type ClassData = {
+  Title: string;
+  Description: string;
+  Image: File[];
+};
 
-export default function AddClassPage() {
+function useClassForm(){
   const schema = yup
     .object({
       Title: yup.string().required(),
@@ -35,10 +30,66 @@ export default function AddClassPage() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  return <div>
-    <form>
-        <FormInput placeholder='Enter a title' id="Title" errorMessage={errors?.Title?.message?.toString()} registration={register("Title")}/>
-        <FormInput placeholder='Enter a description' id="Title" errorMessage={errors?.Title?.message?.toString()} registration={register("Title")}/>
-    </form>
-  </div>;
+
+  return {register, handleSubmit, errors};
+}
+
+export default function AddClassPage() {
+  const {register, handleSubmit, errors} = useClassForm();
+  const userId = useAppSelector((state) => state.auth?.user?.id);
+  const logout = useLogout();
+
+  const onSubmit = (data: ClassData) => {
+    try {
+      const file = data.Image[0];
+      const reader = new FileReader();
+
+      reader.onload = async () => {
+        const base64String = (reader.result as string).split(',')[1];
+        try {
+          const classResponse = await createClass({
+            title: data.Title,
+            description: data.Description,
+            teacher_id: userId,
+          });
+          await uploadThumbnail({ image: base64String, id: classResponse.id });
+        } catch (error) {
+          if (error instanceof InvalidCredentials) {
+            logout();
+          }
+        }
+      };
+
+      reader.readAsDataURL(file);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <div className="container p-1 d-flex flex-column align-items-center">
+      <h1 className="p-2">Add a class</h1>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <TextInput
+          placeholder="Enter a title"
+          id="Title"
+          errorMessage={errors?.Title?.message?.toString()}
+          registration={register('Title')}
+        />
+        <TextInput
+          placeholder="Enter a description"
+          id="Description"
+          errorMessage={errors?.Description?.message?.toString()}
+          registration={register('Description')}
+        />
+        <FileInput
+          id="ImageInput"
+          placeholder="Upload a class thumbnail"
+          registration={register('Image')}
+        />
+        <hr />
+        <AddClassButton />
+      </form>
+    </div>
+  );
 }

@@ -99,11 +99,12 @@ exports[`this is a Login Page test matches a snapshot 1`] = `
               />
             </div>
             <div
-              class="form-check d-inline-block justify-content-center align-items-center "
+              class="form-check d-inline-block justify-content-center align-items-center"
             >
               <input
                 checked=""
                 class="form-check-input"
+                data-testid="remember-me"
                 formnovalidate=""
                 id="remember-me"
                 name="remember-me"
@@ -241,11 +242,12 @@ exports[`this is a Login Page test matches a snapshot 1`] = `
             />
           </div>
           <div
-            class="form-check d-inline-block justify-content-center align-items-center "
+            class="form-check d-inline-block justify-content-center align-items-center"
           >
             <input
               checked=""
               class="form-check-input"
+              data-testid="remember-me"
               formnovalidate=""
               id="remember-me"
               name="remember-me"

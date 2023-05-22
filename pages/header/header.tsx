@@ -6,13 +6,14 @@ import styles from 'pages/header/header.module.scss';
 import AccountPage from '../account';
 import Logo from '../utils/logo';
 import ClassPage from '../class/[id]';
-import User from '../account/User';
+import User, { Role } from '../account/User';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import Requests from '../requests/[id]';
 import ProfilePicture from '../ProfilePic';
-import { logout } from '../login/authService';
+import { logout } from '../login/AuthService';
 import AddClassPage from 'pages/addClass';
 import EditAccountPage from 'pages/account/edit';
+import AddClassButton from './AddClassButton';
 
 function LogoutButton() {
   const router = useRouter();
@@ -96,7 +97,7 @@ function Header({ currentComponent }: HeaderParams) {
               </li>
             </ul>
             <div className="text-center text-lg-end">
-              {/* { user?.role === Role.Teacher && <AddClassButton/>} */}
+              {user?.role === Role.Teacher && <AddClassButton/>}
               {user ? <AccountButton user={user} /> : <Loading />}
               <LogoutButton />
             </div>

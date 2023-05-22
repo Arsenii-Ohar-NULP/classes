@@ -8,14 +8,14 @@ import {
 import Class from 'pages/classes/Class';
 import Forbidden from 'pages/errors/Forbidden';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
-import { getAccessToken } from 'pages/login/authService';
+import { getAccessToken } from 'pages/login/AuthService';
 
 jest.mock('pages/login/AuthService');
 
 describe('findAllClasses test', () => {
   mockFetch();
 
-  it('given 5 classes in fetch, findAllClasses returns 5 classes', async () => {
+  it('when fetch returns 5 classes, should return 5 classes', async () => {
     const expectedClasses: Class[] = [...sampleFiveClasses];
     jest.mocked(fetch).mockResolvedValueOnce({
       json: () => Promise.resolve(expectedClasses),
@@ -27,7 +27,7 @@ describe('findAllClasses test', () => {
     expect(actualClasses).toBe(expectedClasses);
   });
 
-  it('given error, throw Error', async () => {
+  it('when fetch returns 500, should reject and throw Error', async () => {
     jest.mocked(fetch).mockResolvedValueOnce({
       json: () => Promise.resolve({ msg: 'Something went wrong' }),
       status: 500,
@@ -37,7 +37,7 @@ describe('findAllClasses test', () => {
     expect(findAllClasses).rejects.toThrow(Error);
   });
 
-  it('when fetching, throw Forbidden', () => {
+  it('when fetch returns Forbidden(403), should reject and throw Forbidden', () => {
     jest.mocked(fetch).mockResolvedValueOnce({
       json: () =>
         Promise.resolve({
@@ -54,7 +54,7 @@ describe('findAllClasses test', () => {
 describe('getUserJoinRequests test', () => {
   mockFetch();
 
-  it('given join requests, run successfully', async () => {
+  it('when fetch returns 2 join requests, return 2 join requests', async () => {
     const joinRequests: DirtyJoinRequest[] = [
       {
         class_id: 1,
@@ -79,7 +79,7 @@ describe('getUserJoinRequests test', () => {
     );
   });
 
-  it('given no user auth, when fetching, throw InvalidCredentials', async () => {
+  it('given no user auth, when fetching returns 401, throw InvalidCredentials', async () => {
     jest.mocked(getAccessToken).mockReturnValueOnce(null);
     jest.mocked(fetch).mockResolvedValueOnce({
       json: () => Promise.resolve({ msg: 'No authentication provided' }),

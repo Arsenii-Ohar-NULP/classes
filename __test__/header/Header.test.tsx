@@ -11,12 +11,12 @@ jest.mock('next/router', () => ({
   }));
 
 describe('header test', () => {
-    it('given no component, matches snapshot', () => {
+    it('when no component, should match a snapshot', () => {
         const header = renderWithProviders(<Header currentComponent={null}/>);
         expect(header).toMatchSnapshot();
     })
 
-    it('given ClassPage component, matches snapshot', () => {
+    it('when ClassPage component, should match a snapshot', () => {
         const header = renderWithProviders(<Header currentComponent={ClassPage}/>);
         expect(header).toMatchSnapshot();
     })

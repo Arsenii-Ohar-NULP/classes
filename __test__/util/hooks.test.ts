@@ -1,8 +1,8 @@
-import { getAccessToken } from 'pages/login/authService';
+import { getAccessToken } from 'pages/login/AuthService';
 import { getUserInfo } from 'pages/account/UserService';
 import { sampleUser } from '__test__/data/user';
 import { useMainPageRedirect, useLoginRedirect } from 'pages/utils/hooks';
-import { act, renderHook, waitFor } from '@testing-library/react';
+import { waitFor } from '@testing-library/react';
 import { renderHookWithProviders } from '__test__/testUtils';
 import { useRouter } from 'next/router';
 
