@@ -1,5 +1,7 @@
+import { useRouter } from 'next/router';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
 import { authActions } from 'pages/redux/auth';
+import { useAppDispatch } from 'pages/redux/store';
 
 export const accessTokenKey = 'accessToken';
 
@@ -66,6 +68,15 @@ export const logout = (dispatch, router) => {
   removeToken();
   dispatch(authActions.logout());
   router.push('/login');
+}
+
+export const useLogout = () => {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const adaptedLogout = () => logout(dispatch, router);
+
+  return adaptedLogout
 }
 
 const saveInSession = (token) => {
