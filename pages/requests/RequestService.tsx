@@ -1,6 +1,6 @@
 import { request } from 'pages/utils/Service';
 import { JoinRequest } from 'pages/class/JoinRequest';
-import { getAccessToken } from 'pages/login/authService';
+import { getAccessToken } from 'pages/login/AuthService';
 
 const getApiUrl = () => {
   return process.env['NEXT_PUBLIC_API_URL'];

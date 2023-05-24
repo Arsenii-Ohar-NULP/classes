@@ -6,7 +6,7 @@ import RequestCard from './RequestCard';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
 import { useDispatch } from 'react-redux';
 import { authActions } from 'pages/redux/auth';
-import { removeToken } from 'pages/login/authService';
+import { removeToken } from 'pages/login/AuthService';
 import Head from 'next/head';
 // eslint-disable-next-line no-empty-pattern
 export default function Requests({}) {

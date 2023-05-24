@@ -5,7 +5,7 @@ import { useAppSelector, useAppDispatch } from 'pages/redux/store';
 import User from 'pages/account/User';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
 import { getUserInfo } from 'pages/account/UserService';
-import { getAccessToken, removeToken } from 'pages/login/authService';
+import { getAccessToken, removeToken } from 'pages/login/AuthService';
 
 function useLoginRedirect() {
   const router = useRouter();
@@ -13,7 +13,6 @@ function useLoginRedirect() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-
     if (!getAccessToken()) {
       if (authStatus !== AuthStatus.LOGGED_OUT) {
         dispatch(authActions.logout());
@@ -55,10 +54,11 @@ function useMainPageRedirect() {
   useEffect(() => {
     const token = getAccessToken();
     if (token) {
-      if (authStatus === AuthStatus.LOGGED_OUT) {
-        dispatch(authActions.login);
-      }
-      getUserInfo(token).then(() => router.push(mainPagePath));
+      getUserInfo(token).then((user) => {
+        if (authStatus === AuthStatus.LOGGED_OUT){
+          dispatch(authActions.login(user))
+        }
+        router.push(mainPagePath)});
     }
   }, [authStatus]);
 }

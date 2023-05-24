@@ -22,7 +22,6 @@ export const request = async <T>({
       : await (fetchFunction as () => Promise<Response>)();
   
     if (!response.ok) {
-      // TODO: You better change this to a custom one
       if (response.status == 401) {
         throw new InvalidCredentials(errors[InvalidCredentials.name]);
       }

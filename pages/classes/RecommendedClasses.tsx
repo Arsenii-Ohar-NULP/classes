@@ -24,7 +24,7 @@ export default function RecommendedClasses() {
 
   return (
     <div>
-      <div className={'row justify-content-center'}>
+      <div className={'row justify-content-center'} data-testid={'recommended-div'}>
         {isLoaded &&
           classes.map((cls) => (
             <Link

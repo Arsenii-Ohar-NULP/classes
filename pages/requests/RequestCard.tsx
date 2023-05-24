@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAccessToken, logout } from 'pages/login/authService';
+import { getAccessToken, logout } from 'pages/login/AuthService';
 import { getUserInfo } from 'pages/account/UserService';
 import User from 'pages/account/User';
 import ProfilePicture from 'pages/ProfilePic';

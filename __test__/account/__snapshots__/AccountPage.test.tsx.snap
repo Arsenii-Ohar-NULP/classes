@@ -1,0 +1,713 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`account page test given no user auth, should match a snapshot 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div />
+  </body>,
+  "container": <div />,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "store": {
+    "@@observable": [Function],
+    "dispatch": [Function],
+    "getState": [Function],
+    "replaceReducer": [Function],
+    "subscribe": [Function],
+  },
+  "unmount": [Function],
+}
+`;
+
+exports[`account page test matches snapshot 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="container"
+      >
+        <h1
+          class="p-2 text-center"
+        >
+          Personal Information
+        </h1>
+        <div
+          class="d-flex justify-content-center"
+        >
+          <div
+            class="d-inline-block"
+          >
+            <div
+              class="d-flex flex-column gap"
+            >
+              <div
+                class="d-flex gap-5"
+              >
+                <h6
+                  class="col"
+                >
+                  Username
+                </h6>
+                <h6
+                  class="col"
+                >
+                  seniorohar
+                </h6>
+              </div>
+              <hr />
+              <div
+                class="d-flex gap-5"
+              >
+                <h6
+                  class="col"
+                >
+                  Email
+                </h6>
+                <h6
+                  class="col"
+                >
+                  arsen.ogar@gmail.com
+                </h6>
+              </div>
+              <hr />
+              <div
+                class="d-flex gap-5"
+              >
+                <h6
+                  class="col"
+                >
+                  Phone
+                </h6>
+                <h6
+                  class="col"
+                >
+                  +380987669293
+                </h6>
+              </div>
+              <hr />
+              <div
+                class="d-flex gap-5"
+              >
+                <h6
+                  class="col"
+                >
+                  First Name
+                </h6>
+                <h6
+                  class="col"
+                >
+                  Arsenii
+                </h6>
+              </div>
+              <hr />
+              <div
+                class="d-flex gap-5"
+              >
+                <h6
+                  class="col"
+                >
+                  Last Name
+                </h6>
+                <h6
+                  class="col"
+                >
+                  Ohar
+                </h6>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div
+          class="text-center"
+        >
+          <a
+            href="/account/edit"
+          >
+            <button
+              class="btn btn-primary"
+            >
+              Edit
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="container"
+    >
+      <h1
+        class="p-2 text-center"
+      >
+        Personal Information
+      </h1>
+      <div
+        class="d-flex justify-content-center"
+      >
+        <div
+          class="d-inline-block"
+        >
+          <div
+            class="d-flex flex-column gap"
+          >
+            <div
+              class="d-flex gap-5"
+            >
+              <h6
+                class="col"
+              >
+                Username
+              </h6>
+              <h6
+                class="col"
+              >
+                seniorohar
+              </h6>
+            </div>
+            <hr />
+            <div
+              class="d-flex gap-5"
+            >
+              <h6
+                class="col"
+              >
+                Email
+              </h6>
+              <h6
+                class="col"
+              >
+                arsen.ogar@gmail.com
+              </h6>
+            </div>
+            <hr />
+            <div
+              class="d-flex gap-5"
+            >
+              <h6
+                class="col"
+              >
+                Phone
+              </h6>
+              <h6
+                class="col"
+              >
+                +380987669293
+              </h6>
+            </div>
+            <hr />
+            <div
+              class="d-flex gap-5"
+            >
+              <h6
+                class="col"
+              >
+                First Name
+              </h6>
+              <h6
+                class="col"
+              >
+                Arsenii
+              </h6>
+            </div>
+            <hr />
+            <div
+              class="d-flex gap-5"
+            >
+              <h6
+                class="col"
+              >
+                Last Name
+              </h6>
+              <h6
+                class="col"
+              >
+                Ohar
+              </h6>
+            </div>
+            <hr />
+          </div>
+        </div>
+      </div>
+      <div
+        class="text-center"
+      >
+        <a
+          href="/account/edit"
+        >
+          <button
+            class="btn btn-primary"
+          >
+            Edit
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "store": {
+    "@@observable": [Function],
+    "dispatch": [Function],
+    "getState": [Function],
+    "replaceReducer": [Function],
+    "subscribe": [Function],
+  },
+  "unmount": [Function],
+}
+`;
+
+exports[`account page test matches snapshot on no user provided 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div />
+  </body>,
+  "container": <div />,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "store": {
+    "@@observable": [Function],
+    "dispatch": [Function],
+    "getState": [Function],
+    "replaceReducer": [Function],
+    "subscribe": [Function],
+  },
+  "unmount": [Function],
+}
+`;
+
+exports[`account page test should match a snapshot 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="container"
+      >
+        <h1
+          class="p-2 text-center"
+        >
+          Personal Information
+        </h1>
+        <div
+          class="d-flex justify-content-center"
+        >
+          <div
+            class="d-inline-block"
+          >
+            <div
+              class="d-flex flex-column gap"
+            >
+              <div
+                class="d-flex gap-5"
+              >
+                <h6
+                  class="col"
+                >
+                  Username
+                </h6>
+                <h6
+                  class="col"
+                >
+                  seniorohar
+                </h6>
+              </div>
+              <hr />
+              <div
+                class="d-flex gap-5"
+              >
+                <h6
+                  class="col"
+                >
+                  Email
+                </h6>
+                <h6
+                  class="col"
+                >
+                  arsen.ogar@gmail.com
+                </h6>
+              </div>
+              <hr />
+              <div
+                class="d-flex gap-5"
+              >
+                <h6
+                  class="col"
+                >
+                  Phone
+                </h6>
+                <h6
+                  class="col"
+                >
+                  +380987669293
+                </h6>
+              </div>
+              <hr />
+              <div
+                class="d-flex gap-5"
+              >
+                <h6
+                  class="col"
+                >
+                  First Name
+                </h6>
+                <h6
+                  class="col"
+                >
+                  Arsenii
+                </h6>
+              </div>
+              <hr />
+              <div
+                class="d-flex gap-5"
+              >
+                <h6
+                  class="col"
+                >
+                  Last Name
+                </h6>
+                <h6
+                  class="col"
+                >
+                  Ohar
+                </h6>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div
+          class="text-center"
+        >
+          <a
+            href="/account/edit"
+          >
+            <button
+              class="btn btn-primary"
+            >
+              Edit
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="container"
+    >
+      <h1
+        class="p-2 text-center"
+      >
+        Personal Information
+      </h1>
+      <div
+        class="d-flex justify-content-center"
+      >
+        <div
+          class="d-inline-block"
+        >
+          <div
+            class="d-flex flex-column gap"
+          >
+            <div
+              class="d-flex gap-5"
+            >
+              <h6
+                class="col"
+              >
+                Username
+              </h6>
+              <h6
+                class="col"
+              >
+                seniorohar
+              </h6>
+            </div>
+            <hr />
+            <div
+              class="d-flex gap-5"
+            >
+              <h6
+                class="col"
+              >
+                Email
+              </h6>
+              <h6
+                class="col"
+              >
+                arsen.ogar@gmail.com
+              </h6>
+            </div>
+            <hr />
+            <div
+              class="d-flex gap-5"
+            >
+              <h6
+                class="col"
+              >
+                Phone
+              </h6>
+              <h6
+                class="col"
+              >
+                +380987669293
+              </h6>
+            </div>
+            <hr />
+            <div
+              class="d-flex gap-5"
+            >
+              <h6
+                class="col"
+              >
+                First Name
+              </h6>
+              <h6
+                class="col"
+              >
+                Arsenii
+              </h6>
+            </div>
+            <hr />
+            <div
+              class="d-flex gap-5"
+            >
+              <h6
+                class="col"
+              >
+                Last Name
+              </h6>
+              <h6
+                class="col"
+              >
+                Ohar
+              </h6>
+            </div>
+            <hr />
+          </div>
+        </div>
+      </div>
+      <div
+        class="text-center"
+      >
+        <a
+          href="/account/edit"
+        >
+          <button
+            class="btn btn-primary"
+          >
+            Edit
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "store": {
+    "@@observable": [Function],
+    "dispatch": [Function],
+    "getState": [Function],
+    "replaceReducer": [Function],
+    "subscribe": [Function],
+  },
+  "unmount": [Function],
+}
+`;

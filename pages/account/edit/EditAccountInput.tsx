@@ -6,7 +6,6 @@ type FormInputProps = {
   registration: object;
   value?: string;
   type?: string;
-  
 };
 export function EditAccountInput({
   errorMessage,

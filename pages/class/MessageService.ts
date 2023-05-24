@@ -1,7 +1,7 @@
 import Forbidden from 'pages/errors/Forbidden';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
 import Message from './Message';
-import { getAccessToken } from 'pages/login/authService';
+import { getAccessToken } from 'pages/login/AuthService';
 import { request } from 'pages/utils/Service';
 
 const getApiUrl = () => {

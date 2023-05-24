@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from './redux/store';
 import { AuthStatus, authActions } from 'pages/redux/auth';
 import { fetchUserData } from 'pages/redux/classesActions';
 import { getUserInfo } from './account/UserService';
-import { getAccessToken, logout } from './login/authService';
+import { getAccessToken, logout } from './login/AuthService';
 import InvalidCredentials from './errors/InvalidCredentials';
 import { useRouter } from 'next/router';
 
@@ -40,7 +40,7 @@ export default function App({ component }: AppParams) {
 
   return (
     <div>
-      <Header currentComponent={component} />
+      <Header currentComponent={component.type} />
       {component}
     </div>
   );

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useAppDispatch } from 'pages/redux/store';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
 import { removeMessage } from './MessageService';
-import { logout } from 'pages/login/authService';
+import { logout } from 'pages/login/AuthService';
 import { Button, Modal } from 'react-bootstrap';
 
 

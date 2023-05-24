@@ -6,13 +6,14 @@ import styles from 'pages/header/header.module.scss';
 import AccountPage from '../account';
 import Logo from '../utils/logo';
 import ClassPage from '../class/[id]';
-import User from '../account/User';
+import User, { Role } from '../account/User';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import Requests from '../requests/[id]';
 import ProfilePicture from '../ProfilePic';
-import { logout } from '../login/authService';
+import { logout } from '../login/AuthService';
 import AddClassPage from 'pages/addClass';
 import EditAccountPage from 'pages/account/edit';
+import AddClassButton from './AddClassButton';
 
 function LogoutButton() {
   const router = useRouter();
@@ -46,7 +47,7 @@ function Loading() {
 }
 
 type HeaderParams = {
-  currentComponent: JSX.Element;
+  currentComponent: any;
 };
 
 function AccountButton({ user }: { user: User }) {
@@ -61,7 +62,7 @@ function AccountButton({ user }: { user: User }) {
 function Header({ currentComponent }: HeaderParams) {
   const tabs = [Classes, AccountPage, ClassPage, Requests, AddClassPage, EditAccountPage];
 
-  if (!tabs.find((element) => element.name == currentComponent.type.name))
+  if (!tabs.find((element) => element.name == currentComponent?.name))
     return <></>;
 
   const user = useAppSelector((state) => state.auth.user);
@@ -69,7 +70,6 @@ function Header({ currentComponent }: HeaderParams) {
   function HeaderDiv() {
     return (
       <header className="p-3 bg-dark text-white">
-        {/* <Script src={"./node_modules/bootstrap/dist/js/bootstrap.bundle"}/> */}
         <div className="navbar navbar-expand-lg navbar-dark">
           <div className="navbar-brand border rounded me-2">
             <Logo />
@@ -97,7 +97,7 @@ function Header({ currentComponent }: HeaderParams) {
               </li>
             </ul>
             <div className="text-center text-lg-end">
-              {/* { user?.role === Role.Teacher && <AddClassButton/>} */}
+              {user?.role === Role.Teacher && <AddClassButton/>}
               {user ? <AccountButton user={user} /> : <Loading />}
               <LogoutButton />
             </div>
@@ -107,10 +107,8 @@ function Header({ currentComponent }: HeaderParams) {
     );
   }
 
-  return tabs.find((element) => element.name == currentComponent.type.name) ? (
+  return tabs.find((element) => element.name == currentComponent.name) && (
     HeaderDiv()
-  ) : (
-    <></>
   );
 }
 

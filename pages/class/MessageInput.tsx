@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import sendIcon from 'icons/send.svg';
-import { saveMessage } from 'pages/class/MessageService';
-import { useAppDispatch, useAppSelector } from 'pages/redux/store';
 import Message from 'pages/class/Message';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
+import { useAppDispatch, useAppSelector } from 'pages/redux/store';
+import { saveMessage } from 'pages/class/MessageService';
 import { authActions } from 'pages/redux/auth';
 import { useRouter } from 'next/router';
-import {Button} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import clsx from 'clsx';
 
 export function MessageInput({
   forbidden,
   onSend,
-  classId
+  classId,
 }: {
   forbidden: boolean;
-  onSend: (message) => void;
+  onSend: (message: Message) => void;
   classId: number;
 }) {
   const [messageText, setMessage] = useState<string>(null);
-  
+
   const userId = useAppSelector((state) => state.auth.user?.id);
-  const username = useAppSelector((state) => state.auth.user?.username);  
+  const username = useAppSelector((state) => state.auth.user?.username);
   const firstName = useAppSelector((state) => state.auth.user?.firstName);
   const lastName = useAppSelector((state) => state.auth.user?.lastName);
 
@@ -55,7 +56,7 @@ export function MessageInput({
   }
 
   return (
-    <div className="fixed-bottom">
+    <div className="fixed-bottom m-4">
       <form>
         <div className="input-group">
           <input
@@ -66,12 +67,11 @@ export function MessageInput({
             disabled={forbidden}
           ></input>
           <Button
-            variant='primary'
-            className={
-              (messageText == null || 
-              isEmptyOrSpaces(messageText))
-                && 'visually-hidden'
-            }
+            variant="primary"
+            className={clsx({
+              'visually-hidden':
+                messageText == null || isEmptyOrSpaces(messageText),
+            })}
             onClick={send}
           >
             <Image alt={'Send Icon'} src={sendIcon} width={24} height={24} />

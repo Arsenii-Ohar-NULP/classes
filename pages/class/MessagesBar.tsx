@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAppDispatch } from 'pages/redux/store';
 import { getMessages } from './MessageService';
-import { removeToken } from 'pages/login/authService';
+import { removeToken } from 'pages/login/AuthService';
 import { authActions } from 'pages/redux/auth';
 import { MessageInput } from './MessageInput';
 import Class from 'pages/classes/Class';
