@@ -4,11 +4,12 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createClass, uploadThumbnail } from 'pages/class/ClassService';
 import { useAppSelector } from 'pages/redux/store';
-import InvalidCredentials from 'pages/errors/InvalidCredentials';
 import { useLogout } from 'pages/login/AuthService';
+import InvalidCredentials from 'pages/errors/InvalidCredentials';
 import TextInput from './TextInput';
 import FileInput from './FileInput';
 import AddClassButton from './AddClassButton';
+import { BadRequest } from 'pages/errors/BadRequest';
 
 type ClassData = {
   Title: string;
@@ -56,6 +57,10 @@ export default function AddClassPage() {
         } catch (error) {
           if (error instanceof InvalidCredentials) {
             logout();
+          }
+
+          if (error instanceof BadRequest) {
+            alert(error.message);
           }
         }
       };

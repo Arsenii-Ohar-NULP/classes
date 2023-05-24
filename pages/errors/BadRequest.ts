@@ -1,7 +1,7 @@
 import DefaultError from './DefaultError';
 
-export default class Forbidden extends DefaultError{
+export class BadRequest extends DefaultError{
     constructor(message: string){
-        super(message, 403);
+        super(message, 400);
     }
 }

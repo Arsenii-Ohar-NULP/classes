@@ -24,12 +24,12 @@ export default function RecommendedClasses() {
 
   return (
     <div>
-      <div className={'row justify-content-center'} data-testid={'recommended-div'}>
+      <div className={'d-flex flex-wrap justify-content-center'} data-testid={'recommended-div'}>
         {isLoaded &&
           classes.map((cls) => (
             <Link
               className={
-                'col-md text-decoration-none text-dark ' + styles['class-block']
+                'col-md text-decoration-none text-dark ' + `${styles['class-block']} ` + styles['class-flex']
               }
               key={cls.id}
               href={`/class/${cls.id}`}
