@@ -10,6 +10,7 @@ import TextInput from './TextInput';
 import FileInput from './FileInput';
 import AddClassButton from './AddClassButton';
 import { BadRequest } from 'pages/errors/BadRequest';
+import { useRouter } from 'next/router';
 
 type ClassData = {
   Title: string;
@@ -39,6 +40,7 @@ export default function AddClassPage() {
   const {register, handleSubmit, errors} = useClassForm();
   const userId = useAppSelector((state) => state.auth?.user?.id);
   const logout = useLogout();
+  const router = useRouter();
 
   const onSubmit = (data: ClassData) => {
     try {
@@ -54,6 +56,7 @@ export default function AddClassPage() {
             teacher_id: userId,
           });
           await uploadThumbnail({ image: base64String, id: classResponse.id });
+          await router.push('/classes');
         } catch (error) {
           if (error instanceof InvalidCredentials) {
             logout();

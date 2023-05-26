@@ -156,14 +156,14 @@ const postClass = async ({data}: {data: CreateClassData}) => {
   )
 }
 
-const postThumbnail = async ({data}: {data: UploadThumbnailData}) => {
+const putThumbnail = async ({data}: {data: UploadThumbnailData}) => {
   const endpointUrl = `${getApiUrl()}/api/v1/class/img`;
   const headers = getAuthHeaders();
 
   return await fetch(
     endpointUrl,
     {
-      method: 'POST',
+      method: 'PUT',
       headers,
       body: JSON.stringify(data)
     }
@@ -291,7 +291,7 @@ export const createClass = async (cls: CreateClassData) => {
 export const uploadThumbnail = async (uploadData: UploadThumbnailData) => {
   return await request(
     {
-      fetchFunction: postThumbnail,
+      fetchFunction: putThumbnail,
       errors: {
         InvalidCredentials: `You should be logged in to upload a thumbnail for class ${uploadData.id}`,
         Forbidden: `You are not allowed to upload a thumbnail for class ${uploadData.id}`,
