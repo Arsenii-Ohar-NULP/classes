@@ -29,7 +29,7 @@ export default function RecommendedClasses() {
           classes.map((cls) => (
             <Link
               className={
-                'col-md text-decoration-none text-dark ' + `${styles['class-block']} ` + styles['class-flex']
+                'text-decoration-none text-dark ' + `${styles['class-block']} ` + styles['class-flex']
               }
               key={cls.id}
               href={`/class/${cls.id}`}

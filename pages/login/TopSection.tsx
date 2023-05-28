@@ -1,4 +1,4 @@
-import Logo from "../utils/logo";
+import Logo from "../utils/Logo";
 import Image from "next/image";
 import smilingFace from "../../public/images/Slightly Smiling Face.svg";
 import React from "react";

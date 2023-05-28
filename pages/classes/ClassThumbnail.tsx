@@ -37,7 +37,7 @@ export default function ClassThumbnail({ cls }: { cls: Class }) {
       {image ? (
         <img
           className={
-            'rounded text-center border border-dark ' + styles['thumbnail']
+            'rounded text-center border border-dark shadow ' + styles['thumbnail']
           }
           alt={cls.title}
           src={image}
