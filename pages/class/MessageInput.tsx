@@ -19,7 +19,7 @@ export function MessageInput({
   onSend: (message: Message) => void;
   classId: number;
 }) {
-  const [messageText, setMessage] = useState<string>(null);
+  const [messageText, setMessage] = useState<string>('');
 
   const userId = useAppSelector((state) => state.auth.user?.id);
   const username = useAppSelector((state) => state.auth.user?.username);

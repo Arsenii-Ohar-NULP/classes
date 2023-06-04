@@ -13,14 +13,21 @@ import AddClassButton from './AddClassButton';
 import Loading from './Loading';
 import AccountButton from './AccountButton';
 import LogoutButton from './LogoutButton';
-
+import styles from 'pages/header/header.module.scss';
 
 type HeaderParams = {
   currentComponent: any;
 };
 
 function Header({ currentComponent }: HeaderParams) {
-  const tabs = [Classes, AccountPage, ClassPage, Requests, AddClassPage, EditAccountPage];
+  const tabs = [
+    Classes,
+    AccountPage,
+    ClassPage,
+    Requests,
+    AddClassPage,
+    EditAccountPage,
+  ];
 
   if (!tabs.find((element) => element.name == currentComponent?.name))
     return <></>;
@@ -29,8 +36,11 @@ function Header({ currentComponent }: HeaderParams) {
 
   function HeaderDiv() {
     return (
-      <header className="p-3 bg-light text-white">
-        <div className="navbar navbar-expand-lg navbar-light">
+      <header className={'p-3 text-white position-relative'}>
+        <div className={styles['blur-100']}>
+          <div className={styles['header-background']}></div>
+        </div>
+        <div className="navbar navbar-expand-lg">
           <div className="navbar-brand rounded me-2">
             <Logo />
           </div>
@@ -57,7 +67,7 @@ function Header({ currentComponent }: HeaderParams) {
               </li>
             </ul>
             <div className="text-center text-lg-end">
-              {user?.role === Role.Teacher && <AddClassButton/>}
+              {user?.role === Role.Teacher && <AddClassButton />}
               {user ? <AccountButton user={user} /> : <Loading />}
               <LogoutButton />
             </div>
@@ -67,8 +77,8 @@ function Header({ currentComponent }: HeaderParams) {
     );
   }
 
-  return tabs.find((element) => element.name == currentComponent.name) && (
-    HeaderDiv()
+  return (
+    tabs.find((element) => element.name == currentComponent.name) && HeaderDiv()
   );
 }
 

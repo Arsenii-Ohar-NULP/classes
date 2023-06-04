@@ -1,0 +1,243 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`edit account form should match a snapshot 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="d-flex align-items-center flex-column container"
+      >
+        <h3
+          class="p-3"
+        >
+          Edit account information
+        </h3>
+        <form>
+          <div
+            class="my-2 has-validation"
+          >
+            <label
+              class="form-label"
+              for="Password"
+            >
+              Password
+            </label>
+            <input
+              class="form-control rounded p-1 px-2"
+              id="Password"
+              name="Password"
+              placeholder="Enter a new password"
+              type="password"
+              value=""
+            />
+            <div
+              class="invalid"
+            />
+          </div>
+          <div
+            class="my-2 has-validation"
+          >
+            <label
+              class="form-label"
+              for="Phone"
+            >
+              Phone
+            </label>
+            <input
+              class="form-control rounded p-1 px-2"
+              id="Phone"
+              name="Phone"
+              placeholder="Enter a new phone number"
+              value=""
+            />
+            <div
+              class="invalid"
+            />
+          </div>
+          <div
+            class="my-2 has-validation"
+          >
+            <label
+              class="form-label"
+              for="Email"
+            >
+              Email
+            </label>
+            <input
+              class="form-control rounded p-1 px-2"
+              id="Email"
+              name="Email"
+              placeholder="Enter an email"
+              type="email"
+              value=""
+            />
+            <div
+              class="invalid"
+            />
+          </div>
+          <hr />
+          <h6 />
+          <div
+            class="text-center"
+          >
+            <button
+              class="btn btn-primary"
+              disabled=""
+              type="submit"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="d-flex align-items-center flex-column container"
+    >
+      <h3
+        class="p-3"
+      >
+        Edit account information
+      </h3>
+      <form>
+        <div
+          class="my-2 has-validation"
+        >
+          <label
+            class="form-label"
+            for="Password"
+          >
+            Password
+          </label>
+          <input
+            class="form-control rounded p-1 px-2"
+            id="Password"
+            name="Password"
+            placeholder="Enter a new password"
+            type="password"
+            value=""
+          />
+          <div
+            class="invalid"
+          />
+        </div>
+        <div
+          class="my-2 has-validation"
+        >
+          <label
+            class="form-label"
+            for="Phone"
+          >
+            Phone
+          </label>
+          <input
+            class="form-control rounded p-1 px-2"
+            id="Phone"
+            name="Phone"
+            placeholder="Enter a new phone number"
+            value=""
+          />
+          <div
+            class="invalid"
+          />
+        </div>
+        <div
+          class="my-2 has-validation"
+        >
+          <label
+            class="form-label"
+            for="Email"
+          >
+            Email
+          </label>
+          <input
+            class="form-control rounded p-1 px-2"
+            id="Email"
+            name="Email"
+            placeholder="Enter an email"
+            type="email"
+            value=""
+          />
+          <div
+            class="invalid"
+          />
+        </div>
+        <hr />
+        <h6 />
+        <div
+          class="text-center"
+        >
+          <button
+            class="btn btn-primary"
+            disabled=""
+            type="submit"
+          >
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "store": {
+    "@@observable": [Function],
+    "dispatch": [Function],
+    "getState": [Function],
+    "replaceReducer": [Function],
+    "subscribe": [Function],
+  },
+  "unmount": [Function],
+}
+`;
