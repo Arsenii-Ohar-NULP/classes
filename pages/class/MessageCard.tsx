@@ -14,6 +14,7 @@ export default function MessageCard({
   deleteModalId: string;
 }) {
   const role = useAppSelector((state) => state.auth?.user?.role);
+  const userId  = useAppSelector((state) => state.auth?.user?.id);
   return (
     <div>
       <div className="d-flex p-2 flex-row align-items-center gap-3" data-testid={`msg-${message.id}`}>
@@ -32,7 +33,7 @@ export default function MessageCard({
             <div className="inline fs-6">{message.content}</div>
           </div>
         </div>
-        {role === Role.Teacher && (
+        {(role === Role.Teacher || userId == message?.user) && (
           <DeleteMessageButton
             onDelete={onDelete}
             deleteModalId={deleteModalId}

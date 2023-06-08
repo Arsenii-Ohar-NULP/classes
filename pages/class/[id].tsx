@@ -187,7 +187,7 @@ export default function ClassPage() {
                       <SaveEditButton handleClick={handleSubmit(saveEditing)} isSaving={isSaving}/>
                       <CancelEditButton handleClick={cancelEditing} isSaving={isSaving}/>
                     </div>
-                  ) : (
+                  ) : userId == cls?.teacher_id && (
                     <EditClassButton
                       handleClick={() => setEditMode(!editMode)}
                     />

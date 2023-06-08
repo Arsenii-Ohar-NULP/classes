@@ -8,9 +8,12 @@ import { useDispatch } from 'react-redux';
 import { authActions } from 'pages/redux/auth';
 import { removeToken } from 'pages/login/AuthService';
 import Head from 'next/head';
+import { Loading } from 'pages/class/Loading';
 
 // eslint-disable-next-line no-empty-pattern
 export default function RequestsPage({}) {
+  const [isFetching, setIsFetching] = useState<boolean>(false);
+
   const router = useRouter();
   const [requests, setRequests] = useState<JoinRequest[]>();
   const dispatch = useDispatch();
@@ -18,7 +21,7 @@ export default function RequestsPage({}) {
   
   function fetchRequests() {
     const classId = router.query['id'];
-    console.log(getJoinRequests)
+    setIsFetching(true);
     getJoinRequests(classId)
       .then((data) => {
         setRequests(data);
@@ -29,14 +32,23 @@ export default function RequestsPage({}) {
           removeToken();
           router.push('/login');
         }
-      });
+      })
+      .finally(() => setIsFetching(false));
   }
 
   useEffect(() => {
+    if (!requests){
       fetchRequests();
-  });
+    }
+  }, [requests]);
   if (!requests) {
-    return <></>;
+    return <></>
+  }
+
+  if(isFetching){
+    return <div className='flex justify-content-center w-100 align-items-center'>
+      <Loading/>;
+      </div>
   }
 
   return (
@@ -46,16 +58,16 @@ export default function RequestsPage({}) {
       </Head>
       <div>
         <h4 className="m-3">Requests</h4>
-        {requests.length !== 0 ? (
+        {requests?.length !== 0 ? (
           <div className="d-flex justify-content-center">
-            {requests.map((request, index) => {
+            {requests?.map((request, index) => {
               return (
                 <RequestCard
                   key={`${request.userId}-${request.classId}`}
                   userId={request.userId}
                   classId={request.classId}
                   onResolved={() =>
-                    requests.splice(index, index + 1) &&
+                    requests?.splice(index, index + 1) &&
                     setRequests([...requests])
                   }
                 />

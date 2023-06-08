@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -42,7 +42,7 @@ export default function AddClassPage() {
   const userId = useAppSelector((state) => state.auth?.user?.id);
   const logout = useLogout();
   const router = useRouter();
-
+  const [isAdding, setIsAdding] = useState<boolean>(false);
   const onSubmit = (data: ClassData) => {
     try {
       const file = data.Image[0];
@@ -51,6 +51,7 @@ export default function AddClassPage() {
       reader.onload = async () => {
         const base64String = (reader.result as string).split(',')[1];
         try {
+          setIsAdding(true);
           const classResponse = await createClass({
             title: data.Title,
             description: data.Description,
@@ -66,6 +67,9 @@ export default function AddClassPage() {
           if (error instanceof BadRequest) {
             alert(error.message);
           }
+        }
+        finally{
+          setIsAdding(false);
         }
       };
 
@@ -95,7 +99,7 @@ export default function AddClassPage() {
           registration={register('Image')}
         />
         <hr />
-        <AddClassButton />
+        <AddClassButton disabled={isAdding}/>
       </form>
     </div>
   );
