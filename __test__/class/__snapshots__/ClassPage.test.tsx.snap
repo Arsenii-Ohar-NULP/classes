@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class page test matches snapshot 1`] = `
+exports[`class page test should match a snapshot 1`] = `
 {
   "asFragment": [Function],
   "baseElement": <body>
@@ -106,7 +106,7 @@ exports[`class page test matches snapshot 1`] = `
 }
 `;
 
-exports[`class page test should match a snapshot 1`] = `
+exports[`class page test should match a snapshot and show class info 1`] = `
 {
   "asFragment": [Function],
   "baseElement": <body>

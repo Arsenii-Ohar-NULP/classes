@@ -14,18 +14,24 @@ export type DirtyJoinRequest = {
 export type UploadThumbnailData = {
   image: string;
   id: number;
-}
+};
 
 export type CreateClassData = {
   title: string;
   description: string;
   teacher_id: number;
-}
+};
 
 export type CreateClassResponse = {
   msg: string;
   id: number;
-}
+};
+
+export type EditClassData = {
+  id: number;
+  title?: string;
+  description?: string;
+};
 
 const getApiUrl = () => {
   return process.env['NEXT_PUBLIC_API_URL'];
@@ -119,56 +125,58 @@ const fetchUserJoinRequests = async (): Promise<Response> => {
   });
 };
 
-const fetchJoinRequsts = async ({classId}: {classId: number}) => {
+const fetchJoinRequsts = async ({ classId }: { classId: number }) => {
   const endpointUrl = `${getApiUrl()}/api/v1/class/requests/${classId}`;
   const headers = getAuthHeaders();
 
   return await fetch(endpointUrl, {
     method: 'GET',
-    headers
+    headers,
   });
-}
+};
 
-const deleteClass = async ({classId}: {classId: number}) => {
+const deleteClass = async ({ classId }: { classId: number }) => {
   const endpointUrl = `${getApiUrl()}/api/v1/class/${classId}`;
   const headers = getAuthHeaders();
 
-  return await fetch(
-    endpointUrl,
-    {
-      method: 'DELETE',
-      headers
-    }
-  )
-}
+  return await fetch(endpointUrl, {
+    method: 'DELETE',
+    headers,
+  });
+};
 
-const postClass = async ({data}: {data: CreateClassData}) => {
+const postClass = async ({ data }: { data: CreateClassData }) => {
   const endpointUrl = `${getApiUrl()}/api/v1/class`;
   const headers = getAuthHeaders();
 
-  return await fetch(
-    endpointUrl,
-    {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(data)
-    }
-  )
-}
+  return await fetch(endpointUrl, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(data),
+  });
+};
 
-const putThumbnail = async ({data}: {data: UploadThumbnailData}) => {
+const putThumbnail = async ({ data }: { data: UploadThumbnailData }) => {
   const endpointUrl = `${getApiUrl()}/api/v1/class/img`;
   const headers = getAuthHeaders();
 
-  return await fetch(
-    endpointUrl,
-    {
-      method: 'PUT',
-      headers,
-      body: JSON.stringify(data)
-    }
-  )
-}
+  return await fetch(endpointUrl, {
+    method: 'PUT',
+    headers,
+    body: JSON.stringify(data),
+  });
+};
+
+const patchClass = async ({ data }: { data: EditClassData }) => {
+  const endpointUrl = `${getApiUrl()}/api/v1/class`;
+  const headers = getAuthHeaders();
+
+  return await fetch(endpointUrl, {
+    method: 'PATCH',
+    headers,
+    body: JSON.stringify(data),
+  });
+};
 
 export const findAllClasses = async (): Promise<Class[]> => {
   return await request({
@@ -230,7 +238,7 @@ export const getUserJoinRequests = async (): Promise<JoinRequest[]> => {
       Forbidden: `You are not allowed to fetch join requests`,
       Error: `Something went wrong while fetching classes`,
       JsonError: `Couldn't get JSON from send requests`,
-    }
+    },
   });
 
   return requests.map((request) => {
@@ -252,15 +260,15 @@ export const getJoinRequests = async (classId): Promise<JoinRequest[]> => {
       Error: `Something went wrong while fetching classes`,
       JsonError: `Couldn't get JSON from send requests`,
     },
-    args: {classId}
+    args: { classId },
   });
 
   return requests.map((request) => {
     return { classId: request.class_id, userId: request.user_id };
   });
-}
+};
 
-export const removeClass = async(classId) => {
+export const removeClass = async (classId) => {
   return await request({
     fetchFunction: deleteClass,
     errors: {
@@ -271,34 +279,44 @@ export const removeClass = async(classId) => {
     },
     args: { classId },
   });
-}
-
+};
 
 export const createClass = async (cls: CreateClassData) => {
   return await request<CreateClassResponse>({
     fetchFunction: postClass,
     errors: {
-      InvalidCredentials: 'You should be logged in as a teacher to create a class',
+      InvalidCredentials:
+        'You should be logged in as a teacher to create a class',
       Forbidden: 'You are not allowed to create a class',
       Error: 'Something went wrong while creating a class',
-      JsonError: "Couldn't get JSON from response of create a class"
+      JsonError: "Couldn't get JSON from response of create a class",
     },
-    args: {data: cls}
-  })
-}
-
+    args: { data: cls },
+  });
+};
 
 export const uploadThumbnail = async (uploadData: UploadThumbnailData) => {
-  return await request(
-    {
-      fetchFunction: putThumbnail,
-      errors: {
-        InvalidCredentials: `You should be logged in to upload a thumbnail for class ${uploadData.id}`,
-        Forbidden: `You are not allowed to upload a thumbnail for class ${uploadData.id}`,
-        Error: `Something went wrong while uploading a thumbnail for class ${uploadData.id}`,
-        JsonError: `Couldn't fetch JSON from response of uploading a class`
-      },
-      args: {data: uploadData}
-    }
-  )
-}
+  return await request({
+    fetchFunction: putThumbnail,
+    errors: {
+      InvalidCredentials: `You should be logged in to upload a thumbnail for class ${uploadData.id}`,
+      Forbidden: `You are not allowed to upload a thumbnail for class ${uploadData.id}`,
+      Error: `Something went wrong while uploading a thumbnail for class ${uploadData.id}`,
+      JsonError: `Couldn't fetch JSON from response of uploading a class`,
+    },
+    args: { data: uploadData },
+  });
+};
+
+export const editClass = async (editData: EditClassData) => {
+  return await request({
+    fetchFunction: patchClass,
+    errors: {
+      InvalidCredentials: `You should be logged in to edit a class id=${editData.id}`,
+      Forbidden: `You are not allowed to edit a class id=${editData.id}`,
+      Error: `Something went wrong while editing a class id=${editData.id}, try again later`,
+      JsonError: `Couldn't fetch JSON from response of editing a class id=${editData.id}`,
+    },
+    args: { data: editData },
+  });
+};

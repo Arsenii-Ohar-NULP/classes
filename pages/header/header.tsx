@@ -8,7 +8,7 @@ import Logo from '../utils/logo';
 import ClassPage from '../class/[id]';
 import User, { Role } from '../account/User';
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import Requests from '../requests/[id]';
+import RequestsPage from '../requests/[id]';
 import ProfilePicture from '../ProfilePic';
 import { logout } from '../login/AuthService';
 import AddClassPage from 'pages/addClass';
@@ -60,7 +60,7 @@ function AccountButton({ user }: { user: User }) {
 }
 
 function Header({ currentComponent }: HeaderParams) {
-  const tabs = [Classes, AccountPage, ClassPage, Requests, AddClassPage, EditAccountPage];
+  const tabs = [Classes, AccountPage, ClassPage, RequestsPage, AddClassPage, EditAccountPage];
 
   if (!tabs.find((element) => element.name == currentComponent?.name))
     return <></>;
@@ -90,7 +90,7 @@ function Header({ currentComponent }: HeaderParams) {
               <li>
                 <Link
                   href={'/classes'}
-                  className="nav-link px-2 text-secondary"
+                  className="nav-link px-2 text-light"
                 >
                   Home
                 </Link>

@@ -18,6 +18,7 @@ export default function FileInput({
           accept=".jpg, .png"
           type="file"
           id={id}
+          data-testid={'file-input'}
           {...registration}
         />
       </div>

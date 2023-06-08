@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAppDispatch } from 'pages/redux/store';
 import { Button, Modal } from 'react-bootstrap';
@@ -19,10 +19,12 @@ export default function DeleteClassModal({
     show: boolean;
     close: () => void;
   }) {
+    const [isDeleting, setIsDeleting] = useState<boolean>(false);
     const router = useRouter();
     const dispatch = useAppDispatch();
   
     function deleteClass() {
+      setIsDeleting(true);
         removeClass(classId).then(() => {
             dispatch(classesActions.deleteUserClass(classId));
             router.push('/classes');
@@ -31,13 +33,14 @@ export default function DeleteClassModal({
             if (error instanceof InvalidCredentials){
               logout(dispatch, router);
             }
-          });
+            setIsDeleting(false)
+          })
     }
   
     return (
       <>
         <Modal show={show} backdrop={true} onHide={close} keyboard={false}>
-          <Modal.Header closeButton>
+          <Modal.Header closeButton={!isDeleting}>
             <Modal.Title>Are you sure?</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -45,10 +48,10 @@ export default function DeleteClassModal({
             sure?
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="danger" onClick={deleteClass}>
+            <Button variant="danger" onClick={deleteClass} disabled={isDeleting}>
               Delete
             </Button>
-            <Button variant="success" onClick={close}>
+            <Button variant="success" onClick={close} disabled={isDeleting}>
               No, take me back
             </Button>
           </Modal.Footer>

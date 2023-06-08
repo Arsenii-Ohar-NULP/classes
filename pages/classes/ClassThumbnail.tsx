@@ -41,6 +41,7 @@ export default function ClassThumbnail({ cls }: { cls: Class }) {
           }
           alt={cls.title}
           src={image}
+          data-testid={'thumbnail'}
         />
       ) : (
         <ImageLoading />

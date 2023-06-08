@@ -1,141 +1,20 @@
 import React from 'react';
 import Head from 'next/head';
-import * as yup from 'yup';
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useMainPageRedirect, useMessageReplacer } from 'pages/utils/hooks';
-import Logo from 'pages/utils/logo';
+import { useMainPageRedirect } from 'pages/utils/hooks';
 import { signUp } from './signUpService';
-
-function useUsername() {
-  const router = useRouter();
-  const [username, setUsername] = useState(null);
-  useEffect(() => {
-    if (!username) {
-      setUsername(router.query['username']);
-    }
-  });
-
-  return username;
-}
-
-function useSignUpForm() {
-  const schema = yup.object({
-    Username: yup.string().min(8).required(), // TODO: Add some RegEx
-    Password: yup.string().min(8).required(),
-    FirstName: yup.string().required(),
-    LastName: yup.string().required(),
-    Email: yup.string().email().required(),
-    PhoneNumber: yup.string().required(),
-  });
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    getValues,
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
-
-  return { register, handleSubmit, errors, getValues };
-}
-
-type SignUpInputProps = {
-  id: string;
-  placeholder: string;
-  defaultValue?: string;
-  label: string;
-  isColumnized?: boolean;
-  registration: object;
-  error: string;
-  type?: string;
-};
-
-function SignUpInput({
-  id,
-  placeholder,
-  defaultValue,
-  label,
-  isColumnized,
-  registration,
-  error,
-  ...other
-}: SignUpInputProps) {
-  const normalizer = useMessageReplacer({
-    FirstName: 'First Name',
-    LastName: 'Last Name',
-    PhoneNumber: 'Phone Number',
-  });
-  return (
-    <div className={'p-1 ' + (isColumnized ? 'col-lg' : '')}>
-      <label htmlFor={id} className="form-label">
-        <b>{label}</b>
-      </label>
-
-      <input
-        className="form-control"
-        id={id}
-        placeholder={placeholder}
-        defaultValue={defaultValue}
-        {...registration}
-        {...other}
-      />
-
-      <div className={'invalid'}>{error ? normalizer(error) : ''}</div>
-    </div>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="d-flex justify-content-center p-3 align-items-end">
-      <a href="example.com" className="text-decoration-none">
-        <Logo />
-      </a>
-    </footer>
-  );
-}
-
-function SignUpButton({ onClick }: { onClick: VoidFunction }) {
-  return (
-    <button
-      id="signUpButton"
-      type="button"
-      className="btn btn-primary rounded-4 p-2 px-4"
-      onClick={onClick}
-    >
-      Sign up
-    </button>
-  );
-}
-
-function LogInButton() {
-  const router = useRouter();
-  return (
-    <button
-      type="button"
-      className="btn btn-secondary rounded-4 px-3"
-      onClick={() => router.push('/login')}
-    >
-      Log in
-    </button>
-  );
-}
-
-function FormTop() {
-  return (
-    <div className="d-flex align-middle">
-      <h1 className="p-3">Sign up</h1>
-      <hr />
-    </div>
-  );
-}
+import useSignUpForm from './useSignupForm';
+import useUsername from './useUsername';
+import FormTop from './FormTop';
+import SignUpInput from './SignUpInput';
+import SignUpButton from './SignUpButton';
+import LogInButton from './LoginButton';
+import Footer from './Footer';
 
 // eslint-disable-next-line no-empty-pattern
 export default function SignUp({}) {
+  const [isSigning, setIsSigning] = useState<boolean>(false);
   const { register, handleSubmit, errors } = useSignUpForm();
   const [serverError, setServerError] = useState(null);
   const initialUsername = useUsername();
@@ -155,6 +34,7 @@ export default function SignUp({}) {
   }
 
   function onSignUpClick(userInfo) {
+    setIsSigning(true);
     userInfo = parseUserInfo(userInfo);
     signUp(userInfo)
       .then(() => {
@@ -162,7 +42,10 @@ export default function SignUp({}) {
       })
       .catch((e) => {
         setServerError(e.message);
-      });
+      })
+      .finally(
+        () => setIsSigning(false)
+      );
   }
 
   return (
@@ -234,7 +117,7 @@ export default function SignUp({}) {
               <div className={'invalid'}>{serverError ? serverError : ''}</div>
               <hr />
               <div className="container d-flex gap-2 justify-content-center mx-auto my-3 text-center p-3 start-0">
-                <SignUpButton onClick={handleSubmit(onSignUpClick)} />
+                <SignUpButton onClick={handleSubmit(onSignUpClick)} isSigning={isSigning}/>
                 <div className="vr my-1"></div>
                 <LogInButton />
               </div>

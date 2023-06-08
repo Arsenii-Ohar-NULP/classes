@@ -39,6 +39,8 @@ export default function EditAccountForm() {
   } = useForm({
     resolver: yupResolver(schema),
   });
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+
   const password = watch('Password', '');
   const email = watch('Email', user?.email ? user.email : '');
   const phone = watch('Phone', user?.phone ? user.phone : '');
@@ -57,9 +59,8 @@ export default function EditAccountForm() {
     return changedData;
   };
 
-  const hasDataChanged = (data) => {
-    console.log(Object.keys(data).length !== 0);
-    return Object.keys(data).length !== 0;
+  const hasDataChanged = (data, target: number) => {
+    return Object.keys(data).length !== target;
   };
 
   const onSubmit = (data: {
@@ -70,22 +71,25 @@ export default function EditAccountForm() {
     const changedData = cleanChangedData(data);
     changedData['id'] = user.id;
 
-    if (!hasDataChanged(changedData)) {
+    if (!hasDataChanged(changedData, 1)) {
       alert('Data has not been changed');
       return;
     }
 
+    setIsEditing(true);
     editUser(changedData)
       .then(() => {
         alert('Successfully edited a user');
         dispatch(authActions.updateUser(changedData));
+        router.push('/account');
       })
       .catch((error) => {
         if (error instanceof InvalidCredentials) {
           logout(dispatch, router);
         }
         setError(error.message);
-      });
+      })
+      .finally(() => setIsEditing(false))
   };
 
   return (
@@ -122,7 +126,7 @@ export default function EditAccountForm() {
             Email: email,
             Phone: phone,
             Password: password
-          }))}
+          }), 0) || isEditing}
         />
       </form>
     </div>

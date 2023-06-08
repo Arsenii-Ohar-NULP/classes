@@ -6,6 +6,7 @@ export function LoginButton({onSubmit, isLogging}) {
         className="btn btn-primary rounded-pill px-3"
         type="button"
         id="loginButton"
+        disabled={isLogging}
         onClick={onSubmit}
     >
         {isLogging ?

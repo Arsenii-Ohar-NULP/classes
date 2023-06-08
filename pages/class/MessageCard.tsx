@@ -16,7 +16,7 @@ export default function MessageCard({
   const role = useAppSelector((state) => state.auth?.user?.role);
   return (
     <div>
-      <div className="d-flex p-2 flex-row align-items-center gap-3">
+      <div className="d-flex p-2 flex-row align-items-center gap-3" data-testid={`msg-${message.id}`}>
         <img
           className="border rounded-circle"
           height={48}

@@ -26,6 +26,7 @@ export function EditAccountInput({
           'form-control rounded p-1 px-2' +
           (errorMessage ? ' invalid-input' : '')
         }
+        data-testid={id}
         {...registration}
         {...other}
       />

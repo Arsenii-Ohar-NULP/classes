@@ -2,19 +2,23 @@ import { useRouter } from 'next/router';
 import { getJoinRequests } from 'pages/class/ClassService';
 import { JoinRequest } from 'pages/class/JoinRequest';
 import React, { useEffect, useState } from 'react';
-import RequestCard from './RequestCard';
+import RequestCard from 'pages/requests/RequestCard';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
 import { useDispatch } from 'react-redux';
 import { authActions } from 'pages/redux/auth';
 import { removeToken } from 'pages/login/AuthService';
 import Head from 'next/head';
+
 // eslint-disable-next-line no-empty-pattern
-export default function Requests({}) {
+export default function RequestsPage({}) {
   const router = useRouter();
   const [requests, setRequests] = useState<JoinRequest[]>();
   const dispatch = useDispatch();
+
+  
   function fetchRequests() {
     const classId = router.query['id'];
+    console.log(getJoinRequests)
     getJoinRequests(classId)
       .then((data) => {
         setRequests(data);
@@ -29,13 +33,12 @@ export default function Requests({}) {
   }
 
   useEffect(() => {
-    if (!requests) {
       fetchRequests();
-    }
   });
   if (!requests) {
     return <></>;
   }
+
   return (
     <div>
       <Head>
@@ -59,7 +62,7 @@ export default function Requests({}) {
               );
             })}
           </div>
-        ) : <div className='text-center fs-4 align-items-center align-middle'>
+        ) : <div className='text-center fs-4 align-items-center align-middle' data-testid={'no-join-requests'}>
             There are no join requests.
             </div>}
         

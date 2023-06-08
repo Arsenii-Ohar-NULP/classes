@@ -6,11 +6,12 @@ import { createClass, uploadThumbnail } from 'pages/class/ClassService';
 import { useAppSelector } from 'pages/redux/store';
 import { useLogout } from 'pages/login/AuthService';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
-import TextInput from './TextInput';
+import TitleInput from './TitleInput';
 import FileInput from './FileInput';
 import AddClassButton from './AddClassButton';
 import { BadRequest } from 'pages/errors/BadRequest';
 import { useRouter } from 'next/router';
+import DescriptionInput from 'pages/addClass/DescriptionInput';
 
 type ClassData = {
   Title: string;
@@ -78,15 +79,13 @@ export default function AddClassPage() {
     <div className="container p-1 d-flex flex-column align-items-center">
       <h1 className="p-2">Add a class</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <TextInput
+        <TitleInput
           placeholder="Enter a title"
           id="Title"
           errorMessage={errors?.Title?.message?.toString()}
           registration={register('Title')}
         />
-        <TextInput
-          placeholder="Enter a description"
-          id="Description"
+        <DescriptionInput
           errorMessage={errors?.Description?.message?.toString()}
           registration={register('Description')}
         />

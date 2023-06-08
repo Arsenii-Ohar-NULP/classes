@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAppDispatch } from 'pages/redux/store';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
@@ -7,7 +7,7 @@ import { logout } from 'pages/login/AuthService';
 import { Button, Modal } from 'react-bootstrap';
 
 
-export default function DeleteMessageModal({
+export default function DeleteMessageButtonModal({
     messageId,
     onDelete,
     show,
@@ -18,10 +18,13 @@ export default function DeleteMessageModal({
     show: boolean;
     close: () => void;
   }) {
+    const [isDeleting, setIsDeleting] = useState<boolean>(false);
+
     const router = useRouter();
     const dispatch = useAppDispatch();
   
     function deleteMessage() {
+      setIsDeleting(true);
       removeMessage(messageId)
         .then(() => {
           onDelete();
@@ -31,13 +34,16 @@ export default function DeleteMessageModal({
           if (error instanceof InvalidCredentials) {
             logout(dispatch, router);
           }
-        });
+        })
+        .finally(
+          () => setIsDeleting(false)
+        );
     }
   
     return (
       <>
         <Modal show={show} backdrop={true} onHide={close} keyboard={false}>
-          <Modal.Header closeButton>
+          <Modal.Header closeButton={!isDeleting}>
             <Modal.Title>Are you sure?</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -45,10 +51,10 @@ export default function DeleteMessageModal({
             sure?
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="danger" onClick={deleteMessage}>
+            <Button variant="danger" onClick={deleteMessage} disabled={isDeleting}>
               Delete
             </Button>
-            <Button variant="success" onClick={close}>
+            <Button variant="success" onClick={close} disabled={isDeleting}>
               No, take me back
             </Button>
           </Modal.Footer>

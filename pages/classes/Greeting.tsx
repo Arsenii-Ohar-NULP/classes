@@ -26,7 +26,7 @@ export default function Greeting({ firstName, role }: { firstName: string, role:
     }
     return (
       <div className="p-3 bg-secondary text-light">
-        <h2 className="ms-3">{getGreetingText()} - {Role[role]}</h2>
+        <h2 className="ms-3">{getGreetingText()}</h2>
       </div>
     );
   }

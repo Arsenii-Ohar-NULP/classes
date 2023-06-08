@@ -7,7 +7,8 @@ import { useAppDispatch, useAppSelector } from 'pages/redux/store';
 import { saveMessage } from 'pages/class/MessageService';
 import { authActions } from 'pages/redux/auth';
 import { useRouter } from 'next/router';
-import { Button } from 'react-bootstrap';
+import { Button, Spinner } from 'react-bootstrap';
+import styles from 'pages/class/class.module.scss';
 import clsx from 'clsx';
 
 export function MessageInput({
@@ -20,6 +21,7 @@ export function MessageInput({
   classId: number;
 }) {
   const [messageText, setMessage] = useState<string>(null);
+  const [isSending, setIsSending] = useState<boolean>(false);
 
   const userId = useAppSelector((state) => state.auth.user?.id);
   const username = useAppSelector((state) => state.auth.user?.username);
@@ -35,6 +37,7 @@ export function MessageInput({
       user: userId,
       cls: classId,
     } as Message;
+    setIsSending(true);
     saveMessage({ message })
       .then((data) => {
         message.username = username;
@@ -48,7 +51,12 @@ export function MessageInput({
           dispatch(authActions.logout());
           router.push('/login');
         }
-      });
+      })
+      .finally(
+        () => {
+          setIsSending(false);
+        }
+      )
   }
 
   function isEmptyOrSpaces(str: string) {
@@ -71,10 +79,16 @@ export function MessageInput({
             className={clsx({
               'visually-hidden':
                 messageText == null || isEmptyOrSpaces(messageText),
+              'px-3 py-2': true
             })}
             onClick={send}
+            disabled={isSending}
           >
+            {
+            isSending ? 
+            <Spinner className={styles['send-message-spinner']}/> : 
             <Image alt={'Send Icon'} src={sendIcon} width={24} height={24} />
+}
           </Button>
         </div>
       </form>

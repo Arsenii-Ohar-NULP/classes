@@ -3,13 +3,13 @@ import Message from './Message';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAppDispatch } from 'pages/redux/store';
-import { getMessages } from './MessageService';
+import { getMessages } from 'pages/class/MessageService';
 import { removeToken } from 'pages/login/AuthService';
 import { authActions } from 'pages/redux/auth';
 import { MessageInput } from './MessageInput';
 import Class from 'pages/classes/Class';
 import MessageCard from './MessageCard';
-import DeleteMessageModal from './DeleteButtonModal';
+import DeleteMessageButtonModal from './DeleteMessageButtonModal';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
 import Forbidden from 'pages/errors/Forbidden';
 
@@ -87,7 +87,7 @@ export function MessagesBar({
       <div className="fs-3 px-2 py-1">
         <b>Messages</b>
         {messagesIfAny()}
-        <DeleteMessageModal
+        <DeleteMessageButtonModal
           messageId={deleteId}
           show={deleteId != -1}
           onDelete={() =>
