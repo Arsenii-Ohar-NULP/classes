@@ -17,7 +17,7 @@ Object.defineProperty(window, 'localStorage', {
 });
 jest.mock('next/router', () => ({ useRouter: jest.fn() }));
 
-describe('this is a Login Page test', () => {
+describe('Login Page', () => {
   jest.mocked(useRouter).mockReturnValue({ push: jest.fn() } as never);
   beforeEach(() => {
     window.localStorage.clear();
@@ -42,7 +42,7 @@ describe('this is a Login Page test', () => {
     fillPassword(samplePassword);
   };
 
-  it('matches a snapshot', async () => {
+  it('should match a snapshot', async () => {
     const page = renderWithProviders(<LoginPage />);
     expect(page).toMatchSnapshot();
   });
@@ -63,8 +63,10 @@ describe('this is a Login Page test', () => {
 
   it('when signup button is clicked, should push to sign up page', async () => {
     renderWithProviders(<LoginPage />);
+    
     const signUpButton = screen.getByText('Sign up');
     fireEvent.click(signUpButton);
+
     await waitFor(() =>
       expect(jest.mocked(useRouter().push)).toBeCalledWith('/signUp')
     );

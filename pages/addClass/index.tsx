@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -6,11 +6,12 @@ import { createClass, uploadThumbnail } from 'pages/class/ClassService';
 import { useAppSelector } from 'pages/redux/store';
 import { useLogout } from 'pages/login/AuthService';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
-import TextInput from './TextInput';
+import TitleInput from './TitleInput';
 import FileInput from './FileInput';
 import AddClassButton from './AddClassButton';
 import { BadRequest } from 'pages/errors/BadRequest';
 import { useRouter } from 'next/router';
+import DescriptionInput from 'pages/addClass/DescriptionInput';
 
 type ClassData = {
   Title: string;
@@ -41,7 +42,7 @@ export default function AddClassPage() {
   const userId = useAppSelector((state) => state.auth?.user?.id);
   const logout = useLogout();
   const router = useRouter();
-
+  const [isAdding, setIsAdding] = useState<boolean>(false);
   const onSubmit = (data: ClassData) => {
     try {
       const file = data.Image[0];
@@ -50,6 +51,7 @@ export default function AddClassPage() {
       reader.onload = async () => {
         const base64String = (reader.result as string).split(',')[1];
         try {
+          setIsAdding(true);
           const classResponse = await createClass({
             title: data.Title,
             description: data.Description,
@@ -66,6 +68,9 @@ export default function AddClassPage() {
             alert(error.message);
           }
         }
+        finally{
+          setIsAdding(false);
+        }
       };
 
       reader.readAsDataURL(file);
@@ -78,15 +83,13 @@ export default function AddClassPage() {
     <div className="container p-1 d-flex flex-column align-items-center">
       <h1 className="p-2">Add a class</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <TextInput
+        <TitleInput
           placeholder="Enter a title"
           id="Title"
           errorMessage={errors?.Title?.message?.toString()}
           registration={register('Title')}
         />
-        <TextInput
-          placeholder="Enter a description"
-          id="Description"
+        <DescriptionInput
           errorMessage={errors?.Description?.message?.toString()}
           registration={register('Description')}
         />
@@ -96,7 +99,7 @@ export default function AddClassPage() {
           registration={register('Image')}
         />
         <hr />
-        <AddClassButton />
+        <AddClassButton disabled={isAdding}/>
       </form>
     </div>
   );

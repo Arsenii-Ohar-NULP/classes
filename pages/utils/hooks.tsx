@@ -54,11 +54,18 @@ function useMainPageRedirect() {
   useEffect(() => {
     const token = getAccessToken();
     if (token) {
-      getUserInfo(token).then((user) => {
+      getUserInfo(token)
+      .then((user) => {
         if (authStatus === AuthStatus.LOGGED_OUT){
           dispatch(authActions.login(user))
         }
-        router.push(mainPagePath)});
+        router.push(mainPagePath)
+      })
+      .catch(error => {
+        if (error instanceof InvalidCredentials){
+          return;
+        }
+      })
     }
   }, [authStatus]);
 }

@@ -34,7 +34,7 @@ export default function JoinButton({
     
       <button
         className={
-          'btn btn-primary mx-3 ' +
+          'btn btn-primary ' +
           (userClasses?.find(
             (el) => el.id === Number.parseInt(router.query['id'] as string)
           )

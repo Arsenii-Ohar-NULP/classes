@@ -65,7 +65,7 @@ exports[`header test when ClassPage component, should match a snapshot 1`] = `
             >
               <li>
                 <a
-                  class="nav-link px-2 text-secondary"
+                  class="nav-link px-2 text-light"
                   href="/classes"
                 >
                   Home
@@ -162,7 +162,7 @@ exports[`header test when ClassPage component, should match a snapshot 1`] = `
           >
             <li>
               <a
-                class="nav-link px-2 text-secondary"
+                class="nav-link px-2 text-light"
                 href="/classes"
               >
                 Home

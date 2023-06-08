@@ -4,7 +4,7 @@ import Link from 'next/link';
 import AccountPage from '../account';
 import Logo from '../utils/Logo';
 import ClassPage from '../class/[id]';
-import { Role } from '../account/User';
+import  { Role } from '../account/User';
 import { useAppSelector } from '../redux/store';
 import Requests from '../requests/[id]';
 import AddClassPage from 'pages/addClass';
@@ -60,7 +60,7 @@ function Header({ currentComponent }: HeaderParams) {
               <li>
                 <Link
                   href={'/classes'}
-                  className="nav-link px-2 text-secondary"
+                  className="nav-link px-2 text-light"
                 >
                   Home
                 </Link>
