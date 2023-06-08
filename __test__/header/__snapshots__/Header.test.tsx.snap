@@ -6,13 +6,20 @@ exports[`header test when ClassPage component, should match a snapshot 1`] = `
   "baseElement": <body>
     <div>
       <header
-        class="p-3 bg-dark text-white"
+        class="p-3 text-white position-relative"
       >
         <div
-          class="navbar navbar-expand-lg navbar-dark"
+          class="blur-100"
         >
           <div
-            class="navbar-brand border rounded me-2"
+            class="header-background"
+          />
+        </div>
+        <div
+          class="navbar navbar-expand-lg"
+        >
+          <div
+            class="navbar-brand rounded me-2"
           >
             <div
               class="d-flex justify-content-center align-items-center gap-1 bg-dark p-2 rounded"
@@ -83,7 +90,7 @@ exports[`header test when ClassPage component, should match a snapshot 1`] = `
                 </div>
               </div>
               <button
-                class="btn btn-outline-primary"
+                class="btn btn-primary"
                 type="button"
               >
                 Logout
@@ -96,13 +103,20 @@ exports[`header test when ClassPage component, should match a snapshot 1`] = `
   </body>,
   "container": <div>
     <header
-      class="p-3 bg-dark text-white"
+      class="p-3 text-white position-relative"
     >
       <div
-        class="navbar navbar-expand-lg navbar-dark"
+        class="blur-100"
       >
         <div
-          class="navbar-brand border rounded me-2"
+          class="header-background"
+        />
+      </div>
+      <div
+        class="navbar navbar-expand-lg"
+      >
+        <div
+          class="navbar-brand rounded me-2"
         >
           <div
             class="d-flex justify-content-center align-items-center gap-1 bg-dark p-2 rounded"
@@ -173,7 +187,7 @@ exports[`header test when ClassPage component, should match a snapshot 1`] = `
               </div>
             </div>
             <button
-              class="btn btn-outline-primary"
+              class="btn btn-primary"
               type="button"
             >
               Logout

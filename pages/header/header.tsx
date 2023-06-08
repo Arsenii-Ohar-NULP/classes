@@ -1,66 +1,33 @@
 import Classes from 'pages/classes/index';
 import React from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import styles from 'pages/header/header.module.scss';
 import AccountPage from '../account';
-import Logo from '../utils/logo';
+import Logo from '../utils/Logo';
 import ClassPage from '../class/[id]';
-import User, { Role } from '../account/User';
-import { useAppDispatch, useAppSelector } from '../redux/store';
-import RequestsPage from '../requests/[id]';
-import ProfilePicture from '../ProfilePic';
-import { logout } from '../login/AuthService';
+import  { Role } from '../account/User';
+import { useAppSelector } from '../redux/store';
+import Requests from '../requests/[id]';
 import AddClassPage from 'pages/addClass';
 import EditAccountPage from 'pages/account/edit';
 import AddClassButton from './AddClassButton';
-
-function LogoutButton() {
-  const router = useRouter();
-  const dispatch = useAppDispatch();
-
-  return (
-    <button
-      type="button"
-      className="btn btn-outline-primary"
-      onClick={() => logout(dispatch, router)}
-    >
-      Logout
-    </button>
-  );
-}
-
-function Loading() {
-  return (
-    <div className={styles['profile-pic-size'] + ' d-inline'}>
-      <div
-        className={
-          'spinner-grow text-primary align-middle mx-2 p-3 ' +
-          styles['spinner-size']
-        }
-        role="status"
-      >
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    </div>
-  );
-}
+import Loading from './Loading';
+import AccountButton from './AccountButton';
+import LogoutButton from './LogoutButton';
+import styles from 'pages/header/header.module.scss';
 
 type HeaderParams = {
   currentComponent: any;
 };
 
-function AccountButton({ user }: { user: User }) {
-  
-  return (
-    <Link href={'/account'} className={"nav-link px-2 text-secondary d-inline"}>
-      <ProfilePicture user={user} hoverOn={true}/>
-    </Link>
-  );
-}
-
 function Header({ currentComponent }: HeaderParams) {
-  const tabs = [Classes, AccountPage, ClassPage, RequestsPage, AddClassPage, EditAccountPage];
+  const tabs = [
+    Classes,
+    AccountPage,
+    ClassPage,
+    Requests,
+    AddClassPage,
+    EditAccountPage,
+  ];
 
   if (!tabs.find((element) => element.name == currentComponent?.name))
     return <></>;
@@ -69,9 +36,12 @@ function Header({ currentComponent }: HeaderParams) {
 
   function HeaderDiv() {
     return (
-      <header className="p-3 bg-dark text-white">
-        <div className="navbar navbar-expand-lg navbar-dark">
-          <div className="navbar-brand border rounded me-2">
+      <header className={'p-3 text-white position-relative'}>
+        <div className={styles['blur-100']}>
+          <div className={styles['header-background']}></div>
+        </div>
+        <div className="navbar navbar-expand-lg">
+          <div className="navbar-brand rounded me-2">
             <Logo />
           </div>
           <button
@@ -97,7 +67,7 @@ function Header({ currentComponent }: HeaderParams) {
               </li>
             </ul>
             <div className="text-center text-lg-end">
-              {user?.role === Role.Teacher && <AddClassButton/>}
+              {user?.role === Role.Teacher && <AddClassButton />}
               {user ? <AccountButton user={user} /> : <Loading />}
               <LogoutButton />
             </div>
@@ -107,8 +77,8 @@ function Header({ currentComponent }: HeaderParams) {
     );
   }
 
-  return tabs.find((element) => element.name == currentComponent.name) && (
-    HeaderDiv()
+  return (
+    tabs.find((element) => element.name == currentComponent.name) && HeaderDiv()
   );
 }
 

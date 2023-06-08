@@ -15,11 +15,11 @@ export default function UserClasses() {
   return (
     <div data-testid={'user-classes'}>
       <h2>Your classes</h2>
-      <div className={'row justify-content-center'}>
+      <div className={'d-flex flex-wrap justify-content-center'}>
         {classes?.map((cls) => (
           <Link
             className={
-              'col-md text-decoration-none text-dark ' + styles['class-block']
+              'text-decoration-none text-dark ' + styles['class-block']
             }
             key={cls.id}
             href={`/class/${cls.id}`}

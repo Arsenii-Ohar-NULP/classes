@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { EditAccountInput } from './EditAccountInput';
 import { useAppDispatch, useAppSelector } from 'pages/redux/store';
-import EditButton from './EditButton';
+import EditButton from 'pages/account/edit/EditButton';
 import { editUser } from 'pages/account/UserService';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
 import { logout } from 'pages/login/AuthService';

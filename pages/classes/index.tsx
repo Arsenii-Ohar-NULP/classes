@@ -16,7 +16,7 @@ export default function Classes({}): React.ReactNode {
       <Head>
         <title>Classes</title>
       </Head>
-      {user && <Greeting firstName={user?.firstName} role={user?.role}/>}
+      {user && <Greeting firstName={user?.firstName}/>}
       <div className="p-2 m-2 text-center">
         <RecommendedClasses />
         <UserClasses />
