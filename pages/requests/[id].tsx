@@ -9,11 +9,14 @@ import { authActions } from 'pages/redux/auth';
 import { removeToken } from 'pages/login/AuthService';
 import Head from 'next/head';
 import { Loading } from 'pages/class/Loading';
+import { useAppSelector } from 'pages/redux/store';
+import { Role } from 'pages/account/User';
 
 // eslint-disable-next-line no-empty-pattern
 export default function RequestsPage({}) {
   const [isFetching, setIsFetching] = useState<boolean>(false);
 
+  const role = useAppSelector((state) => state?.auth?.user?.role);
   const router = useRouter();
   const [requests, setRequests] = useState<JoinRequest[]>();
   const dispatch = useDispatch();
@@ -37,10 +40,15 @@ export default function RequestsPage({}) {
   }
 
   useEffect(() => {
+    if (role !== Role.Teacher){
+      router.push('/404')
+    }
     if (!requests){
       fetchRequests();
     }
-  }, [requests]);
+  }, [requests, role]);
+  
+
   if (!requests) {
     return <></>
   }

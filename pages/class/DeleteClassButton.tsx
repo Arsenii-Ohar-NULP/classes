@@ -8,7 +8,7 @@ export default function DeleteClassButton({ onDelete }: { onDelete: () => void }
   const role = useAppSelector((state) => state.auth?.user?.role);
 
   if (role !== Role.Teacher) {
-    return <></>;
+    return null;
   }
 
   return (

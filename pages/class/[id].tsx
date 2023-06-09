@@ -32,11 +32,11 @@ export default function ClassPage() {
   const [cls, setClass] = useState<Class>(null);
   const [joined, setJoined] = useState<boolean>(false);
   const [showDelete, setShowDelete] = useState<boolean>();
-  
+
   const logout = useLogout();
 
   const userId = useAppSelector((state) => state.auth.user?.id);
-  const {register, handleSubmit} = useClassForm();
+  const { register, handleSubmit } = useClassForm();
 
   function redirectToUnknown() {
     router.push('/404');
@@ -57,7 +57,7 @@ export default function ClassPage() {
 
   const cleanChangedData = (data: IClassData) => {
     const changedData = {};
-    if (!cls){
+    if (!cls) {
       return changedData;
     }
     for (const key of Object.keys(data)) {
@@ -77,27 +77,22 @@ export default function ClassPage() {
     const changedData = cleanChangedData(data);
     changedData['id'] = cls.id;
 
-    if (!hasDataChanged(changedData)){
-      alert('Class information has not been changed')
+    if (!hasDataChanged(changedData)) {
+      alert('Class information has not been changed');
       return;
     }
     setIsSaving(true);
     editClass(changedData as EditClassData)
-    .then(() => {
-      setClass({...cls, ...changedData});
-      setEditMode(false);
-    })
-    .catch(
-      (error) => 
-      {
-        if (error instanceof InvalidCredentials){
-          logout(); 
+      .then(() => {
+        setClass({ ...cls, ...changedData });
+        setEditMode(false);
+      })
+      .catch((error) => {
+        if (error instanceof InvalidCredentials) {
+          logout();
         }
-      }
-    )
-    .finally(
-      () => setIsSaving(false)
-    )
+      })
+      .finally(() => setIsSaving(false));
   }
 
   function cancelEditing() {
@@ -134,8 +129,8 @@ export default function ClassPage() {
           <div className="container card bg-secondary text-white w-auto rounded shadow mt-sm-1 py-2">
             <div className="d-flex flex-wrap justify-content-center gap-2">
               <ClassThumbnail cls={cls} />
-              <div className="d-flex flex-column align-items-center">
-                <form>
+              <div className="d-flex flex-column align-items-start flex-grow-1">
+                <form className='w-100'>
                   <div className="pt-lg-3 px-3 pb-0">
                     <p className="m-0 fs-3">
                       {editMode ? (
@@ -179,23 +174,30 @@ export default function ClassPage() {
                       <p className="fs-6">{cls.description}</p>
                     )}
                   </div>
-                  <div>
-                    
+                  <div></div>
+                  <div className="px-3">
+                    {editMode ? (
+                      <div className="d-flex flex-sm-row flex-lg-row gap-1">
+                        <SaveEditButton
+                          handleClick={handleSubmit(saveEditing)}
+                          isSaving={isSaving}
+                        />
+                        <CancelEditButton
+                          handleClick={cancelEditing}
+                          isSaving={isSaving}
+                        />
+                      </div>
+                    ) : (
+                      userId == cls?.teacher_id && (
+                        <EditClassButton
+                          handleClick={() => setEditMode(!editMode)}
+                        />
+                      )
+                    )}
                   </div>
-                  {editMode ? (
-                    <div className="d-flex flex-sm-row flex-lg-row gap-1">
-                      <SaveEditButton handleClick={handleSubmit(saveEditing)} isSaving={isSaving}/>
-                      <CancelEditButton handleClick={cancelEditing} isSaving={isSaving}/>
-                    </div>
-                  ) : userId == cls?.teacher_id && (
-                    <EditClassButton
-                      handleClick={() => setEditMode(!editMode)}
-                    />
-                  )}
                 </form>
-                
               </div>
-              
+
               <div
                 className={
                   'd-flex justify-content-end align-items-center mb-2 ' +

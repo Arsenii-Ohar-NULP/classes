@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAppDispatch } from 'pages/redux/store';
 import InvalidCredentials from 'pages/errors/InvalidCredentials';
-import { removeMessage } from './MessageService';
+import { removeMessage } from 'pages/class/MessageService';
 import { logout } from 'pages/login/AuthService';
 import { Button, Modal } from 'react-bootstrap';
 
