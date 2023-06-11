@@ -1,14 +1,14 @@
 import { renderWithProviders } from '__test__/testUtils';
 import React from 'react';
-import RecommendedClasses from 'pages/classes/RecommendedClasses';
-import { findAllClasses } from 'pages/class/ClassService';
-import { ClassUI } from 'pages/classes/ClassUI';
+import RecommendedClasses from 'components/classes/RecommendedClasses';
+import { findAllClasses } from 'components/class/ClassService';
+import { ClassUI } from 'components/classes/ClassUI';
 import { screen, waitFor } from '@testing-library/react';
 import { sampleFiveClasses } from '__test__/data/classes';
 import ClassMock from './ClassMock';
 
-jest.mock('pages/class/ClassService');
-jest.mock('pages/classes/ClassUI');
+jest.mock('components/class/ClassService');
+jest.mock('components/classes/ClassUI');
 
 describe('recommended classes tests', () => {
   it('when findAllClasses returns 5 classes, render 5 classes', () => {

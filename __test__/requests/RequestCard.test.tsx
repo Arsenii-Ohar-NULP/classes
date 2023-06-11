@@ -1,15 +1,15 @@
 import * as React from 'react';
 
 import { renderWithProviders } from '__test__/testUtils';
-import { getAccessToken, logout } from 'pages/login/AuthService';
-import RequestCard from 'pages/requests/RequestCard';
-import { getUserInfo } from 'pages/account/UserService';
+import { getAccessToken, logout } from 'components/login/AuthService';
+import RequestCard from 'components/requests/RequestCard';
+import { getUserInfo } from 'components/account/UserService';
 import { sampleUser } from '__test__/data/user';
 import { screen, waitFor } from '@testing-library/react';
-import InvalidCredentials from 'pages/errors/InvalidCredentials';
+import InvalidCredentials from 'components/errors/InvalidCredentials';
 
-jest.mock('pages/account/UserService');
-jest.mock('pages/login/AuthService');
+jest.mock('components/account/UserService');
+jest.mock('components/login/AuthService');
 jest.mock('next/router', () => ({
   useRouter: () => ({
     push: jest.fn((url) => console.log(url)),

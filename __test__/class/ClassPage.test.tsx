@@ -2,18 +2,18 @@ import React from 'react';
 import { sampleFiveClasses } from '__test__/data/classes';
 import { sampleUser } from '__test__/data/user';
 import { renderWithProviders } from '__test__/testUtils';
-import { findClass } from 'pages/class/ClassService';
+import { findClass } from 'components/class/ClassService';
 import ClassPage from 'pages/class/[id]';
-import { AuthStatus } from 'pages/redux/auth';
+import { AuthStatus } from 'components/redux/auth';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { useRouter } from 'next/router';
 import { act } from 'react-dom/test-utils';
 
-jest.mock('pages/classes/ClassThumbnail');
-jest.mock('pages/utils/hooks');
-jest.mock('pages/class/MessagesBar');
-jest.mock('pages/class/DeleteClassButton');
-jest.mock('pages/class/ClassService');
+jest.mock('components/classes/ClassThumbnail');
+jest.mock('components/utils/hooks');
+jest.mock('components/class/MessagesBar');
+jest.mock('components/class/DeleteClassButton');
+jest.mock('components/class/ClassService');
 
 const pushMock = jest.fn((url) => console.log(url));
 jest.mock('next/router', () => ({

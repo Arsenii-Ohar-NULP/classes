@@ -1,14 +1,14 @@
 import * as React from 'react';
 
-import DeleteMessageButtonModal from 'pages/class/DeleteMessageButtonModal';
+import DeleteMessageButtonModal from 'components/class/DeleteMessageButtonModal';
 import { renderWithProviders } from '__test__/testUtils';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
-import { removeMessage } from 'pages/class/MessageService';
-import { logout } from 'pages/login/AuthService';
-import InvalidCredentials from 'pages/errors/InvalidCredentials';
+import { removeMessage } from 'components/class/MessageService';
+import { logout } from 'components/login/AuthService';
+import InvalidCredentials from 'components/errors/InvalidCredentials';
 
-jest.mock('pages/class/MessageService')
-jest.mock('pages/login/AuthService')
+jest.mock('components/class/MessageService')
+jest.mock('components/login/AuthService')
 const pushMock = jest.fn((url) => console.log(url));
 jest.mock('next/router', () => ({
   useRouter: () => ({

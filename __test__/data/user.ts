@@ -1,4 +1,4 @@
-import User, { Role } from 'pages/account/User';
+import User, { Role } from 'components/account/User';
 
 export const sampleUser: User = {
     id: 1,

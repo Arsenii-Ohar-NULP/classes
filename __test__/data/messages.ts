@@ -1,4 +1,4 @@
-import Message from 'pages/class/Message';
+import Message from 'components/class/Message';
 
 const sampleMessages : Message[] = [
     {

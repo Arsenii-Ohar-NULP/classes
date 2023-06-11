@@ -1,11 +1,11 @@
 /* eslint-disable no-empty-pattern */
 import React from 'react';
-import { useAppSelector } from 'pages/redux/store';
-import RecommendedClasses from './RecommendedClasses';
-import Greeting from './Greeting';
-import { useLoginRedirect } from 'pages/utils/hooks';
+import { useAppSelector } from 'components/redux/store';
+import RecommendedClasses from '../../components/classes/RecommendedClasses';
+import Greeting from 'components/classes/Greeting';
+import { useLoginRedirect } from 'components/utils/hooks';
 import Head from 'next/head';
-import UserClasses from './UserClasses';
+import UserClasses from 'components/classes/UserClasses';
 
 export default function Classes({}): React.ReactNode {
   useLoginRedirect();

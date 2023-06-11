@@ -1,8 +1,8 @@
 import { LocalStorageMock } from '__test__/LocalStorageMock';
 import { mockFetch } from '__test__/mockFetch';
-import InvalidCredentials from 'pages/errors/InvalidCredentials';
-import { accessTokenKey, login, logout } from 'pages/login/AuthService';
-import { authActions } from 'pages/redux/auth';
+import InvalidCredentials from 'components/errors/InvalidCredentials';
+import { accessTokenKey, login, logout } from 'components/login/AuthService';
+import { authActions } from 'components/redux/auth';
 mockFetch();
 
 describe('login test', () => {

@@ -1,6 +1,6 @@
 import { sampleFiveClasses } from '__test__/data/classes';
-import { JoinRequest } from 'pages/class/JoinRequest';
-import { classSlice, classesActions } from 'pages/redux/classes';
+import { JoinRequest } from 'components/class/JoinRequest';
+import { classSlice, classesActions } from 'components/redux/classes';
 
 describe('class slice test', () => {
   it('given no action, then return initial state', () => {

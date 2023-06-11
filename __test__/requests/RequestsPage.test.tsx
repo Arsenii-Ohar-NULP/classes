@@ -4,11 +4,11 @@ import {
   renderWithProviders,
 } from '__test__/testUtils';
 import RequestsPage from 'pages/requests/[id]';
-import { getJoinRequests } from 'pages/class/ClassService';
+import { getJoinRequests } from 'components/class/ClassService';
 import { getRequestsWithClassId } from '__test__/data/requests';
 import { screen, waitFor } from '@testing-library/react';
 import { MockRequestCard } from './MockRequestCard';
-import RequestCard from 'pages/requests/RequestCard';
+import RequestCard from 'components/requests/RequestCard';
 
 const pushMock = jest.fn();
 const CLASS_ID = 1;
@@ -19,8 +19,8 @@ jest.mock('next/router', () => ({
     query: { id: CLASS_ID },
   }),
 }));
-jest.mock('pages/requests/RequestCard');
-jest.mock('pages/class/ClassService', () => ({
+jest.mock('components/requests/RequestCard');
+jest.mock('components/class/ClassService', () => ({
     getJoinRequests: jest.fn()
 }));
 

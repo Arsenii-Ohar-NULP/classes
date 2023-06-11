@@ -1,9 +1,9 @@
 import React from 'react';
-import 'pages/_base.scss';
+import 'components/_base.scss';
 import App from 'pages/app';
-import { useBootstrap } from 'pages/utils/hooks';
+import { useBootstrap } from 'components/utils/hooks';
 import { Provider } from 'react-redux';
-import store from './redux/store';
+import store from 'components/redux/store';
 import Head from 'next/head';
 
 type MyAppProps = {

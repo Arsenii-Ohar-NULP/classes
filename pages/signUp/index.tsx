@@ -2,15 +2,15 @@ import React from 'react';
 import Head from 'next/head';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useMainPageRedirect } from 'pages/utils/hooks';
-import { signUp } from './signUpService';
-import useSignUpForm from './useSignupForm';
-import useUsername from './useUsername';
-import FormTop from './FormTop';
-import SignUpInput from './SignUpInput';
-import SignUpButton from './SignUpButton';
-import LogInButton from './LoginButton';
-import Footer from './Footer';
+import { useMainPageRedirect } from 'components/utils/hooks';
+import { signUp } from 'components/signUp/signUpService';
+import useSignUpForm from 'components/signUp/useSignupForm';
+import useUsername from 'components/signUp/useUsername';
+import FormTop from 'components/signUp/FormTop';
+import SignUpInput from 'components/signUp/SignUpInput';
+import SignUpButton from 'components/signUp/SignUpButton';
+import LogInButton from 'components/signUp/LogInButton';
+import Footer from 'components/signUp/Footer';
 
 // eslint-disable-next-line no-empty-pattern
 export default function SignUp({}) {

@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { createClass, uploadThumbnail } from 'pages/class/ClassService';
-import { useAppSelector } from 'pages/redux/store';
-import { useLogout } from 'pages/login/AuthService';
-import InvalidCredentials from 'pages/errors/InvalidCredentials';
-import TitleInput from './TitleInput';
-import FileInput from './FileInput';
-import AddClassButton from './AddClassButton';
-import { BadRequest } from 'pages/errors/BadRequest';
+import { createClass, uploadThumbnail } from 'components/class/ClassService';
+import { useAppSelector } from 'components/redux/store';
+import { useLogout } from 'components/login/AuthService';
+import InvalidCredentials from 'components/errors/InvalidCredentials';
+import TitleInput from '../../components/addClass/TitleInput';
+import FileInput from 'components/addClass/FileInput';
+import AddClassButton from '../../components/addClass/AddClassButton';
+import { BadRequest } from 'components/errors/BadRequest';
 import { useRouter } from 'next/router';
-import DescriptionInput from 'pages/addClass/DescriptionInput';
+import DescriptionInput from 'components/addClass/DescriptionInput';
 
 type ClassData = {
   Title: string;

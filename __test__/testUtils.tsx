@@ -5,10 +5,10 @@ import { configureStore } from '@reduxjs/toolkit';
 import type { PreloadedState } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 
-import type { RootState, AppStore } from 'pages/redux/store';
+import type { RootState, AppStore } from 'components/redux/store';
 // As a basic setup, import your same slice reducers
-import { authInitialState, authSlice } from 'pages/redux/auth';
-import { classSlice, classesInitialState } from 'pages/redux/classes';
+import { authInitialState, authSlice } from 'components/redux/auth';
+import { classSlice, classesInitialState } from 'components/redux/classes';
 
 // This type interface extends the default options for render from RTL, as well
 // as allows the user to specify other things such as initialState, store.

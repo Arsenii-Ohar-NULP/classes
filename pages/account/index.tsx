@@ -1,7 +1,7 @@
 import React from 'react';
-import PersonalInfoBar from './PersonalInfoBar';
+import PersonalInfoBar from '../../components/account/PersonalInfoBar';
 import Link from 'next/link';
-import { useUserData } from 'pages/utils/hooks';
+import { useUserData } from 'components/utils/hooks';
 
 export default function AccountPage() {
   const user = useUserData();

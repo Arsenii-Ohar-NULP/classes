@@ -4,13 +4,13 @@ import {
   DirtyJoinRequest,
   findAllClasses,
   getUserJoinRequests,
-} from 'pages/class/ClassService';
-import Class from 'pages/classes/Class';
-import Forbidden from 'pages/errors/Forbidden';
-import InvalidCredentials from 'pages/errors/InvalidCredentials';
-import { getAccessToken } from 'pages/login/AuthService';
+} from 'components/class/ClassService';
+import Class from 'components/classes/Class';
+import Forbidden from 'components/errors/Forbidden';
+import InvalidCredentials from 'components/errors/InvalidCredentials';
+import { getAccessToken } from 'components/login/AuthService';
 
-jest.mock('pages/login/AuthService');
+jest.mock('components/login/AuthService');
 
 describe('findAllClasses test', () => {
   mockFetch();
