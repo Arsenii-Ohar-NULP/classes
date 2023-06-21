@@ -1,10 +1,9 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { findAllClasses } from 'components/class/ClassService';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import styles from 'components/classes/classes.module.scss';
 import Class from 'components/classes/Class';
 import { ClassUI } from 'components/classes/ClassUI';
+import { findAllClasses } from 'components/class/ClassService';
 
 export default function RecommendedClasses() {
   const [classes, initClasses] = useState<Class[]>([]);

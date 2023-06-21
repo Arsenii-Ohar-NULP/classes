@@ -19,7 +19,7 @@ export default function UserClasses() {
         {classes?.map((cls) => (
           <Link
             className={
-              'text-decoration-none text-dark ' + styles['class-block']
+              'text-decoration-none text-dark ' + styles['class-block'] + ` ${styles['class-flex']}` 
             }
             key={cls.id}
             href={`/class/${cls.id}`}

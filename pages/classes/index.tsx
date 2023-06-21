@@ -12,11 +12,11 @@ export default function Classes({}): React.ReactNode {
   const user = useAppSelector((state) => state.auth.user);
 
   return (
-    <div>
+    <div> 
       <Head>
         <title>Classes</title>
       </Head>
-      {user && <Greeting firstName={user?.firstName}/>}
+      {/* {user && <Greeting firstName={user?.firstName}/>} */}
       <div className="p-2 m-2 text-center">
         <RecommendedClasses />
         <UserClasses />

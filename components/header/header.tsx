@@ -60,9 +60,9 @@ function Header({ currentComponent }: HeaderParams) {
               <li>
                 <Link
                   href={'/classes'}
-                  className="nav-link px-2 text-light"
+                  className="nav-link px-2 text-dark"
                 >
-                  Home
+                  <b>Home</b>
                 </Link>
               </li>
             </ul>

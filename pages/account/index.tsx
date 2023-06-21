@@ -1,5 +1,5 @@
 import React from 'react';
-import PersonalInfoBar from '../../components/account/PersonalInfoBar';
+import PersonalInfoBar from 'components/account/PersonalInfoBar';
 import Link from 'next/link';
 import { useUserData } from 'components/utils/hooks';
 

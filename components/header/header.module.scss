@@ -17,6 +17,11 @@
     transition: 0.2s;
 }
 
+.account-button:active{
+    transform: scale(0.9);
+    transition: 0.2s;
+}
+
 .header-background {
     position: absolute;
     top: 0;

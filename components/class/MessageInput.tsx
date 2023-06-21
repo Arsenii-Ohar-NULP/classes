@@ -68,7 +68,7 @@ export function MessageInput({
       <form>
         <div className="input-group">
           <input
-            className="form-control bg-dark text-light"
+            className="form-control rounded-3 bg-dark text-light"
             placeholder="Enter any message you like"
             onChange={(e) => setMessage(e.target.value)}
             value={messageText}
@@ -79,7 +79,7 @@ export function MessageInput({
             className={clsx({
               'visually-hidden':
                 messageText == null || isEmptyOrSpaces(messageText),
-              'px-3 py-2': true
+              'px-3 py-1': true
             })}
             onClick={send}
             disabled={isSending}

@@ -1,5 +1,6 @@
 import React from 'react';
 import 'components/_base.scss';
+import 'animate.css';
 import App from 'pages/app';
 import { useBootstrap } from 'components/utils/hooks';
 import { Provider } from 'react-redux';
