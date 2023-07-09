@@ -9,6 +9,7 @@ export interface Credentials {
   username: string;
   password: string;
 }
+
 const getApiUrl = (): string => {
   return process.env['NEXT_PUBLIC_API_URL'];
 };
@@ -68,7 +69,7 @@ export const logout = async (dispatch: AppDispatch, router: NextRouter) => {
   removeToken();
   await router.push('/login');
   dispatch(authActions.logout());
-}
+};
 
 export const useLogout = () => {
   const dispatch = useAppDispatch();
@@ -76,18 +77,18 @@ export const useLogout = () => {
 
   const adaptedLogout = () => logout(dispatch, router);
 
-  return adaptedLogout
-}
+  return adaptedLogout;
+};
 
-const saveInSession = (token) => {
+const saveInSession = (token: string) => {
   sessionStorage.setItem(accessTokenKey, token);
 };
 
-const saveInLocal = (token) => {
+const saveInLocal = (token: string) => {
   localStorage.setItem(accessTokenKey, token);
 };
 
-export const saveToken = (token, remember) => {
+export const saveToken = (token: string, remember: boolean) => {
   if (!remember) {
     saveInSession(token);
     return;
