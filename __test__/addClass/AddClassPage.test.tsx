@@ -3,11 +3,11 @@ import * as React from 'react';
 import { renderWithProviders } from '__test__/testUtils';
 import AddClassPage from 'pages/addClass';
 import { sampleUser } from '__test__/data/user';
-import { AuthStatus } from 'pages/redux/auth';
+import { AuthStatus } from 'components/redux/auth';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
-import { createClass, uploadThumbnail } from 'pages/class/ClassService';
-import InvalidCredentials from 'pages/errors/InvalidCredentials';
-import { logout, useLogout } from 'pages/login/AuthService';
+import { createClass, uploadThumbnail } from 'components/class/ClassService';
+import InvalidCredentials from 'components/errors/InvalidCredentials';
+import { useLogout } from 'components/login/AuthService';
 
 
 const pushMock = jest.fn();
@@ -17,8 +17,8 @@ jest.mock('next/router', () => ({
     })
 }))
 
-jest.mock('pages/class/ClassService')
-jest.mock('pages/login/AuthService')
+jest.mock('components/class/ClassService')
+jest.mock('components/login/AuthService')
 
 describe('add class page', () => {
     beforeEach(() => {

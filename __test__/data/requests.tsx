@@ -1,4 +1,4 @@
-import { JoinRequest } from 'pages/class/JoinRequest'
+import { JoinRequest } from 'components/class/JoinRequest'
 
 export const getRequestsWithClassId = (classId: number, number: number) => {
     const requests: JoinRequest[] = []

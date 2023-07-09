@@ -2,9 +2,9 @@ import * as React from 'react';
 
 import { sampleUser } from '__test__/data/user'
 import { renderWithProviders } from '__test__/testUtils';
-import { Role } from 'pages/account/User';
-import DeleteClassButton from 'pages/class/DeleteClassButton';
-import { AuthStatus } from 'pages/redux/auth';
+import { Role } from 'components/account/User';
+import DeleteClassButton from 'components/class/DeleteClassButton';
+import { AuthStatus } from 'components/redux/auth';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 
 describe('delete class button', () => {

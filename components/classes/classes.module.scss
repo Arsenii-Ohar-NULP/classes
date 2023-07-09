@@ -1,0 +1,23 @@
+.thumbnail{
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+}
+
+.class-block{
+    transition: 0.2s;
+}
+
+.class-block:hover{
+    transform: scale(1.05);
+}
+
+.class-block:active{
+    transform: scale(0.9);
+}
+
+.class-flex {
+    flex-basis: 300px;
+    flex-shrink: 1;
+    flex-grow: 0;
+}

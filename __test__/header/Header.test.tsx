@@ -1,6 +1,6 @@
 import React from 'react';
 import { renderWithProviders } from '__test__/testUtils';
-import Header from 'pages/header/header';
+import Header from 'components/header/header';
 import ClassPage from 'pages/class/[id]';
 
 jest.mock('next/router', () => ({

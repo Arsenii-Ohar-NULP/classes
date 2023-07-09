@@ -5,9 +5,11 @@
   "dependencies": {
     "@hookform/resolvers": "^3.0.1",
     "@reduxjs/toolkit": "^1.9.5",
+    "animate.css": "^4.1.1",
     "bootstrap": "^5.2.3",
     "clsx": "^1.2.1",
     "css-loader": "^6.7.3",
+    "fuse.js": "^6.6.2",
     "gulp": "^4.0.2",
     "gulp-less": "^5.0.0",
     "gulp-sass": "^5.1.0",
@@ -19,6 +21,7 @@
     "react-redux": "^8.0.5",
     "sass": "^1.58.3",
     "sass-loader": "^13.2.0",
+    "socket.io-client": "^4.7.0",
     "style-loader": "^3.3.1",
     "uuid": "^9.0.0",
     "yup": "^1.0.2"
@@ -59,5 +62,9 @@
   "bugs": {
     "url": "https://github.com/Arsenii-Ohar-NULP/web-labs/issues"
   },
-  "homepage": "https://github.com/Arsenii-Ohar-NULP/web-labs#readme"
+  "homepage": "https://github.com/Arsenii-Ohar-NULP/web-labs#readme",
+  "optionalDependencies": {
+    "bufferutil": "^4.0.7",
+    "utf-8-validate": "^5.0.10"
+  }
 }

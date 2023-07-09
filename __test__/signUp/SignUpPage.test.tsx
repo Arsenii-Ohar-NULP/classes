@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { renderWithProviders } from '__test__/testUtils';
-import SignUp from 'pages/signUp';
+import SignUp from 'pages/signUp/index';
 
 const pushMock = jest.fn();
 jest.mock('next/router', () => (

@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useMainPageRedirect } from 'pages/utils/hooks';
+import { useMainPageRedirect } from 'components/utils/hooks';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { login, saveToken } from 'pages/login/AuthService';
-import { useAppDispatch } from 'pages/redux/store';
-import { authActions } from 'pages/redux/auth';
-import { getUserInfo } from 'pages/account/UserService';
-import { useLoginForm } from './useLoginForm';
-import { FormInput } from './FormInput';
-import { RememberMe } from './RememberMe';
-import { LoginButton } from './LoginButton';
-import { SignUpButton } from './SignUpButton';
-import { TopSection } from './TopSection';
-import { ServerError } from './ServerError';
-import { Footer } from './Footer';
+import { login, saveToken } from 'components/login/AuthService';
+import { useAppDispatch } from 'components/redux/store';
+import { authActions } from 'components/redux/auth';
+import { getUserInfo } from 'components/account/UserService';
+import { useLoginForm } from 'components/login/useLoginForm';
+import { FormInput } from 'components/login/FormInput';
+import { RememberMe } from 'components/login/RememberMe';
+import { LoginButton } from 'components/login/LoginButton';
+import { SignUpButton } from 'components/login/SignUpButton';
+import { TopSection } from 'components/login/TopSection';
+import { ServerError } from 'components/login/ServerError';
+import { Footer } from 'components/login/Footer';
 
 export default function LoginPage() {
   const { register, handleSubmit, errors, getValues } = useLoginForm();

@@ -4,14 +4,14 @@ import { fireEvent, screen, waitFor } from '@testing-library/react';
 import LoginPage from 'pages/login';
 import { renderWithProviders } from '../testUtils';
 import { LocalStorageMock } from '__test__/LocalStorageMock';
-import { login, getAccessToken, saveToken } from 'pages/login/AuthService';
-import { getUserInfo } from 'pages/account/UserService';
+import { login, getAccessToken, saveToken } from 'components/login/AuthService';
+import { getUserInfo } from 'components/account/UserService';
 import { sampleUser } from '__test__/data/user';
-import InvalidCredentials from 'pages/errors/InvalidCredentials';
+import InvalidCredentials from 'components/errors/InvalidCredentials';
 import { useRouter } from 'next/router';
 
-jest.mock('pages/account/UserService');
-jest.mock('pages/login/AuthService');
+jest.mock('components/account/UserService');
+jest.mock('components/login/AuthService');
 Object.defineProperty(window, 'localStorage', {
   value: new LocalStorageMock(),
 });
@@ -76,7 +76,7 @@ describe('Login Page', () => {
     const mockedLogin = jest.fn();
     const sampleUsername = 'hell';
     mockedLogin.mockReturnValueOnce('ABCD123');
-    jest.mock('pages/login/authService', () => ({
+    jest.mock('components/login/authService', () => ({
       login: mockedLogin,
     }));
 

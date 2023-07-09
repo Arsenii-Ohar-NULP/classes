@@ -1,8 +1,8 @@
-import { editUser, getUserInfo  } from 'pages/account/UserService';
-import InvalidCredentials from 'pages/errors/InvalidCredentials';
+import { editUser, getUserInfo  } from 'components/account/UserService';
+import InvalidCredentials from 'components/errors/InvalidCredentials';
 import { mockFetch } from './mockFetch';
 import { sampleUser } from './data/user';
-import Forbidden from 'pages/errors/Forbidden';
+import Forbidden from 'components/errors/Forbidden';
 
 describe('getUserInfo test', () => {
     mockFetch();

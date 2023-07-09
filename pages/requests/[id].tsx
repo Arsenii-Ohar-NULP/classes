@@ -1,16 +1,16 @@
 import { useRouter } from 'next/router';
-import { getJoinRequests } from 'pages/class/ClassService';
-import { JoinRequest } from 'pages/class/JoinRequest';
+import { getJoinRequests } from 'components/class/ClassService';
+import { JoinRequest } from 'components/class/JoinRequest';
 import React, { useEffect, useState } from 'react';
-import RequestCard from 'pages/requests/RequestCard';
-import InvalidCredentials from 'pages/errors/InvalidCredentials';
+import RequestCard from 'components/requests/RequestCard';
+import InvalidCredentials from 'components/errors/InvalidCredentials';
 import { useDispatch } from 'react-redux';
-import { authActions } from 'pages/redux/auth';
-import { removeToken } from 'pages/login/AuthService';
+import { authActions } from 'components/redux/auth';
+import { removeToken } from 'components/login/AuthService';
 import Head from 'next/head';
-import { Loading } from 'pages/class/Loading';
-import { useAppSelector } from 'pages/redux/store';
-import { Role } from 'pages/account/User';
+import { Loading } from 'components/class/Loading';
+import { useAppSelector } from 'components/redux/store';
+import { Role } from 'components/account/User';
 
 // eslint-disable-next-line no-empty-pattern
 export default function RequestsPage({}) {

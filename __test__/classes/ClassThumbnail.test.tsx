@@ -1,12 +1,12 @@
 import * as React from 'react';
 
 import { renderWithProviders } from '__test__/testUtils';
-import ClassThumbnail from 'pages/classes/ClassThumbnail';
-import { findClassThumbnail } from 'pages/header/ClassThumbnailService';
+import ClassThumbnail from 'components/classes/ClassThumbnail';
+import { findClassThumbnail } from 'components/header/ClassThumbnailService';
 import { sampleFiveClasses } from '__test__/data/classes';
 import { screen, waitFor } from '@testing-library/react';
 
-jest.mock('pages/header/ClassThumbnailService');
+jest.mock('components/header/ClassThumbnailService');
 describe('class thumbnail', () => {
   it('should render a pic, when fetched', async () => {
     const data = 'CLSDATA123';

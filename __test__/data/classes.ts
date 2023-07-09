@@ -1,4 +1,4 @@
-import Class from 'pages/classes/Class';
+import Class from 'components/classes/Class';
 
 export const sampleFiveClasses: Class[] = [
     {

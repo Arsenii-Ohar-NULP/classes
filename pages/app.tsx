@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
-import Header from 'pages/header/header';
-import { useAppDispatch, useAppSelector } from './redux/store';
-import { AuthStatus, authActions } from 'pages/redux/auth';
-import { fetchUserData } from 'pages/redux/classesActions';
-import { getUserInfo } from './account/UserService';
-import { getAccessToken, logout } from './login/AuthService';
-import InvalidCredentials from './errors/InvalidCredentials';
+import Header from 'components/header/header';
+import { useAppDispatch, useAppSelector } from 'components/redux/store';
+import { AuthStatus, authActions } from 'components/redux/auth';
+import { fetchUserData } from 'components/redux/classesActions';
+import { getUserInfo } from 'components/account/UserService';
+import { getAccessToken, logout } from 'components/login/AuthService';
+import InvalidCredentials from 'components/errors/InvalidCredentials';
 import { useRouter } from 'next/router';
+import SocketStatus from 'components/utils/SocketStatus';
+import { socket } from 'components/utils/socket';
 
 type AppParams = {
   component: JSX.Element;
@@ -40,8 +42,9 @@ export default function App({ component }: AppParams) {
 
   return (
     <div>
-      <Header currentComponent={component.type} />
+      <Header currentComponent={component?.type} />
       {component}
+      <SocketStatus socket={socket}/>
     </div>
   );
 }

@@ -1,14 +1,14 @@
 import React from 'react';
 import { renderWithProviders } from '__test__/testUtils';
-import { MessagesBar } from 'pages/class/MessagesBar';
-import { getMessages } from 'pages/class/MessageService';
-import InvalidCredentials from 'pages/errors/InvalidCredentials';
-import Forbidden from 'pages/errors/Forbidden';
+import { MessagesBar } from 'components/class/MessagesBar';
+import { getMessages } from 'components/class/MessageService';
+import InvalidCredentials from 'components/errors/InvalidCredentials';
+import Forbidden from 'components/errors/Forbidden';
 import { waitFor } from '@testing-library/react';
 import { sampleFiveClasses } from '__test__/data/classes';
 import { useRouter } from 'next/router';
 
-jest.mock('pages/class/MessageService');
+jest.mock('components/class/MessageService');
 const pushMock = jest.fn((url) => console.log(url))
 jest.mock('next/router', () => ({
     useRouter: () => ({

@@ -1,9 +1,10 @@
 import React from 'react';
-import 'pages/_base.scss';
+import 'components/_base.scss';
+import 'animate.css';
 import App from 'pages/app';
-import { useBootstrap } from 'pages/utils/hooks';
+import { useBootstrap } from 'components/utils/hooks';
 import { Provider } from 'react-redux';
-import store from './redux/store';
+import store from 'components/redux/store';
 import Head from 'next/head';
 
 type MyAppProps = {
@@ -19,9 +20,9 @@ export default function MyApp({ Component, pageProps }: MyAppProps) {
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
         />
-        <link rel='icon' href='/images/favicon.ico'/>
+        <link rel="icon" href="/images/favicon.ico" />
       </Head>
-      <App component={<Component {...pageProps} />} />
+        <App component={<Component {...pageProps} />} />
     </Provider>
   );
 }

@@ -1,0 +1,43 @@
+.profile-pic-size{
+    width: 48px;
+    height: 48px;
+}
+
+.spinner-size{
+    width: 48px;
+    height: 48px;
+}
+
+.account-button{
+    transition: 0.2s;
+}
+
+.account-button:hover{
+    transform: scale(1.1);
+    transition: 0.2s;
+}
+
+.account-button:active{
+    transform: scale(0.9);
+    transition: 0.2s;
+}
+
+.header-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to right, #c47ce0, #8bd8a8);
+    clip-path: polygon(64% 4%, 100% 38%, 0 0, 82% 100%, 0 51%);
+    width: 100%;
+    height: 100%;
+}
+
+.blur-100 {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    right: 0;
+    filter: blur(28px); 
+    z-index: -1;
+}

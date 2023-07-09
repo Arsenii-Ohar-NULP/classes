@@ -1,0 +1,24 @@
+.socket-status-box{
+    position: fixed;
+    right: 2vw;
+    bottom: 5vh;
+    z-index: 1050;
+}
+
+.socket-status{
+    padding: 1rem;
+    border-radius: 6px;
+}
+
+.socket-status-connected{
+    background-color: green;
+}
+
+.socket-status-disconnected{
+    background-color: red;
+}
+
+.socket-status-text{
+    font-size: 1rem;
+    color: white;
+}
