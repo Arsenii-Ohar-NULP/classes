@@ -10,6 +10,9 @@ import { useRouter } from 'next/router';
 import { Button, Spinner } from 'react-bootstrap';
 import styles from 'components/class/class.module.scss';
 import clsx from 'clsx';
+import { socket } from 'components/utils/socket';
+import { MessageType } from './MessageType';
+import { MessageReceivedStatus } from './MessageReceivedStatus';
 
 export function MessageInput({
   forbidden,
@@ -39,24 +42,45 @@ export function MessageInput({
     } as Message;
     setIsSending(true);
     saveMessage({ message })
-      .then((data) => {
-        message.username = username;
-        message.fullname = `${firstName} ${lastName}`;
-        message.id = data?.id;
-        onSend(message);
-        setMessage('');
-      })
+      .then((data) => onSuccess(message, data))
       .catch((error) => {
         if (error instanceof InvalidCredentials) {
           dispatch(authActions.logout());
           router.push('/login');
         }
       })
-      .finally(
-        () => {
-          setIsSending(false);
-        }
-      )
+      .finally(() => {
+        setIsSending(false);
+      });
+  }
+
+  async function socketSend() {
+    const message = {
+      content: messageText,
+      user: userId,
+      cls: classId,
+    } as Message;
+    setIsSending(true);
+    if (socket.disconnected) {
+      console.log("Damn, it's disconnected");
+    }
+    const response = await socket.emitWithAck(
+      'message',
+      MessageType.TEXT,
+      message
+    );
+    if (response.status === MessageReceivedStatus.OK) {
+      onSuccess(message, { id: response.id });
+    }
+    setIsSending(false);
+  }
+
+  function onSuccess(message: Message, data) {
+    message.username = username;
+    message.fullname = `${firstName} ${lastName}`;
+    message.id = data?.id;
+    onSend(message);
+    setMessage('');
   }
 
   function isEmptyOrSpaces(str: string) {
@@ -79,16 +103,16 @@ export function MessageInput({
             className={clsx({
               'visually-hidden':
                 messageText == null || isEmptyOrSpaces(messageText),
-              'px-3 py-1': true
+              'px-3 py-1': true,
             })}
-            onClick={send}
+            onClick={socketSend}
             disabled={isSending}
           >
-            {
-            isSending ? 
-            <Spinner className={styles['send-message-spinner']}/> : 
-            <Image alt={'Send Icon'} src={sendIcon} width={24} height={24} />
-}
+            {isSending ? (
+              <Spinner className={styles['send-message-spinner']} />
+            ) : (
+              <Image alt={'Send Icon'} src={sendIcon} width={24} height={24} />
+            )}
           </Button>
         </div>
       </form>

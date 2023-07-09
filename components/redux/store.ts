@@ -2,10 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import { authSlice } from 'components/redux/auth';
 import { classSlice } from 'components/redux/classes';
 import { TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux';
+import { searchSlice } from './search';
 
 const reducer = {
   auth: authSlice.reducer,
   classes: classSlice.reducer,
+  search: searchSlice.reducer
 };
 
 const store = configureStore({

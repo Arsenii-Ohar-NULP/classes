@@ -6,6 +6,7 @@ import User from 'components/account/User';
 import InvalidCredentials from 'components/errors/InvalidCredentials';
 import { getUserInfo } from 'components/account/UserService';
 import { getAccessToken, removeToken } from 'components/login/AuthService';
+import { socket } from './socket';
 
 function useLoginRedirect() {
   const router = useRouter();
@@ -91,10 +92,21 @@ function useBootstrap() {
   });
 }
 
+function useSocket(){
+  useEffect(() => {
+    socket.connect();
+
+    return () => {
+      socket.disconnect();
+    }
+  }, [])
+}
+
 export {
   useLoginRedirect,
   useUserData,
   useMainPageRedirect,
   useMessageReplacer,
   useBootstrap,
+  useSocket
 };

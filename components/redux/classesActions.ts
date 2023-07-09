@@ -2,9 +2,6 @@ import { findUserClasses, getUserJoinRequests } from 'components/class/ClassServ
 import { classesActions } from './classes';
 import { authActions } from './auth';
 
-
-
-
 export function fetchUserData(userId: number) {
     return async dispatch => {
         const fetchUserClasses = async (dispatch) => {

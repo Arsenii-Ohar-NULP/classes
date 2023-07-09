@@ -14,6 +14,7 @@ import Loading from 'components/header/Loading';
 import AccountButton from 'components/header/AccountButton';
 import LogoutButton from 'components/header/LogoutButton';
 import styles from 'components/header/header.module.scss';
+import SearchBar from 'components/classes/SearchBar';
 
 type HeaderParams = {
   currentComponent: any;
@@ -66,7 +67,9 @@ function Header({ currentComponent }: HeaderParams) {
                 </Link>
               </li>
             </ul>
+
             <div className="text-center text-lg-end">
+
               {user?.role === Role.Teacher && <AddClassButton />}
               {user ? <AccountButton user={user} /> : <Loading />}
               <LogoutButton />

@@ -1,7 +1,7 @@
-import { useRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router';
 import InvalidCredentials from 'components/errors/InvalidCredentials';
 import { authActions } from 'components/redux/auth';
-import { useAppDispatch } from 'components/redux/store';
+import { AppDispatch, useAppDispatch } from 'components/redux/store';
 
 export const accessTokenKey = 'accessToken';
 
@@ -64,10 +64,10 @@ export const login = async (credentials: Credentials) => {
   return (await response.json())['access_token'];
 };
 
-export const logout = (dispatch, router) => {
+export const logout = async (dispatch: AppDispatch, router: NextRouter) => {
   removeToken();
+  await router.push('/login');
   dispatch(authActions.logout());
-  router.push('/login');
 }
 
 export const useLogout = () => {

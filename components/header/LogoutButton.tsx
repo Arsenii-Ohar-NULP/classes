@@ -1,17 +1,13 @@
-import { useRouter } from 'next/router';
-import { logout } from 'components/login/AuthService';
-import { useAppDispatch } from 'components/redux/store';
+import { useLogout } from 'components/login/AuthService';
 import React from 'react';
 
 export default function LogoutButton() {
-    const router = useRouter();
-    const dispatch = useAppDispatch();
-  
+    const logout = useLogout();
     return (
       <button
         type="button"
         className="btn btn-primary"
-        onClick={() => logout(dispatch, router)}
+        onClick={() => logout()}
       >
         Logout
       </button>

@@ -7,6 +7,8 @@ import { getUserInfo } from 'components/account/UserService';
 import { getAccessToken, logout } from 'components/login/AuthService';
 import InvalidCredentials from 'components/errors/InvalidCredentials';
 import { useRouter } from 'next/router';
+import SocketStatus from 'components/utils/SocketStatus';
+import { socket } from 'components/utils/socket';
 
 type AppParams = {
   component: JSX.Element;
@@ -42,6 +44,7 @@ export default function App({ component }: AppParams) {
     <div>
       <Header currentComponent={component?.type} />
       {component}
+      <SocketStatus socket={socket}/>
     </div>
   );
 }
