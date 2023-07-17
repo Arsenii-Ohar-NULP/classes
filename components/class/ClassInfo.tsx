@@ -13,6 +13,8 @@ import {
   import { IClassData, useClassForm } from 'components/class/useClassForm';
 import InvalidCredentials from 'components/errors/InvalidCredentials';
 import { useAppSelector } from 'components/redux/store';
+import clsx from "clsx";
+import {StudentsButton} from "./StudentsButton";
 
 interface ClassInfoProps {
     cls: Class;
@@ -73,16 +75,20 @@ const ClassInfo: FunctionComponent<ClassInfoProps> = ({cls, joined, saveClass}) 
 
   return (
     <div className="d-flex flex-column align-items-start flex-grow-1">
-      <form className="w-100">
-        <div className="pt-lg-3 px-3 pb-0">
+      <form className="w-100 px-3">
+        <div className="pt-lg-3 pb-0">
           <p className="m-0 fs-3">
             {editMode ? (
-              <TransparentField
+                <div>
+                  <TransparentField
                 defaultValue={cls.title}
                 placeholder={'Enter a title'}
                 id={'titleInput'}
                 register={register('Title')}
+                className={clsx('p-0')}
               />
+                </div>
+
             ) : (
               cls.title + ' '
             )}
@@ -99,12 +105,15 @@ const ClassInfo: FunctionComponent<ClassInfoProps> = ({cls, joined, saveClass}) 
             )}
           </p>
         </div>
-        <div className="px-3">
+        <div>
           <a>
-            <p className="fs-5">{`${cls['teacher_first_name']} ${cls['teacher_last_name']}`}</p>
+            <p className="fs-5 my-0">{`${cls['teacher_first_name']} ${cls['teacher_last_name']}`}</p>
           </a>
         </div>
-        <div className="px-3">
+        <div>
+          <p>{cls?.students_number} {cls?.students_number == 1 ? 'student' : 'students'}</p>
+        </div>
+        <div >
           {editMode ? (
             <TransparentTextArea
               placeholder="Enter a description"
@@ -112,13 +121,14 @@ const ClassInfo: FunctionComponent<ClassInfoProps> = ({cls, joined, saveClass}) 
               defaultValue={cls.description}
               rows={3}
               register={register('Description')}
+              className={'p-0'}
             />
           ) : (
             <p className="fs-6">{cls.description}</p>
           )}
         </div>
         <div></div>
-        <div className="px-3">
+        <div>
           {editMode ? (
             <div className="d-flex flex-sm-row flex-lg-row gap-1">
               <SaveEditButton
@@ -131,8 +141,12 @@ const ClassInfo: FunctionComponent<ClassInfoProps> = ({cls, joined, saveClass}) 
               />
             </div>
           ) : (
-            userId == cls?.teacher_id && (
+            userId == cls?.teacher_id && (<div className={'d-flex flex-row align-items-center'}>
               <EditClassButton handleClick={() => setEditMode(!editMode)} />
+                  <StudentsButton classId={cls?.id}/>
+                </div>
+
+
             )
           )}
         </div>

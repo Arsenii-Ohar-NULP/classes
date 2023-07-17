@@ -3,7 +3,7 @@ import { searchActions } from 'components/redux/search';
 import { useAppDispatch } from 'components/redux/store';
 import React, { FunctionComponent, useEffect } from 'react';
 
-const SearchBar: FunctionComponent = () => {
+const ClassSearchBar: FunctionComponent = () => {
   const dispatch = useAppDispatch();
   
   useEffect(() => {
@@ -11,7 +11,7 @@ const SearchBar: FunctionComponent = () => {
   }, [])
 
   return (
-    <div className={clsx('container', 'my-2', 'w-100')}>
+    <div className={'container my-2 w-100'}>
     <input
       type="text"
       placeholder={'Search for a class'}
@@ -22,4 +22,4 @@ const SearchBar: FunctionComponent = () => {
   );
 };
 
-export default SearchBar;
+export default ClassSearchBar;

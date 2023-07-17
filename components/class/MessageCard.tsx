@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useAppSelector } from 'components/redux/store';
 import Message from 'components/class/Message';
 import { Role } from 'components/account/User';
-import DeleteMessageButtonAbs from './DeleteMessageButtonAbs';
+import DeleteMessageButtonAbsolute from './DeleteMessageButtonAbsolute';
 import clsx from 'clsx';
 
 export default function MessageCard({
@@ -46,7 +46,7 @@ export default function MessageCard({
             <div className="inline fs-6">{message.content}</div>
           </div>
           {isHover && (role === Role.Teacher || userId == message?.user) && (
-            <DeleteMessageButtonAbs
+            <DeleteMessageButtonAbsolute
               onDelete={onDelete}
               deleteModalId={deleteModalId}
             />

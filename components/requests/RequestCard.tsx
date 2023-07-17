@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getAccessToken, logout } from 'components/login/AuthService';
 import { getUserInfo } from 'components/account/UserService';
 import User from 'components/account/User';
-import ProfilePicture from 'components/ProfilePic';
+import ProfilePicture from 'components/ProfilePicture';
 import { acceptRequest, declineRequest } from './RequestService';
 import InvalidCredentials from 'components/errors/InvalidCredentials';
 import { useAppDispatch } from 'components/redux/store';

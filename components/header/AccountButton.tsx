@@ -1,7 +1,7 @@
 import React from 'react';
 import User from 'components/account/User';
 import Link from 'next/link';
-import ProfilePicture from 'components/ProfilePic';
+import ProfilePicture from 'components/ProfilePicture';
 
 export default function AccountButton({ user }: { user: User }) {
     return (

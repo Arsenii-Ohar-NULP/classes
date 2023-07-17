@@ -14,6 +14,13 @@ jest.mock('components/utils/hooks');
 jest.mock('components/class/MessagesBar');
 jest.mock('components/class/DeleteClassButton');
 jest.mock('components/class/ClassService');
+jest.mock('components/utils/socket', () => ({
+  socket: ({
+    on: jest.fn,
+    emit: jest.fn,
+    emitWithAck: jest.fn,
+  })
+}))
 
 const pushMock = jest.fn((url) => console.log(url));
 jest.mock('next/router', () => ({
@@ -35,6 +42,7 @@ describe('class page test', () => {
           userClasses: sampleFiveClasses,
           joinRequests: [{ classId: cls.id, userId: 2 }],
         },
+        search: { classes: null },
       },
     });
     await waitFor(() => {
@@ -52,6 +60,7 @@ describe('class page test', () => {
         preloadedState: {
           auth: { status: AuthStatus.LOGGED_IN, user: sampleUser },
           classes: { userClasses: sampleFiveClasses, joinRequests: [] },
+          search: { classes: null },
         },
       });
     });
@@ -60,8 +69,8 @@ describe('class page test', () => {
         name: 'Requests',
       });
       fireEvent.click(requestsButton);
-    })
-    
+    });
+
     await waitFor(() => {
       expect(useRouter().push).toHaveBeenCalledWith(`/requests/${cls.id}`);
     });

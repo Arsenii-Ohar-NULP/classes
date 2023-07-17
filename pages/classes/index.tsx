@@ -6,7 +6,7 @@ import Greeting from 'components/classes/Greeting';
 import { useLoginRedirect } from 'components/utils/hooks';
 import Head from 'next/head';
 import UserClasses from 'components/classes/UserClasses';
-import SearchBar from 'components/classes/SearchBar';
+import ClassSearchBar from 'components/classes/ClassSearchBar';
 
 export default function Classes({}): React.ReactNode {
   useLoginRedirect();
@@ -19,7 +19,7 @@ export default function Classes({}): React.ReactNode {
       </Head>
       {/* {user && <Greeting firstName={user?.firstName}/>} */}
       <div className="p-2 m-2 text-center">
-        <SearchBar />
+        <ClassSearchBar />
         <RecommendedClasses />
         <UserClasses />
       </div>
