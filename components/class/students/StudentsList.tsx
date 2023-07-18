@@ -17,15 +17,17 @@ interface StudentsListProps {
 
 export const StudentsList = ({students, isLoading, cls, onDelete}: StudentsListProps) => {
     const [deleteStudentId, setDeleteStudentId] = useState<number>(-1);
+    if (isLoading) return null;
 
     return (<div className={'container'}>
-        {!isLoading && (students == null || students.length == 0) ?
-            <p className={'text-center'}>There are no students in this class.</p> : !isLoading &&
+        {students.length == 0 ? <p className={'text-center'}>There are no students in this class.</p> :
             <div className={clsx('overflow-scroll', styles['hide-scrollbar'], styles['smooth-shadow'])}>
                 <table className={'table shadow m-0'}>
                     <StudentsListHeader/>
                     <tbody>
-                    {students?.map((student) => <StudentCard key={student.id}  student={student} onDelete={() => setDeleteStudentId(student.id)}/>)}
+                    {students?.map((student) =>
+                        <StudentCard key={student.id} student={student}
+                                     onDelete={() => setDeleteStudentId(student.id)}/>)}
                     </tbody>
                 </table>
                 <DeleteStudentModal

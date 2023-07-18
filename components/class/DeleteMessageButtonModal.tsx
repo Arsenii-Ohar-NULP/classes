@@ -19,6 +19,7 @@ export default function DeleteMessageButtonModal({
   async function deleteMessageSocket() {
     setIsDeleting(true);
     const response = await socket.emitWithAck('deleteMessage', messageId);
+    console.log(response);
     if (response.status === DeleteMessageStatus.OK) {
       onDelete();
       close();

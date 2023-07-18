@@ -6,8 +6,7 @@ interface VisibleOnHoverProps {
 }
 
 export const VisibleOnHover = ({children, isHover}: VisibleOnHoverProps) => {
-
-    return <div className={!isHover && 'invisible'}>
+    return <div className={!isHover && 'invisible'} data-testid={'invisible-button'}>
         {children}
     </div>;
 }

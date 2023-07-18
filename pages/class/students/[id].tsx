@@ -54,8 +54,6 @@ export default function StudentsPage() {
                 Students
             </div>
         </div>
-
-
         <StudentsSearchBar />
         <StudentsList students={students} isLoading={isLoading} cls={classId} onDelete={onDelete}/>
         <StudentsStats students={students}/>

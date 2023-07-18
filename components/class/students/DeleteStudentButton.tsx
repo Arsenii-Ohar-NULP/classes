@@ -1,5 +1,4 @@
 import React from 'react';
-import {ClassUserDTO} from "./StudentsService";
 import {Button} from "react-bootstrap";
 import deleteIcon from 'icons/delete.svg';
 import Image from "next/image";

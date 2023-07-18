@@ -1,5 +1,4 @@
 import React from 'react';
-import clsx from "clsx";
 
 export function StudentsListHeader() {
     return <thead className={'border px-2'}>

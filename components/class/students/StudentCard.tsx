@@ -12,11 +12,13 @@ interface StudentCardProps {
 }
 
 export const StudentCard = ({student, onDelete}: StudentCardProps) => {
-    const [isHover, setIsHover] = useState<boolean>();
+    const [isHover, setIsHover] = useState<boolean>(false);
     return <tr
         className={clsx('p-2 w-100 text-start overflow-scroll', styles['neat-text'], styles['student'])}
         onMouseOver={() => setIsHover(true)}
-        onMouseOut={() => setIsHover(false)}>
+        onMouseOut={() => setIsHover(false)}
+        data-testid={'student-card'}
+    >
         <td scope={'row'} className={'d-flex text-center gap-2 align-items-center'}>
             <ProfilePicture user={student} hoverOn={false}/>
             <div>{student.firstName} {student.lastName}</div>

@@ -21,8 +21,6 @@ export default function RequestsPage({}) {
   const router = useRouter();
   const [requests, setRequests] = useState<JoinRequest[]>();
   const dispatch = useDispatch();
-
-  
   function fetchRequests() {
     const classId = router.query['id'];
     setIsFetching(true);

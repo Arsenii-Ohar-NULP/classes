@@ -19,8 +19,10 @@ export const StudentsSearchBar = () => {
         dispatch(searchActions.searchStudents(e.target.value));
     }
 
-    return (
-        <FormControl className={'mb-3'} type={'text'} onChange={onFieldChange} placeholder={'Search for a student'}/>
+    return <FormControl className={'mb-3'}
+                        type={'text'}
+                        onChange={onFieldChange}
+                        placeholder={'Search for a student'}
+    />
 
-        )
 }

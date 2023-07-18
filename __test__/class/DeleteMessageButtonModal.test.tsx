@@ -39,14 +39,15 @@ describe('delete message button modal', () => {
 
   it('should call onDelete, when delete button is clicked', async () => {
     const onDelete = jest.fn();
+    const close =  jest.fn();
     jest.mocked(removeMessage).mockResolvedValue({msg: 'Good'})
-    jest.mocked(socket.emitWithAck).mockResolvedValue(DeleteMessageStatus.OK);
+    jest.mocked(socket.emitWithAck).mockResolvedValueOnce({status: DeleteMessageStatus.OK });
     renderWithProviders(
       <DeleteMessageButtonModal
         messageId={1}
         onDelete={onDelete}
         show={true}
-        close={jest.fn()}
+        close={close}
       />
     );
 
@@ -54,8 +55,9 @@ describe('delete message button modal', () => {
     fireEvent.click(button);
 
     await waitFor(() => {
-      expect(removeMessage).toHaveBeenCalled();
+      expect(jest.mocked(socket.emitWithAck)).toHaveBeenCalled();
       expect(onDelete).toHaveBeenCalled();
+      expect(close).toHaveBeenCalled();
     })
   })
 

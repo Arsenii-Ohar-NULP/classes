@@ -65,10 +65,12 @@ exports[`header test when ClassPage component, should match a snapshot 1`] = `
             >
               <li>
                 <a
-                  class="nav-link px-2 text-light"
+                  class="nav-link px-2 text-dark"
                   href="/classes"
                 >
-                  Home
+                  <b>
+                    Home
+                  </b>
                 </a>
               </li>
             </ul>
@@ -162,10 +164,12 @@ exports[`header test when ClassPage component, should match a snapshot 1`] = `
           >
             <li>
               <a
-                class="nav-link px-2 text-light"
+                class="nav-link px-2 text-dark"
                 href="/classes"
               >
-                Home
+                <b>
+                  Home
+                </b>
               </a>
             </li>
           </ul>
