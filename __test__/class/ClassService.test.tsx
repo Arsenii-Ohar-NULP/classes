@@ -34,7 +34,7 @@ describe('findAllClasses test', () => {
       ok: false,
     } as any);
 
-    expect(findAllClasses).rejects.toThrow(Error);
+    await expect(findAllClasses).rejects.toThrow(Error);
   });
 
   it('when fetch returns Forbidden(403), should reject and throw Forbidden', () => {

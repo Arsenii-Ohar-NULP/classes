@@ -4,8 +4,6 @@ import {StudentCard} from "components/class/students/StudentCard";
 import {StudentsListHeader} from "components/class/students/StudentsListHeader";
 import clsx from "clsx";
 import styles from 'components/class/students/students.module.scss';
-import {useAppSelector} from "../../redux/store";
-import Class from "components/classes/Class";
 import DeleteStudentModal from "./DeleteStudentModal";
 
 interface StudentsListProps {
@@ -20,7 +18,7 @@ export const StudentsList = ({students, isLoading, cls, onDelete}: StudentsListP
     if (isLoading) return null;
 
     return (<div className={'container'}>
-        {students.length == 0 ? <p className={'text-center'}>There are no students in this class.</p> :
+        {students?.length == 0 ? <p className={'text-center'} data-testid={'no-students'}>There are no students in this class.</p> :
             <div className={clsx('overflow-scroll', styles['hide-scrollbar'], styles['smooth-shadow'])}>
                 <table className={'table shadow m-0'}>
                     <StudentsListHeader/>

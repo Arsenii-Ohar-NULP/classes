@@ -5,6 +5,13 @@ import {StudentCard} from "../../../components/class/students/StudentCard";
 import {fireEvent, screen, waitFor} from "@testing-library/react";
 import {act} from "react-dom/test-utils";
 
+const pushMock = jest.fn();
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    pathname: '/',
+    push: pushMock,
+  }),
+}));
 describe('Student Card', () => {
     it('should match a snapshot', () => {
         const user = sampleUser;
@@ -47,4 +54,21 @@ describe('Student Card', () => {
             expect(button).toHaveClass('invisible');
         })
     })
+
+    it('should call onDelete, when delete button is pressed', async () => {
+        const user = sampleUser;
+        const onDelete = jest.fn();
+        renderWithProviders(<StudentCard student={user} onDelete={onDelete}/>)
+
+        await act(async() => {
+            fireEvent.mouseOver(await screen.findByTestId('student-card'));
+            fireEvent.click(await screen.findByRole('button'));
+        })
+
+        await waitFor(() => {
+            expect(onDelete).toHaveBeenCalled();
+        })
+    })
+
+
 })

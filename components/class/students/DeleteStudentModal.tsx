@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import {useRouter} from "next/router";
-import {useAppDispatch} from "../../redux/store";
-import InvalidCredentials from "../../errors/InvalidCredentials";
-import {logout} from "../../login/AuthService";
+import {useAppDispatch} from "components/redux/store";
+import InvalidCredentials from "components/errors/InvalidCredentials";
+import {logout} from "components/login/AuthService";
 import {Button, Modal} from "react-bootstrap";
-import {ClassUserDTO, removeStudentFromClass} from "./StudentsService";
+import {ClassUserDTO, removeStudentFromClass} from "components/class/students/StudentsService";
 
 export default function DeleteStudentModal({
   classUser,
