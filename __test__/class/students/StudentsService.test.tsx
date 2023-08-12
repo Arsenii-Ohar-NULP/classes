@@ -14,7 +14,8 @@ describe('Students Service', () => {
         jest.mocked(fetch).mockResolvedValue({
             json: () => Promise.resolve(students),
             ok: true,
-            status: 200} as any);
+            status: 200,
+        } as Response);
         const classId = 0;
 
         const serviceStudents = await getStudents(classId);
@@ -27,7 +28,7 @@ describe('Students Service', () => {
         jest.mocked(fetch).mockResolvedValue({
             json: () => Promise.resolve(students),
             ok: false,
-            status: 401} as any);
+            status: 401} as Response);
         const classId = 0;
 
         const serviceStudents = getStudents(classId);
@@ -40,7 +41,7 @@ describe('Students Service', () => {
         jest.mocked(fetch).mockResolvedValue({
             json: () => Promise.resolve(students),
             ok: false,
-            status: 401} as any);
+            status: 401} as Response);
         const classId = 0;
 
         const serviceStudents = getStudents(classId);
