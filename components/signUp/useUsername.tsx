@@ -1,11 +1,11 @@
-import { useRouter } from 'next/router';
+import {useRouter, useSearchParams} from 'next/navigation';
 import { useEffect, useState } from 'react';
 export default function useUsername() {
-    const router = useRouter();
+    const searchParams = useSearchParams();
     const [username, setUsername] = useState(null);
     useEffect(() => {
       if (!username) {
-        setUsername(router.query['username']);
+        setUsername(searchParams['username']);
       }
     });
   

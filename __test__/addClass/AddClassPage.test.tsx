@@ -1,19 +1,20 @@
 import * as React from 'react';
 
-import { renderWithProviders } from '__test__/testUtils';
-import AddClassPage from 'pages/addClass';
-import { sampleUser } from '__test__/data/user';
-import { AuthStatus } from 'components/redux/auth';
-import { fireEvent, screen, waitFor } from '@testing-library/react';
-import { createClass, uploadThumbnail } from 'components/class/ClassService';
+import {renderWithProviders} from '__test__/testUtils';
+import AddClassPage from 'app/main/addClass/page';
+import {sampleUser} from '__test__/data/user';
+import {AuthStatus} from 'components/redux/auth';
+import {fireEvent, screen, waitFor} from '@testing-library/react';
+import {createClass, uploadThumbnail} from 'components/class/ClassService';
 import InvalidCredentials from 'components/errors/InvalidCredentials';
-import { useLogout } from 'components/login/AuthService';
+import {useLogout} from 'components/login/AuthService';
 
 
 const pushMock = jest.fn();
-jest.mock('next/router', () => ({
+jest.mock('next/navigation', () => ({
     useRouter: () => ({
-        push: pushMock
+        push: pushMock,
+        replace: pushMock
     })
 }))
 
@@ -35,6 +36,10 @@ describe('add class page', () => {
                 classes: {
                     userClasses: [],
                     joinRequests: []
+                },
+                search: {
+                    students: null,
+                    classes: null
                 }
             }
         })
@@ -44,7 +49,7 @@ describe('add class page', () => {
 
     it('should create class and upload a thumbnail, when user typed in valid data', async () => {
         const user = sampleUser;
-        const testFile =  new File(['hello'], 'hello.png', {type: 'image/png'})
+        const testFile = new File(['hello'], 'hello.png', {type: 'image/png'})
         jest.mocked(createClass).mockResolvedValueOnce({id: 1, msg: 'success'})
         renderWithProviders(<AddClassPage/>, {
             preloadedState: {
@@ -55,6 +60,10 @@ describe('add class page', () => {
                 classes: {
                     userClasses: [],
                     joinRequests: []
+                },
+                search: {
+                    students: null,
+                    classes: null
                 }
             }
         })
@@ -63,9 +72,9 @@ describe('add class page', () => {
 
         const descriptionInput = screen.getByPlaceholderText('Enter a description');
         fireEvent.change(descriptionInput, {target: {value: 'Here you can learn React.js in a year'}});
-        
+
         const fileInput = screen.getByTestId('file-input');
-        fireEvent.change(fileInput, {target: { files: [testFile]}});
+        fireEvent.change(fileInput, {target: {files: [testFile]}});
 
         const createButton = screen.getByText('Add');
         fireEvent.click(createButton);
@@ -78,7 +87,7 @@ describe('add class page', () => {
 
     it('should logout a user, when one of API requests returns 401', async () => {
         const user = sampleUser;
-        const testFile =  new File(['hello'], 'hello.png', {type: 'image/png'})
+        const testFile = new File(['hello'], 'hello.png', {type: 'image/png'})
         const mockedLogout = jest.fn();
         jest.mocked(createClass).mockRejectedValueOnce(new InvalidCredentials('You should be logged in to do this'))
         jest.mocked(useLogout).mockReturnValue(mockedLogout);
@@ -91,6 +100,10 @@ describe('add class page', () => {
                 classes: {
                     userClasses: [],
                     joinRequests: []
+                },
+                search: {
+                    students: null,
+                    classes: null
                 }
             }
         })
@@ -99,9 +112,9 @@ describe('add class page', () => {
 
         const descriptionInput = screen.getByPlaceholderText('Enter a description');
         fireEvent.change(descriptionInput, {target: {value: 'Here you can learn React.js in a year'}});
-        
+
         const fileInput = screen.getByTestId('file-input');
-        fireEvent.change(fileInput, {target: { files: [testFile]}});
+        fireEvent.change(fileInput, {target: {files: [testFile]}});
 
         const createButton = screen.getByText('Add');
         fireEvent.click(createButton);
@@ -111,6 +124,6 @@ describe('add class page', () => {
             expect(jest.mocked(uploadThumbnail)).not.toHaveBeenCalled();
             expect(mockedLogout).toHaveBeenCalled();
         })
-          
+
     })
 })

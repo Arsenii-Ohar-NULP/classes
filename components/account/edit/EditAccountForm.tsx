@@ -8,7 +8,7 @@ import EditButton from 'components/account/edit/EditButton';
 import { editUser } from 'components/account/UserService';
 import InvalidCredentials from 'components/errors/InvalidCredentials';
 import { logout } from 'components/login/AuthService';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { authActions } from 'components/redux/auth';
 
 interface IChangedData {

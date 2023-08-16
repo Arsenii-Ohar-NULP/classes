@@ -14,7 +14,7 @@ export default function RecommendedClasses() {
   const userClasses = useAppSelector((state) => state.classes.userClasses);
   const search = useAppSelector((state) => state?.search?.classes);
 
-  const classes = useMemo(() => {
+  const classes = useMemo<Class[]>(() => {
     const currentClasses = loadedClasses.filter(
       (cls) => !userClasses?.some((userCls) => userCls.id === cls.id)
     );
@@ -33,6 +33,12 @@ export default function RecommendedClasses() {
     }
   });
 
+  if (classes.length === 0){
+    return <div data-testid={'recommended-classes-empty'}>
+      There are no classes available for you! Wait for new ones, please. 
+    </div>
+  }
+
   return (
     <div>
       <div
@@ -48,7 +54,7 @@ export default function RecommendedClasses() {
                 styles['class-flex']
               )}
               key={cls.id}
-              href={`/class/${cls.id}`}
+              href={`class/${cls.id}`}
             >
               <ClassUI key={cls.id} cls={cls} />
             </Link>

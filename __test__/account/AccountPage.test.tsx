@@ -1,6 +1,6 @@
 import { sampleUser } from '__test__/data/user';
 import { renderWithProviders } from '__test__/testUtils';
-import AccountPage from 'pages/account';
+import AccountPage from 'app/main/account/page';
 import { useUserData } from 'components/utils/hooks';
 import React from 'react';
 

@@ -14,7 +14,7 @@ import {
 import InvalidCredentials from 'components/errors/InvalidCredentials';
 import { useAppSelector } from 'components/redux/store';
 import clsx from "clsx";
-import {StudentsButton} from "./StudentsButton";
+import {StudentsButton} from "components/class/StudentsButton";
 
 interface ClassInfoProps {
     cls: Class;

@@ -6,7 +6,7 @@ import InvalidCredentials from 'components/errors/InvalidCredentials';
 import { useAppDispatch, useAppSelector } from 'components/redux/store';
 import { saveMessage } from 'components/class/MessageService';
 import { authActions } from 'components/redux/auth';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { Button, Spinner } from 'react-bootstrap';
 import styles from 'components/class/class.module.scss';
 import clsx from 'clsx';

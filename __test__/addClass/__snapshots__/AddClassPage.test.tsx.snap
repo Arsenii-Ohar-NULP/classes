@@ -5,7 +5,7 @@ exports[`add class page should match a snapshot 1`] = `
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <div
+      <form
         class="container p-1 d-flex flex-column align-items-center"
       >
         <h1
@@ -13,98 +13,24 @@ exports[`add class page should match a snapshot 1`] = `
         >
           Add a class
         </h1>
-        <form>
-          <form
-            class="my-2 has-validation"
-          >
-            <input
-              class="form-control rounded p-1 px-2"
-              id="title"
-              name="Title"
-              placeholder="Enter a title"
-            />
-            <div
-              class="invalid"
-            />
-          </form>
-          <form
-            class="my-2 has-validation"
-          >
-            <textarea
-              class="form-control rounded p-1 px-2"
-              id="description"
-              name="Description"
-              placeholder="Enter a description"
-            />
-            <div
-              class="invalid"
-            />
-          </form>
-          <div
-            class="mb-3"
-          >
-            <label
-              class="form-label"
-              for="formFile"
-            >
-              Upload a class thumbnail
-            </label>
-            <input
-              accept=".jpg, .png"
-              class="form-control form-control-sm"
-              data-testid="file-input"
-              id="ImageInput"
-              name="Image"
-              type="file"
-            />
-          </div>
-          <hr />
-          <button
-            class="btn btn-primary"
-            type="submit"
-          >
-            Add
-          </button>
-        </form>
-      </div>
-    </div>
-  </body>,
-  "container": <div>
-    <div
-      class="container p-1 d-flex flex-column align-items-center"
-    >
-      <h1
-        class="p-2"
-      >
-        Add a class
-      </h1>
-      <form>
-        <form
-          class="my-2 has-validation"
-        >
-          <input
-            class="form-control rounded p-1 px-2"
-            id="title"
-            name="Title"
-            placeholder="Enter a title"
-          />
-          <div
-            class="invalid"
-          />
-        </form>
-        <form
-          class="my-2 has-validation"
-        >
-          <textarea
-            class="form-control rounded p-1 px-2"
-            id="description"
-            name="Description"
-            placeholder="Enter a description"
-          />
-          <div
-            class="invalid"
-          />
-        </form>
+        <input
+          class="form-control rounded p-1 px-2"
+          id="title"
+          name="Title"
+          placeholder="Enter a title"
+        />
+        <div
+          class="invalid"
+        />
+        <textarea
+          class="form-control rounded p-1 px-2"
+          id="description"
+          name="Description"
+          placeholder="Enter a description"
+        />
+        <div
+          class="invalid"
+        />
         <div
           class="mb-3"
         >
@@ -132,6 +58,60 @@ exports[`add class page should match a snapshot 1`] = `
         </button>
       </form>
     </div>
+  </body>,
+  "container": <div>
+    <form
+      class="container p-1 d-flex flex-column align-items-center"
+    >
+      <h1
+        class="p-2"
+      >
+        Add a class
+      </h1>
+      <input
+        class="form-control rounded p-1 px-2"
+        id="title"
+        name="Title"
+        placeholder="Enter a title"
+      />
+      <div
+        class="invalid"
+      />
+      <textarea
+        class="form-control rounded p-1 px-2"
+        id="description"
+        name="Description"
+        placeholder="Enter a description"
+      />
+      <div
+        class="invalid"
+      />
+      <div
+        class="mb-3"
+      >
+        <label
+          class="form-label"
+          for="formFile"
+        >
+          Upload a class thumbnail
+        </label>
+        <input
+          accept=".jpg, .png"
+          class="form-control form-control-sm"
+          data-testid="file-input"
+          id="ImageInput"
+          name="Image"
+          type="file"
+        />
+      </div>
+      <hr />
+      <button
+        class="btn btn-primary"
+        type="submit"
+      >
+        Add
+      </button>
+    </form>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],

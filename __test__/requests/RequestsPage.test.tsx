@@ -3,21 +3,21 @@ import * as React from 'react';
 import {
   renderWithProviders,
 } from '__test__/testUtils';
-import RequestsPage from 'pages/requests/[id]';
+import RequestsPage from 'app/main/requests/[id]/page';
 import { getJoinRequests } from 'components/class/ClassService';
 import { getRequestsWithClassId } from '__test__/data/requests';
 import { screen, waitFor } from '@testing-library/react';
 import { MockRequestCard } from './MockRequestCard';
 import RequestCard from 'components/requests/RequestCard';
 
-const pushMock = jest.fn();
+const navigateMock = jest.fn();
 const CLASS_ID = 1;
 
-jest.mock('next/router', () => ({
+
+jest.mock('next/navigation', () => ({
   useRouter: () => ({
-    push: pushMock,
-    query: { id: CLASS_ID },
-    isReady: true
+    push: navigateMock,
+    replace: navigateMock,
   }),
 }));
 jest.mock('components/requests/RequestCard');
@@ -32,7 +32,7 @@ describe('requests page', () => {
   it('should show requests', async () => {
     const requests = getRequestsWithClassId(CLASS_ID, 10);
     jest.mocked(getJoinRequests).mockResolvedValue(requests);
-    renderWithProviders(<RequestsPage/>);
+    renderWithProviders(<RequestsPage params={{id: '1'}}/>);
 
     await waitFor(() => {
       expect(jest.mocked(getJoinRequests)).toHaveBeenCalled();
@@ -45,12 +45,11 @@ describe('requests page', () => {
   it('should show message, when there are no requests', async () => {
     const requests = [];
     jest.mocked(getJoinRequests).mockResolvedValue(requests);
-    renderWithProviders(<RequestsPage />);
+    renderWithProviders(<RequestsPage params={{id: '1'}}/>);
 
     await waitFor(() => {
       expect(jest.mocked(getJoinRequests)).toHaveBeenCalled();
       screen.findByTestId('no-join-requests');
     });
   });
-
 });

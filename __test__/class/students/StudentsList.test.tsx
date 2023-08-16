@@ -6,11 +6,10 @@ import {fireEvent, screen, waitFor} from "@testing-library/react";
 import {sampleFiveUsers } from "../../data/user";
 import {act} from "react-dom/test-utils";
 
-const pushMock = jest.fn();
-jest.mock('next/router', () => ({
+const navigateMock = jest.fn();
+jest.mock('next/navigation', () => ({
   useRouter: () => ({
     pathname: '/',
-    push: pushMock,
   }),
 }));
 

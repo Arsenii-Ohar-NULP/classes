@@ -6,13 +6,14 @@ import InvalidCredentials from 'components/errors/InvalidCredentials';
 import Forbidden from 'components/errors/Forbidden';
 import { waitFor } from '@testing-library/react';
 import { sampleFiveClasses } from '__test__/data/classes';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 jest.mock('components/class/MessageService');
-const pushMock = jest.fn((url) => console.log(url))
-jest.mock('next/router', () => ({
+const navigateMock = jest.fn((url) => console.log(url))
+jest.mock('next/navigation', () => ({
     useRouter: () => ({
-      push: pushMock,
+      push: navigateMock,
+      replace: navigateMock
     }),
   }));
 jest.mock('components/utils/socket')

@@ -1,4 +1,5 @@
-import { useRouter } from 'next/router';
+"use client";
+import { useRouter } from 'next/navigation';
 import { getJoinRequests } from 'components/class/ClassService';
 import { JoinRequest } from 'components/class/JoinRequest';
 import React, { useEffect, useState } from 'react';
@@ -11,10 +12,10 @@ import Head from 'next/head';
 import { Loading } from 'components/class/Loading';
 import { useAppSelector } from 'components/redux/store';
 import { Role } from 'components/account/User';
-import NotFound from "../../components/errors/NotFound";
+import NotFound from "components/errors/NotFound";
 
 // eslint-disable-next-line no-empty-pattern
-export default function RequestsPage({}) {
+export default function RequestsPage({params: {id}}: {params: {id: string}}) {
   const [isFetching, setIsFetching] = useState<boolean>(false);
 
   const role = useAppSelector((state) => state?.auth?.user?.role);
@@ -22,7 +23,7 @@ export default function RequestsPage({}) {
   const [requests, setRequests] = useState<JoinRequest[]>();
   const dispatch = useDispatch();
   function fetchRequests() {
-    const classId = router.query['id'];
+    const classId = id;
     setIsFetching(true);
     getJoinRequests(classId)
       .then((data) => {
@@ -43,9 +44,7 @@ export default function RequestsPage({}) {
   }
 
   useEffect(() => {
-    if (!router.isReady) return;
-
-    if (role !== Role.Teacher){
+    if (role !== Role.Teacher && role !== undefined){
       router.push('/404')
     }
 
@@ -53,7 +52,7 @@ export default function RequestsPage({}) {
       fetchRequests();
     }
   }, [requests, role, router]);
-  
+
 
   if (!requests) {
     return <></>
@@ -91,7 +90,7 @@ export default function RequestsPage({}) {
         ) : <div className='text-center fs-4 align-items-center align-middle' data-testid={'no-join-requests'}>
             There are no join requests.
             </div>}
-        
+
       </div>
     </div>
   );

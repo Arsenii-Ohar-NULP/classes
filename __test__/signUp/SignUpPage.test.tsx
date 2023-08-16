@@ -1,16 +1,18 @@
 import * as React from 'react';
 
 import { renderWithProviders } from '__test__/testUtils';
-import SignUp from 'pages/signUp/index';
+import SignUp from 'app/auth/signUp/page';
 
-const pushMock = jest.fn();
-jest.mock('next/router', () => (
+const navigateMock = jest.fn();
+jest.mock('next/navigation', () => (
     {
     useRouter: () => ({
-        pathname: '/',
-        push: pushMock,
-        query: { username: 'arseniiohar' },
+        push: navigateMock,
+        replace: navigateMock
       }),
+        useSearchParams: () => ({
+            username: "arseniiohar"
+        })
     }
 ));
 describe('sign up page', () => {
@@ -18,6 +20,4 @@ describe('sign up page', () => {
         const page = renderWithProviders(<SignUp/>);   
         expect(page).toMatchSnapshot();
     })
-
-
 })

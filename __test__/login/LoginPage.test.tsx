@@ -1,21 +1,22 @@
 import React from 'react';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 
-import LoginPage from 'pages/login';
+import LoginPage from 'app/auth/login/page';
 import { renderWithProviders } from '../testUtils';
 import { LocalStorageMock } from '__test__/LocalStorageMock';
 import { login, getAccessToken, saveToken } from 'components/login/AuthService';
 import { getUserInfo } from 'components/account/UserService';
 import { sampleUser } from '__test__/data/user';
 import InvalidCredentials from 'components/errors/InvalidCredentials';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 jest.mock('components/account/UserService');
 jest.mock('components/login/AuthService');
 Object.defineProperty(window, 'localStorage', {
   value: new LocalStorageMock(),
 });
-jest.mock('next/router', () => ({ useRouter: jest.fn() }));
+
+jest.mock('next/navigation', () => ({ useRouter: jest.fn() }));
 
 describe('Login Page', () => {
   jest.mocked(useRouter).mockReturnValue({ push: jest.fn() } as never);
@@ -47,7 +48,7 @@ describe('Login Page', () => {
     expect(page).toMatchSnapshot();
   });
 
-  it('when token exists, should push to /classes', async () => {
+  it('when token exists, should push to /main/classes', async () => {
     const token = 'Q2312312321311225';
     jest.mocked(getAccessToken).mockImplementationOnce(() => token);
     jest
@@ -55,7 +56,7 @@ describe('Login Page', () => {
       .mockImplementationOnce(() => Promise.resolve(sampleUser));
     renderWithProviders(<LoginPage />);
     await waitFor(() => {
-      expect(jest.mocked(useRouter().push)).toBeCalledWith('/classes');
+      expect(jest.mocked(useRouter().push)).toBeCalledWith('/main/classes');
       expect(jest.mocked(getAccessToken)).toBeCalled();
       expect(jest.mocked(getUserInfo)).toBeCalled();
     });
@@ -68,7 +69,7 @@ describe('Login Page', () => {
     fireEvent.click(signUpButton);
 
     await waitFor(() =>
-      expect(jest.mocked(useRouter().push)).toBeCalledWith('/signUp')
+      expect(jest.mocked(useRouter().push)).toBeCalledWith('/auth/signUp')
     );
   });
 
@@ -119,7 +120,7 @@ describe('Login Page', () => {
 
     await waitFor(() =>
       expect(jest.mocked(useRouter().push)).toBeCalledWith(
-        `signUp/?username=${username}`
+        `/auth/signUp/?username=${username}`
       )
     );
   });

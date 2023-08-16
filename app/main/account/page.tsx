@@ -1,7 +1,8 @@
-import React from 'react';
-import PersonalInfoBar from 'components/account/PersonalInfoBar';
-import Link from 'next/link';
-import { useUserData } from 'components/utils/hooks';
+"use client";
+import {useUserData} from "../../../components/utils/hooks";
+import PersonalInfoBar from "../../../components/account/PersonalInfoBar";
+import Link from "next/link";
+import React from "react";
 
 export default function AccountPage() {
   const user = useUserData();
@@ -16,7 +17,7 @@ export default function AccountPage() {
         <PersonalInfoBar user={user}/>
       </div>
       <div className="text-center">
-        <Link href={'/account/edit'}>
+        <Link href={'/main/account/edit'}>
           <button className="btn btn-primary">Edit</button>
         </Link>
       </div>

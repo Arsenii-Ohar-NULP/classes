@@ -1,10 +1,10 @@
 import clsx from 'clsx';
-import React, { FunctionComponent, useState } from 'react';
+import React, { useState } from 'react';
 import styles from 'components/class/class.module.scss';
-import JoinButton from './JoinButton';
-import { RequestsButton } from './RequestsButton';
-import DeleteClassButton from './DeleteClassButton';
-import DeleteClassModal from './DeleteClassModal';
+import JoinButton from 'components/class/JoinButton';
+import { RequestsButton } from 'components/class/RequestsButton';
+import DeleteClassButton from 'components/class/DeleteClassButton';
+import DeleteClassModal from 'components/class/DeleteClassModal';
 import Class from 'components/classes/Class';
 import { useAppSelector } from 'components/redux/store';
 
@@ -12,11 +12,11 @@ interface ClassInfoManagementProps {
   cls: Class;
 }
 
-const ClassInfoManagement: FunctionComponent<ClassInfoManagementProps> = ({
-  cls,
-}) => {
+export default function ClassInfoManagement({
+  cls
+}: ClassInfoManagementProps) {
   const [showDelete, setShowDelete] = useState<boolean>();
-  const userId = useAppSelector((state) => state.auth.user?.id);
+  const userId = useAppSelector((state) => state?.auth?.user?.id);
 
   return (
     <div
@@ -40,4 +40,3 @@ const ClassInfoManagement: FunctionComponent<ClassInfoManagementProps> = ({
   );
 };
 
-export default ClassInfoManagement;

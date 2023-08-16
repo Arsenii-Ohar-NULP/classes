@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { useMainPageRedirect } from 'components/utils/hooks';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
-import { login, saveToken } from 'components/login/AuthService';
-import { useAppDispatch } from 'components/redux/store';
-import { authActions } from 'components/redux/auth';
-import { getUserInfo } from 'components/account/UserService';
-import { useLoginForm } from 'components/login/useLoginForm';
-import { FormInput } from 'components/login/FormInput';
-import { RememberMe } from 'components/login/RememberMe';
-import { LoginButton } from 'components/login/LoginButton';
-import { SignUpButton } from 'components/login/SignUpButton';
-import { TopSection } from 'components/login/TopSection';
-import { ServerError } from 'components/login/ServerError';
-import { Footer } from 'components/login/Footer';
-
+"use client";
+import React, {useEffect, useState} from 'react';
+import {useLoginForm} from "../../../components/login/useLoginForm";
+import {useRouter} from "next/navigation";
+import {useAppDispatch} from "../../../components/redux/store";
+import {useMainPageRedirect} from "../../../components/utils/hooks";
+import {login, saveToken} from "../../../components/login/AuthService";
+import {getUserInfo} from "../../../components/account/UserService";
+import {authActions} from "../../../components/redux/auth";
+import Head from "next/head";
+import {TopSection} from "../../../components/login/TopSection";
+import {FormInput} from "../../../components/login/FormInput";
+import {RememberMe} from "../../../components/login/RememberMe";
+import {ServerError} from "../../../components/login/ServerError";
+import {LoginButton} from "../../../components/login/LoginButton";
+import {Footer} from "../../../components/login/Footer";
+import {SignUpButton} from "../../../components/login/SignUpButton";
 export default function LoginPage() {
-  const { register, handleSubmit, errors, getValues } = useLoginForm();
+    const { register, handleSubmit, errors, getValues } = useLoginForm();
   const [isRemember, setRememberMe] = useState(true);
   const [isLogging, setIsLogging] = useState(false);
   const [serverError, setServerError] = useState();
@@ -36,7 +36,7 @@ export default function LoginPage() {
       saveToken(accessToken, isRemember);
       const user = await getUserInfo(accessToken);
       dispatch(authActions.login(user));
-      await router.push('/classes');
+      router.replace('/main/classes');
     } catch (e) {
       setServerError(e.message);
     } finally {

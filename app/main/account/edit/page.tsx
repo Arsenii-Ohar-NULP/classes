@@ -1,4 +1,5 @@
-import EditAccountForm from '../../../components/account/edit/EditAccountForm';
+"use client";
+import EditAccountForm from 'components/account/edit/EditAccountForm';
 import React from 'react';
 export default function EditAccountPage() {
   return (

@@ -14,7 +14,7 @@ jest.mock('components/redux/store');
 describe('classes page - user classes section test', () => {
   it('when fetch returns 5 user classes, should render 5 user classes', () => {
     jest.mocked(ClassUI).mockImplementationOnce(ClassMock);
-    const state = {
+    const state: RootState = {
       auth: {
         status: AuthStatus.LOGGED_IN_FETCHED,
         user: sampleUser,
@@ -23,6 +23,10 @@ describe('classes page - user classes section test', () => {
         userClasses: sampleFiveClasses,
         joinRequests: [],
       },
+      search: {
+        students: null,
+        classes: null
+      }
     };
     jest
       .mocked(useAppSelector)
@@ -44,6 +48,10 @@ describe('classes page - user classes section test', () => {
         userClasses: [],
         joinRequests: [],
       },
+      search: {
+        students: null,
+        classes: null
+      }
     };
     jest
       .mocked(useAppSelector)
