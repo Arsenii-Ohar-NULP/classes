@@ -1,23 +1,18 @@
 import React from 'react';
 import { renderWithProviders } from '__test__/testUtils';
 import Header from 'components/header/header';
-import ClassPage from 'pages/class/[id]';
 
-jest.mock('next/router', () => ({
+const mockNavigate = jest.fn((url) => console.log(url));
+jest.mock('next/navigation', () => ({
     useRouter: () => ({
-      pathname: '/',
-      push: jest.fn((url) => console.log(url)),
+      push: mockNavigate,
+        replace: mockNavigate
     }),
   }));
 
 describe('header test', () => {
-    it('when no component, should match a snapshot', () => {
-        const header = renderWithProviders(<Header currentComponent={null}/>);
-        expect(header).toMatchSnapshot();
-    })
-
-    it('when ClassPage component, should match a snapshot', () => {
-        const header = renderWithProviders(<Header currentComponent={ClassPage}/>);
+    it('should match a snapshot', () => {
+        const header = renderWithProviders(<Header/>);
         expect(header).toMatchSnapshot();
     })
 })

@@ -1,7 +1,12 @@
-import {NextRouter} from "next/router";
 import React from "react";
+import {useRouter} from "next/navigation";
 
-export function SignUpButton({router, getUsername}: { router: NextRouter, getUsername: () => string }) {
+interface SignUpButtonProps {
+    router: ReturnType<typeof useRouter>,
+    getUsername: () => string
+}
+
+export function SignUpButton({router, getUsername}: SignUpButtonProps) {
     return (
         <button
             className="btn btn-secondary rounded-pill px-3"
@@ -9,9 +14,9 @@ export function SignUpButton({router, getUsername}: { router: NextRouter, getUse
             onClick={() => {
                 const username = getUsername();
                 if (username) {
-                    router.push(`signUp/?username=${username}`);
+                    router.push(`/auth/signUp/?username=${username}`);
                 } else {
-                    router.push("/signUp");
+                    router.push("/auth/signUp");
                 }
             }}
         >

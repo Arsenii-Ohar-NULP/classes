@@ -1,7 +1,8 @@
+'use client';
 import React from 'react';
 import Head from 'next/head';
 import { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useMainPageRedirect } from 'components/utils/hooks';
 import { signUp } from 'components/signUp/signUpService';
 import useSignUpForm from 'components/signUp/useSignupForm';
@@ -20,7 +21,7 @@ export default function SignUp({}) {
   const initialUsername = useUsername();
   const router = useRouter();
 
-  useMainPageRedirect();
+  // useMainPageRedirect('/main/classes');
 
   function parseUserInfo(user) {
     return {
@@ -38,7 +39,7 @@ export default function SignUp({}) {
     userInfo = parseUserInfo(userInfo);
     signUp(userInfo)
       .then(() => {
-        router.push('/login');
+        router.push('/auth/login');
       })
       .catch((e) => {
         setServerError(e.message);

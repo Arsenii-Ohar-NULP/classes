@@ -4,13 +4,13 @@ import { sampleUser } from '__test__/data/user';
 import { useMainPageRedirect, useLoginRedirect } from 'components/utils/hooks';
 import { waitFor } from '@testing-library/react';
 import { renderHookWithProviders } from '__test__/testUtils';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
-const pushMock = jest.fn((url) => console.log(url));
-jest.mock('next/router', () => ({
+const navigateMock = jest.fn((url) => console.log(url));
+jest.mock('next/navigation', () => ({
   useRouter: () => ({
-    pathname: '/',
-    push: pushMock,
+    push: navigateMock,
+      replace: navigateMock
   }),
 }));
 
@@ -23,7 +23,7 @@ describe('useMainPageRedirect hook test', () => {
     jest.mocked(getUserInfo).mockResolvedValueOnce(sampleUser);
     await waitFor(() => {
       renderHookWithProviders(useMainPageRedirect);
-      expect(jest.mocked(useRouter().push)).toBeCalledWith('/classes');
+      expect(jest.mocked(useRouter().push)).toBeCalledWith('/main/classes');
     });
   });
 });
@@ -33,7 +33,7 @@ describe('useLoginRedirect hook test', () => {
         jest.mocked(getAccessToken).mockReturnValueOnce(null);
         await waitFor(() => {
             renderHookWithProviders(useLoginRedirect);
-            expect(jest.mocked(useRouter().push)).toBeCalledWith('/login');
+            expect(jest.mocked(useRouter().push)).toBeCalledWith('/auth/login');
         })  
     })
 })

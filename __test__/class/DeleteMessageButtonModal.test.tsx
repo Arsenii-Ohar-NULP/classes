@@ -15,12 +15,12 @@ jest.mock('components/utils/socket', () => ({
   })
 }))
 
-const pushMock = jest.fn((url) => console.log(url));
-jest.mock('next/router', () => ({
+const navigateMock = jest.fn((url) => console.log(url));
+jest.mock('next/navigation', () => ({
   useRouter: () => ({
     pathname: '/',
-    push: pushMock,
-    query: { id: '1' },
+    push: navigateMock,
+    replace: navigateMock
   }),
 }));
 

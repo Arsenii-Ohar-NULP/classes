@@ -1,8 +1,9 @@
+"use client";
 import React from 'react';
 import Head from 'next/head';
 import Class from 'components/classes/Class';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import {notFound, useRouter} from 'next/navigation';
 import { useLoginRedirect } from 'components/utils/hooks';
 import { findClass } from 'components/class/ClassService';
 import { MessagesBar } from 'components/class/MessagesBar';
@@ -12,7 +13,7 @@ import ClassInfo from 'components/class/ClassInfo';
 import ClassInfoManagement from 'components/class/ClassManagement';
 import { socket } from 'components/utils/socket';
 
-export default function ClassPage() {
+export default function ClassPage({params: {id}}: {params: {id: string}}) {
   useLoginRedirect();
 
   const router = useRouter();
@@ -42,30 +43,29 @@ export default function ClassPage() {
   }, [])
 
   function fetchClass() {
-    const id = Number.parseInt(router.query.id as string);
-    findClass(id)
-      .then((cls) => {
-        setClass(cls);
+    const classId = Number.parseInt(id);
+    findClass(classId)
+      .then((fetchedClass) => {
+        setClass(fetchedClass);
       })
       .catch((e) => console.log(e));
   }
 
   function redirectToUnknown() {
-    router.push('/404');
+    notFound();
   }
 
   function noIdSpecified(): boolean {
-    return !router.query['id'];
+    return !id;
   }
 
-  if (!cls)
+  if (cls == null)
     return (
       <div className="h-100 d-flex justify-content-center align-items-center">
         <Loading />
       </div>
     );
   return (
-    <>
       <div>
         <Head>
           <title>Classes - {cls?.title ? cls.title : 'loading'}</title>
@@ -86,6 +86,5 @@ export default function ClassPage() {
           <MessagesBar cls={cls} onForbidden={() => setJoined(false)} />
         </div>
       </div>
-    </>
   );
 }

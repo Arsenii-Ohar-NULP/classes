@@ -4,11 +4,20 @@
 const nextConfig = {
     reactStrictMode: false,
     experimental: {
-      appDir: true
+        appDir: true
     },
     images: {
-      minimumCacheTTL: 60,
+        minimumCacheTTL: 60,
     },
-  }
-  
-  module.exports = nextConfig
+    async redirects() {
+        return [
+            {
+                source: '/',
+                destination: '/auth/login',
+                permanent: true
+            }
+        ]
+    }
+}
+
+module.exports = nextConfig

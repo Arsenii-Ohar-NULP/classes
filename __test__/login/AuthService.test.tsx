@@ -67,7 +67,8 @@ describe('logout test', () => {
   it('when log out and a session token exists, the token is removed', () => {
     sessionStorage.setItem(accessTokenKey, 'ABCD1234');
     const router = {
-      push: jest.fn()
+      push: jest.fn(),
+      replace: jest.fn()
     }
     const dispatch = jest.fn();
 
@@ -75,13 +76,14 @@ describe('logout test', () => {
 
     expect(sessionStorage.getItem(accessTokenKey)).toBeNull();
     expect(dispatch).toBeCalledWith(authActions.logout());
-    expect(router.push).toBeCalledWith('/login');
+    expect(router.replace).toBeCalledWith('auth/login');
   })
 
   it('when log out and a local storage token exists, the token is removed', () => {
       localStorage.setItem(accessTokenKey, 'ABCD1234');
       const router = {
-        push: jest.fn()
+        push: jest.fn(),
+        replace: jest.fn()
       }
       const dispatch = jest.fn();
   
@@ -89,6 +91,6 @@ describe('logout test', () => {
   
       expect(localStorage.getItem(accessTokenKey)).toBeNull();
       expect(dispatch).toBeCalledWith(authActions.logout());
-      expect(router.push).toBeCalledWith('/login');
+      expect(router.replace).toBeCalledWith('auth/login');
     })
 });

@@ -10,9 +10,12 @@ import { logout } from 'components/login/AuthService';
 
 jest.mock('components/login/AuthService');
 jest.mock('components/account/UserService');
-jest.mock('next/router', () => ({
+
+const navigateMock = jest.fn();
+jest.mock('next/navigation', () => ({
   useRouter: () => ({
-    push: jest.fn((url) => console.log(url)),
+    push: navigateMock,
+      replace: navigateMock
   }),
 }));
 

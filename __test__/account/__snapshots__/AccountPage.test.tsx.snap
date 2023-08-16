@@ -172,7 +172,7 @@ exports[`account page test should match a snapshot 1`] = `
           class="text-center"
         >
           <a
-            href="/account/edit"
+            href="/main/account/edit"
           >
             <button
               class="btn btn-primary"
@@ -284,7 +284,7 @@ exports[`account page test should match a snapshot 1`] = `
         class="text-center"
       >
         <a
-          href="/account/edit"
+          href="/main/account/edit"
         >
           <button
             class="btn btn-primary"

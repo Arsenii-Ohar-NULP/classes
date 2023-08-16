@@ -6,10 +6,10 @@ import {fireEvent, screen, waitFor} from "@testing-library/react";
 import {removeStudentFromClass} from "../../../components/class/students/StudentsService";
 
 const pushMock = jest.fn();
-jest.mock('next/router', () => ({
+jest.mock('next/navigation', () => ({
   useRouter: () => ({
-    pathname: '/',
     push: pushMock,
+      replace: pushMock
   }),
 }));
 jest.mock('components/class/students/StudentsService');

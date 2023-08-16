@@ -30,7 +30,7 @@ export default function UserClasses() {
               ` ${styles['class-flex']}`
             }
             key={cls.id}
-            href={`/class/${cls.id}`}
+            href={`class/${cls.id}`}
           >
             <ClassUI key={cls.id} cls={cls} />
           </Link>

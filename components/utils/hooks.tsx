@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { AuthStatus, authActions } from 'components/redux/auth';
 import { useAppSelector, useAppDispatch } from 'components/redux/store';
 import User from 'components/account/User';
@@ -19,7 +19,7 @@ function useLoginRedirect() {
         dispatch(authActions.logout());
       }
 
-      router.push('/login');
+      router.replace('/auth/login');
     }
   }, [authStatus]);
 }
@@ -47,8 +47,8 @@ function useUserData() {
   return user;
 }
 
-function useMainPageRedirect() {
-  const mainPagePath = '/classes';
+function useMainPageRedirect(mainPageUrl?: string) {
+  const mainPagePath = mainPageUrl === undefined ? '/main/classes' : mainPageUrl;
   const router = useRouter();
   const authStatus = useAppSelector((state) => state.auth.status);
   const dispatch = useAppDispatch();

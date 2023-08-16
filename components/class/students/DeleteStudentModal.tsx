@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {useRouter} from "next/router";
+import {useRouter} from "next/navigation";
 import {useAppDispatch} from "components/redux/store";
 import InvalidCredentials from "components/errors/InvalidCredentials";
 import {logout} from "components/login/AuthService";

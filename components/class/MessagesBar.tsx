@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Message from 'components/class/Message';
 import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useAppDispatch } from 'components/redux/store';
 import { getMessages } from 'components/class/MessageService';
 import { getAccessToken, removeToken } from 'components/login/AuthService';

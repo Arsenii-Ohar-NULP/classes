@@ -31,7 +31,7 @@ describe('recommended classes tests', () => {
     jest.mocked(ClassUI).mockImplementationOnce(ClassMock);
     renderWithProviders(<RecommendedClasses />);
     await waitFor(() =>
-      expect(screen.queryByTestId('recommended-div')).toBeEmptyDOMElement()
+      expect(screen.queryByTestId('recommended-classes-empty')).toBeInTheDocument()
     );
   });
 });
