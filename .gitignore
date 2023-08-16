@@ -4,4 +4,4 @@
 .next/**
 scripts/**
 coverage/**
-.idea/**
+**/.idea/**
