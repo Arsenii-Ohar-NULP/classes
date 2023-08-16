@@ -4,7 +4,7 @@ import deleteIcon from 'icons/delete.svg';
 import 'animate.css';
 import styles from 'components/class/class.module.scss';
 
-export default function DeleteMessageButtonAbs({
+export default function DeleteMessageButtonAbsolute({
     onDelete,
     deleteModalId,
   }: {

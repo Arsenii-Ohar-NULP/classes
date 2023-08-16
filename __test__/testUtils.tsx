@@ -9,6 +9,7 @@ import type { RootState, AppStore } from 'components/redux/store';
 // As a basic setup, import your same slice reducers
 import { authInitialState, authSlice } from 'components/redux/auth';
 import { classSlice, classesInitialState } from 'components/redux/classes';
+import { searchInitialState, searchSlice } from 'components/redux/search';
 
 // This type interface extends the default options for render from RTL, as well
 // as allows the user to specify other things such as initialState, store.
@@ -20,10 +21,18 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
 export function renderWithProviders(
   ui: React.ReactElement,
   {
-    preloadedState = { auth: authInitialState, classes: classesInitialState },
+    preloadedState = {
+      auth: authInitialState,
+      classes: classesInitialState,
+      search: searchInitialState,
+    },
     // Automatically create a store instance if no store was passed in
     store = configureStore({
-      reducer: { auth: authSlice.reducer, classes: classSlice.reducer },
+      reducer: {
+        auth: authSlice.reducer,
+        classes: classSlice.reducer,
+        search: searchSlice.reducer,
+      },
       preloadedState,
     }),
     ...renderOptions
@@ -40,10 +49,18 @@ export function renderWithProviders(
 export function renderHookWithProviders(
   ui,
   {
-    preloadedState = { auth: authInitialState, classes: classesInitialState },
+    preloadedState = {
+      auth: authInitialState,
+      classes: classesInitialState,
+      search: searchInitialState,
+    },
     // Automatically create a store instance if no store was passed in
     store = configureStore({
-      reducer: { auth: authSlice.reducer, classes: classSlice.reducer },
+      reducer: {
+        auth: authSlice.reducer,
+        classes: classSlice.reducer,
+        search: searchSlice.reducer,
+      },
       preloadedState,
     }),
     ...renderOptions
@@ -54,5 +71,8 @@ export function renderHookWithProviders(
   }
 
   // Return an object with the store and all of RTL's query functions
-  return { store, ...renderHook(() => ui(), { wrapper: Wrapper, ...renderOptions }) };
+  return {
+    store,
+    ...renderHook(() => ui(), { wrapper: Wrapper, ...renderOptions }),
+  };
 }

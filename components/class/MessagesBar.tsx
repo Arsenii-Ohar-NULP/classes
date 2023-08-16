@@ -66,7 +66,6 @@ export function MessagesBar({
       if (message?.cls !== cls?.id) {
         return;
       }
-      console.log(message);
 
       if (type === MessageType.TEXT) {
         if (!messages) {
@@ -140,7 +139,7 @@ export function MessagesBar({
   return (
     <div className="pb-5">
       <div className="fs-3 px-2 py-1">
-        <b>Messages</b>
+        <p className={'pt-2 fs-4'}><b>Messages</b></p>
         {messagesList()}
         <DeleteMessageButtonModal
           messageId={deleteId}

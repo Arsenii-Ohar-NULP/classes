@@ -21,7 +21,7 @@ describe('findAllClasses test', () => {
       json: () => Promise.resolve(expectedClasses),
       ok: true,
       status: 200,
-    } as any);
+    } as Response);
 
     const actualClasses = await findAllClasses();
     expect(actualClasses).toBe(expectedClasses);
@@ -32,9 +32,9 @@ describe('findAllClasses test', () => {
       json: () => Promise.resolve({ msg: 'Something went wrong' }),
       status: 500,
       ok: false,
-    } as any);
+    } as Response);
 
-    expect(findAllClasses).rejects.toThrow(Error);
+    await expect(findAllClasses).rejects.toThrow(Error);
   });
 
   it('when fetch returns Forbidden(403), should reject and throw Forbidden', () => {
@@ -45,7 +45,7 @@ describe('findAllClasses test', () => {
         }),
       ok: false,
       status: 403,
-    } as any);
+    } as Response);
 
     expect(findAllClasses).rejects.toThrow(Forbidden);
   });
@@ -70,7 +70,7 @@ describe('getUserJoinRequests test', () => {
       json: () => Promise.resolve(joinRequests),
       ok: true,
       status: 200,
-    } as any);
+    } as Response);
     jest.mocked(getAccessToken).mockReturnValueOnce('ABCD1234');
 
     const actualUserJoinRequests = await getUserJoinRequests();
@@ -85,7 +85,7 @@ describe('getUserJoinRequests test', () => {
       json: () => Promise.resolve({ msg: 'No authentication provided' }),
       ok: false,
       status: 401,
-    } as any);
+    } as Response);
     
 
     expect(getUserJoinRequests).rejects.toThrow(InvalidCredentials);

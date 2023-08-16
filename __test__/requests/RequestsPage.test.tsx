@@ -17,6 +17,7 @@ jest.mock('next/router', () => ({
   useRouter: () => ({
     push: pushMock,
     query: { id: CLASS_ID },
+    isReady: true
   }),
 }));
 jest.mock('components/requests/RequestCard');

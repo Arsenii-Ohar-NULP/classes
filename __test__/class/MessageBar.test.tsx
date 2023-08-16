@@ -15,6 +15,7 @@ jest.mock('next/router', () => ({
       push: pushMock,
     }),
   }));
+jest.mock('components/utils/socket')
 
 describe('MessagesBar', () => {
   beforeEach(() => {

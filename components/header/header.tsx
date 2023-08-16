@@ -14,7 +14,7 @@ import Loading from 'components/header/Loading';
 import AccountButton from 'components/header/AccountButton';
 import LogoutButton from 'components/header/LogoutButton';
 import styles from 'components/header/header.module.scss';
-import SearchBar from 'components/classes/SearchBar';
+import StudentsPage from "pages/class/students/[id]";
 
 type HeaderParams = {
   currentComponent: any;
@@ -28,6 +28,7 @@ function Header({ currentComponent }: HeaderParams) {
     Requests,
     AddClassPage,
     EditAccountPage,
+    StudentsPage
   ];
 
   if (!tabs.find((element) => element.name == currentComponent?.name))

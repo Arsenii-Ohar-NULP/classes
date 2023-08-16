@@ -11,6 +11,7 @@ import Head from 'next/head';
 import { Loading } from 'components/class/Loading';
 import { useAppSelector } from 'components/redux/store';
 import { Role } from 'components/account/User';
+import NotFound from "../../components/errors/NotFound";
 
 // eslint-disable-next-line no-empty-pattern
 export default function RequestsPage({}) {
@@ -20,8 +21,6 @@ export default function RequestsPage({}) {
   const router = useRouter();
   const [requests, setRequests] = useState<JoinRequest[]>();
   const dispatch = useDispatch();
-
-  
   function fetchRequests() {
     const classId = router.query['id'];
     setIsFetching(true);
@@ -35,18 +34,25 @@ export default function RequestsPage({}) {
           removeToken();
           router.push('/login');
         }
+
+        if (error instanceof NotFound){
+          router.push('/404');
+        }
       })
       .finally(() => setIsFetching(false));
   }
 
   useEffect(() => {
+    if (!router.isReady) return;
+
     if (role !== Role.Teacher){
       router.push('/404')
     }
+
     if (!requests){
       fetchRequests();
     }
-  }, [requests, role]);
+  }, [requests, role, router]);
   
 
   if (!requests) {
@@ -65,7 +71,7 @@ export default function RequestsPage({}) {
         <title>Requests for class</title>
       </Head>
       <div>
-        <h4 className="m-3">Requests</h4>
+        <h4 className="m-3 fs-2 text-center">Requests</h4>
         {requests?.length !== 0 ? (
           <div className="d-flex justify-content-center">
             {requests?.map((request, index) => {

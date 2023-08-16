@@ -4,4 +4,5 @@ export type InputProps = {
     placeholder: string;
     id: string;
     register: object;
+    className?: string;
   };

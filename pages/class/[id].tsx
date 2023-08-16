@@ -8,9 +8,9 @@ import { findClass } from 'components/class/ClassService';
 import { MessagesBar } from 'components/class/MessagesBar';
 import ClassThumbnail from 'components/classes/ClassThumbnail';
 import { Loading } from 'components/class/Loading';
-
 import ClassInfo from 'components/class/ClassInfo';
 import ClassInfoManagement from 'components/class/ClassManagement';
+import { socket } from 'components/utils/socket';
 
 export default function ClassPage() {
   useLoginRedirect();
@@ -31,7 +31,15 @@ export default function ClassPage() {
         redirectToUnknown();
       }
     }
-  }, [cls]);
+  }, [cls, router]);
+
+  useEffect(() => {
+    socket.connect();
+
+    return () => {
+      socket.disconnect();
+    }
+  }, [])
 
   function fetchClass() {
     const id = Number.parseInt(router.query.id as string);

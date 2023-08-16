@@ -19,7 +19,7 @@ export default function UserClasses() {
   }
 
   return (
-    <div data-testid={'user-classes'}>
+    <div data-testid={'user-classes'} className={'my-2'}>
       <h2>Your classes</h2>
       <div className={'d-flex flex-wrap justify-content-center'}>
         {classes?.map((cls) => (

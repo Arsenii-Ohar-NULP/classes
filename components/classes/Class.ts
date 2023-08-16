@@ -3,4 +3,5 @@ export default interface Class{
     title: string;
     description: string;
     teacher_id: number;
+    students_number: number;
 }

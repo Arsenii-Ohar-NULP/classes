@@ -1,9 +1,4 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import { useAppDispatch } from 'components/redux/store';
-import InvalidCredentials from 'components/errors/InvalidCredentials';
-import { removeMessage } from 'components/class/MessageService';
-import { logout } from 'components/login/AuthService';
 import { Button, Modal } from 'react-bootstrap';
 import { socket } from 'components/utils/socket';
 import { DeleteMessageStatus } from './DeleteMessageStatus';
@@ -21,27 +16,10 @@ export default function DeleteMessageButtonModal({
 }) {
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
-  const router = useRouter();
-  const dispatch = useAppDispatch();
-
-  function deleteMessage() {
-    setIsDeleting(true);
-    removeMessage(messageId)
-      .then(() => {
-        onDelete();
-        close();
-      })
-      .catch((error) => {
-        if (error instanceof InvalidCredentials) {
-          logout(dispatch, router);
-        }
-      })
-      .finally(() => setIsDeleting(false));
-  }
-
   async function deleteMessageSocket() {
     setIsDeleting(true);
     const response = await socket.emitWithAck('deleteMessage', messageId);
+    console.log(response);
     if (response.status === DeleteMessageStatus.OK) {
       onDelete();
       close();

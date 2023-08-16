@@ -18,8 +18,7 @@ export default function RecommendedClasses() {
     const currentClasses = loadedClasses.filter(
       (cls) => !userClasses?.some((userCls) => userCls.id === cls.id)
     );
-    const searchedClasses = searchClasses(currentClasses, search);
-    return searchedClasses;
+    return searchClasses(currentClasses, search);
   }, [loadedClasses, search, userClasses]);
 
   const loadClasses = async () => {
