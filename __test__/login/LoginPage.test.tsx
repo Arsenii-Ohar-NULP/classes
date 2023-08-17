@@ -77,7 +77,7 @@ describe('Login Page', () => {
     const mockedLogin = jest.fn();
     const sampleUsername = 'hell';
     mockedLogin.mockReturnValueOnce('ABCD123');
-    jest.mock('components/login/authService', () => ({
+    jest.mock('components/login/AuthService', () => ({
       login: mockedLogin,
     }));
 
