@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {renderWithProviders} from '__test__/testUtils';
-import AddClassPage from 'app/main/addClass/page';
+import AddClassPage from 'app/main/classes/addClass/page';
 import {sampleUser} from '__test__/data/user';
 import {AuthStatus} from 'components/redux/auth';
 import {fireEvent, screen, waitFor} from '@testing-library/react';
