@@ -34,7 +34,7 @@ describe('delete message button modal', () => {
         close={jest.fn()}
       />
     );
-    expect(page).toMatchSnapshot();
+    expect(page.container).toMatchSnapshot();
   });
 
   it('should call onDelete, when delete button is clicked', async () => {

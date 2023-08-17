@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Students Search Bar should match a snapshot 1`] = `
+<div>
+  <input
+    class="mb-3 form-control"
+    placeholder="Search for a student"
+    type="text"
+  />
+</div>
+`;

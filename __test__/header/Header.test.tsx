@@ -13,6 +13,6 @@ jest.mock('next/navigation', () => ({
 describe('header test', () => {
     it('should match a snapshot', () => {
         const header = renderWithProviders(<Header/>);
-        expect(header).toMatchSnapshot();
+        expect(header.container).toMatchSnapshot();
     })
 })

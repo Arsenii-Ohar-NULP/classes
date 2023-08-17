@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`class page test should match a snapshot and show class info 1`] = `
+<div>
+  <div
+    class="h-100 d-flex justify-content-center align-items-center"
+  >
+    <div
+      class=""
+    >
+      <div
+        class="spinner-border text-primary text-center"
+        role="status"
+      >
+        <span
+          class="visually-hidden"
+        >
+          Loading...
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`account page test given no user auth, should match a snapshot 1`] = `<div />`;
+
+exports[`account page test should match a snapshot 1`] = `
+<div>
+  <div
+    class="container"
+  >
+    <h1
+      class="p-2 text-center"
+    >
+      Personal Information
+    </h1>
+    <div
+      class="d-flex justify-content-center"
+    >
+      <div
+        class="d-inline-block"
+      >
+        <div
+          class="d-flex flex-column gap"
+        >
+          <div
+            class="d-flex gap-5"
+          >
+            <h6
+              class="col"
+            >
+              Username
+            </h6>
+            <h6
+              class="col"
+            >
+              seniorohar
+            </h6>
+          </div>
+          <hr />
+          <div
+            class="d-flex gap-5"
+          >
+            <h6
+              class="col"
+            >
+              Email
+            </h6>
+            <h6
+              class="col"
+            >
+              arsen.ogar@gmail.com
+            </h6>
+          </div>
+          <hr />
+          <div
+            class="d-flex gap-5"
+          >
+            <h6
+              class="col"
+            >
+              Phone
+            </h6>
+            <h6
+              class="col"
+            >
+              +380987669293
+            </h6>
+          </div>
+          <hr />
+          <div
+            class="d-flex gap-5"
+          >
+            <h6
+              class="col"
+            >
+              First Name
+            </h6>
+            <h6
+              class="col"
+            >
+              Arsenii
+            </h6>
+          </div>
+          <hr />
+          <div
+            class="d-flex gap-5"
+          >
+            <h6
+              class="col"
+            >
+              Last Name
+            </h6>
+            <h6
+              class="col"
+            >
+              Ohar
+            </h6>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+    <div
+      class="text-center"
+    >
+      <a
+        href="/main/account/edit"
+      >
+        <button
+          class="btn btn-primary"
+        >
+          Edit
+        </button>
+      </a>
+    </div>
+  </div>
+</div>
+`;

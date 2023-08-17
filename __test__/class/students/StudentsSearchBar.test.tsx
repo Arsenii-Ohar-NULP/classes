@@ -8,7 +8,7 @@ describe('Students Search Bar', () => {
     it('should match a snapshot', () => {
         jest.mocked(useDispatch).mockReturnValue(jest.fn());
         const searchBar = render(<StudentsSearchBar/>)
-        expect(searchBar).toMatchSnapshot();
+        expect(searchBar.container).toMatchSnapshot();
     })
 
     it('should dispatch `search students`, when field has been changed', async () => {

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Delete Student Button should match a snapshot 1`] = `
+<div>
+  <button
+    class="p-1 btn btn-danger"
+    type="button"
+  >
+    <img
+      alt="Delete Icon"
+      data-nimg="1"
+      decoding="async"
+      height="24"
+      loading="lazy"
+      src="/_next/image?url=%2Fimg.jpg&w=48&q=75"
+      srcset="/_next/image?url=%2Fimg.jpg&w=32&q=75 1x, /_next/image?url=%2Fimg.jpg&w=48&q=75 2x"
+      style="color: transparent;"
+      width="24"
+    />
+  </button>
+</div>
+`;

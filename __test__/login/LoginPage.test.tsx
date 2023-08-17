@@ -45,7 +45,7 @@ describe('Login Page', () => {
 
   it('should match a snapshot', async () => {
     const page = renderWithProviders(<LoginPage />);
-    expect(page).toMatchSnapshot();
+    expect(page.container).toMatchSnapshot();
   });
 
   it('when token exists, should push to /main/classes', async () => {

@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`delete message button modal should match a snapshot 1`] = `<div />`;

@@ -74,6 +74,6 @@ describe('edit account form', () => {
 describe('edit account form', () => {
     it('should match a snapshot', () => {
         const page = renderWithProviders(<EditAccountForm/>);
-        expect(page).toMatchSnapshot();
+        expect(page.container).toMatchSnapshot();
     })
 })

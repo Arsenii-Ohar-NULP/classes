@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`add class page should match a snapshot 1`] = `
+<div>
+  <form
+    class="container p-1 d-flex flex-column align-items-center"
+  >
+    <h1
+      class="p-2"
+    >
+      Add a class
+    </h1>
+    <input
+      class="form-control rounded p-1 px-2"
+      id="title"
+      name="Title"
+      placeholder="Enter a title"
+    />
+    <div
+      class="invalid"
+    />
+    <textarea
+      class="form-control rounded p-1 px-2"
+      id="description"
+      name="Description"
+      placeholder="Enter a description"
+    />
+    <div
+      class="invalid"
+    />
+    <div
+      class="mb-3"
+    >
+      <label
+        class="form-label"
+        for="formFile"
+      >
+        Upload a class thumbnail
+      </label>
+      <input
+        accept=".jpg, .png"
+        class="form-control form-control-sm"
+        data-testid="file-input"
+        id="ImageInput"
+        name="Image"
+        type="file"
+      />
+    </div>
+    <hr />
+    <button
+      class="btn btn-primary"
+      type="submit"
+    >
+      Add
+    </button>
+  </form>
+</div>
+`;

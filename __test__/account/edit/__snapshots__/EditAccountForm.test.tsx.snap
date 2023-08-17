@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`edit account form should match a snapshot 1`] = `
+<div>
+  <div
+    class="d-flex align-items-center flex-column container"
+  >
+    <h3
+      class="p-3"
+    >
+      Edit account information
+    </h3>
+    <form>
+      <div
+        class="my-2 has-validation"
+      >
+        <label
+          class="form-label"
+          for="Password"
+        >
+          Password
+        </label>
+        <input
+          class="form-control rounded p-1 px-2"
+          data-testid="Password"
+          id="Password"
+          name="Password"
+          placeholder="Enter a new password"
+          type="password"
+          value=""
+        />
+        <div
+          class="invalid"
+        />
+      </div>
+      <div
+        class="my-2 has-validation"
+      >
+        <label
+          class="form-label"
+          for="Phone"
+        >
+          Phone
+        </label>
+        <input
+          class="form-control rounded p-1 px-2"
+          data-testid="Phone"
+          id="Phone"
+          name="Phone"
+          placeholder="Enter a new phone number"
+          value=""
+        />
+        <div
+          class="invalid"
+        />
+      </div>
+      <div
+        class="my-2 has-validation"
+      >
+        <label
+          class="form-label"
+          for="Email"
+        >
+          Email
+        </label>
+        <input
+          class="form-control rounded p-1 px-2"
+          data-testid="Email"
+          id="Email"
+          name="Email"
+          placeholder="Enter an email"
+          type="email"
+          value=""
+        />
+        <div
+          class="invalid"
+        />
+      </div>
+      <hr />
+      <h6 />
+      <div
+        class="text-center"
+      >
+        <button
+          class="btn btn-primary"
+          disabled=""
+          type="submit"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;

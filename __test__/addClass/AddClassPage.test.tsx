@@ -44,7 +44,7 @@ describe('add class page', () => {
             }
         })
 
-        expect(page).toMatchSnapshot();
+        expect(page.container).toMatchSnapshot();
     })
 
     it('should create class and upload a thumbnail, when user typed in valid data', async () => {

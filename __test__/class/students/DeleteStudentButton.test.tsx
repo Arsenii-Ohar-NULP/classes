@@ -6,7 +6,7 @@ import {fireEvent, screen, waitFor} from "@testing-library/react";
 describe('Delete Student Button', () => {
     it('should match a snapshot', () => {
         const button = renderWithProviders(<DeleteStudentButton onDelete={jest.fn()}/>);
-        expect(button).toMatchSnapshot();
+        expect(button.container).toMatchSnapshot();
     })
     it('should call onDelete, when clicked', async () => {
         const onDelete = jest.fn();

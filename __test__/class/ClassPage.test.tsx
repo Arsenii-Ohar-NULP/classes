@@ -40,7 +40,7 @@ describe('class page test', () => {
             },
         });
         await waitFor(() => {
-            expect(page).toMatchSnapshot();
+            expect(page.container).toMatchSnapshot();
             screen.findByText(cls.description);
             screen.findByText(cls.title);
         });
