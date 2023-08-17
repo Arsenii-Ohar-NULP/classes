@@ -14,7 +14,7 @@ jest.mock('next/navigation', () => ({
   }),
 }));
 
-jest.mock('components/login/authService');
+jest.mock('components/login/AuthService');
 jest.mock('components/account/UserService');
 
 describe('useMainPageRedirect hook test', () => {
