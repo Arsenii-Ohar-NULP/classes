@@ -10,12 +10,12 @@ describe('account page test', () => {
   it('should match a snapshot', () => {
     jest.mocked(useUserData).mockReturnValueOnce(sampleUser);
     const page = renderWithProviders(<AccountPage />);
-    expect(page).toMatchSnapshot();
+    expect(page.container).toMatchSnapshot();
   });
 
   it('given no user auth, should match a snapshot', () => {
     jest.mocked(useUserData).mockReturnValueOnce(null);
     const page = renderWithProviders(<AccountPage />);
-    expect(page).toMatchSnapshot();
+    expect(page.container).toMatchSnapshot();
   });
 });

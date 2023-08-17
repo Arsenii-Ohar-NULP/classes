@@ -1,3 +1,4 @@
+"use client"
 import React, { useMemo } from 'react';
 import styles from 'components/classes/classes.module.scss';
 import Link from 'next/link';
@@ -30,7 +31,7 @@ export default function UserClasses() {
               ` ${styles['class-flex']}`
             }
             key={cls.id}
-            href={`class/${cls.id}`}
+            href={`/main/classes/${cls.id}`}
           >
             <ClassUI key={cls.id} cls={cls} />
           </Link>

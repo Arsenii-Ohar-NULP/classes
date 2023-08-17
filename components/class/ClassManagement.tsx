@@ -38,5 +38,5 @@ export default function ClassInfoManagement({
       </div>
     </div>
   );
-};
+}
 

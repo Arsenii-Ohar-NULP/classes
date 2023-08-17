@@ -5,7 +5,7 @@ import ProfilePicture from 'components/ProfilePicture';
 
 export default function AccountButton({ user }: { user: User }) {
     return (
-      <Link href={'account'} className={"nav-link px-2 text-secondary d-inline"}>
+      <Link href={'/main/account'} className={"nav-link px-2 text-secondary d-inline"}>
         <ProfilePicture user={user} hoverOn={true}/>
       </Link>
     );

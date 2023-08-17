@@ -3,7 +3,7 @@ import {sampleFiveClasses} from '__test__/data/classes';
 import {sampleUser} from '__test__/data/user';
 import {renderWithProviders} from '__test__/testUtils';
 import {findClass} from 'components/class/ClassService';
-import ClassPage from 'app/main/class/[id]/page';
+import ClassPage from 'app/main/classes/[id]/page';
 import {AuthStatus} from 'components/redux/auth';
 import {fireEvent, screen, waitFor} from '@testing-library/react';
 import {useRouter} from 'next/navigation';
@@ -40,7 +40,7 @@ describe('class page test', () => {
             },
         });
         await waitFor(() => {
-            expect(page).toMatchSnapshot();
+            expect(page.container).toMatchSnapshot();
             screen.findByText(cls.description);
             screen.findByText(cls.title);
         });
@@ -64,7 +64,7 @@ describe('class page test', () => {
         })
 
         await waitFor(() => {
-            expect(useRouter().replace).toHaveBeenCalledWith(`/main/requests/${cls.id}`);
+            expect(useRouter().replace).toHaveBeenCalledWith(`/main/classes/requests/${cls.id}`);
         });
     });
 });

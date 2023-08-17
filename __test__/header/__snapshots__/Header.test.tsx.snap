@@ -1,593 +1,102 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`header test should match a snapshot 1`] = `
-{
-  "asFragment": [Function],
-  "baseElement": <body>
-    <div>
-      <header
-        class="p-3 text-white position-relative"
+<div>
+  <header
+    class="p-3 text-white position-relative"
+  >
+    <div
+      class="blur-100"
+    >
+      <div
+        class="header-background"
+      />
+    </div>
+    <div
+      class="navbar navbar-expand-lg"
+    >
+      <div
+        class="navbar-brand rounded me-2"
       >
         <div
-          class="blur-100"
+          class="d-flex justify-content-center align-items-center gap-1 bg-dark p-2 rounded"
         >
-          <div
-            class="header-background"
+          <img
+            alt="Classes Logo"
+            class="border rounded-3 p-1 m-0 fill-light classes-pic"
+            data-nimg="1"
+            decoding="async"
+            height="32"
+            loading="lazy"
+            src="/_next/image?url=%2Fimg.jpg&w=64&q=75"
+            srcset="/_next/image?url=%2Fimg.jpg&w=32&q=75 1x, /_next/image?url=%2Fimg.jpg&w=64&q=75 2x"
+            style="color: transparent;"
+            width="32"
           />
+          <h3
+            class="m-0 align-middle text-primary"
+          >
+            Classes
+          </h3>
         </div>
+      </div>
+      <button
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        class="navbar-toggler"
+        data-bs-target="#navbarNav"
+        data-bs-toggle="collapse"
+        type="button"
+      >
+        <span
+          class="navbar-toggler-icon"
+        />
+      </button>
+      <div
+        class="collapse navbar-collapse col"
+        id="navbarNav"
+      >
+        <ul
+          class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
+        >
+          <li>
+            <a
+              class="nav-link px-2 text-dark"
+              href="/main/classes"
+            >
+              <b>
+                Home
+              </b>
+            </a>
+          </li>
+        </ul>
         <div
-          class="navbar navbar-expand-lg"
+          class="text-center text-lg-end"
         >
           <div
-            class="navbar-brand rounded me-2"
+            class="profile-pic-size d-inline"
           >
             <div
-              class="d-flex justify-content-center align-items-center gap-1 bg-dark p-2 rounded"
+              class="spinner-grow text-primary align-middle mx-2 p-3 spinner-size"
+              role="status"
             >
-              <img
-                alt="Classes Logo"
-                class="border rounded-3 p-1 m-0 fill-light classes-pic"
-                data-nimg="1"
-                decoding="async"
-                height="32"
-                loading="lazy"
-                src="/_next/image?url=%2Fimg.jpg&w=64&q=75"
-                srcset="/_next/image?url=%2Fimg.jpg&w=32&q=75 1x, /_next/image?url=%2Fimg.jpg&w=64&q=75 2x"
-                style="color: transparent;"
-                width="32"
-              />
-              <h3
-                class="m-0 align-middle text-primary"
+              <span
+                class="visually-hidden"
               >
-                Classes
-              </h3>
+                Loading...
+              </span>
             </div>
           </div>
           <button
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-            class="navbar-toggler"
-            data-bs-target="#navbarNav"
-            data-bs-toggle="collapse"
+            class="btn btn-primary"
             type="button"
           >
-            <span
-              class="navbar-toggler-icon"
-            />
+            Logout
           </button>
-          <div
-            class="collapse navbar-collapse col"
-            id="navbarNav"
-          >
-            <ul
-              class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
-            >
-              <li>
-                <a
-                  class="nav-link px-2 text-dark"
-                  href="/main/classes"
-                >
-                  <b>
-                    Home
-                  </b>
-                </a>
-              </li>
-            </ul>
-            <div
-              class="text-center text-lg-end"
-            >
-              <div
-                class="profile-pic-size d-inline"
-              >
-                <div
-                  class="spinner-grow text-primary align-middle mx-2 p-3 spinner-size"
-                  role="status"
-                >
-                  <span
-                    class="visually-hidden"
-                  >
-                    Loading...
-                  </span>
-                </div>
-              </div>
-              <button
-                class="btn btn-primary"
-                type="button"
-              >
-                Logout
-              </button>
-            </div>
-          </div>
         </div>
-      </header>
+      </div>
     </div>
-  </body>,
-  "container": <div>
-    <header
-      class="p-3 text-white position-relative"
-    >
-      <div
-        class="blur-100"
-      >
-        <div
-          class="header-background"
-        />
-      </div>
-      <div
-        class="navbar navbar-expand-lg"
-      >
-        <div
-          class="navbar-brand rounded me-2"
-        >
-          <div
-            class="d-flex justify-content-center align-items-center gap-1 bg-dark p-2 rounded"
-          >
-            <img
-              alt="Classes Logo"
-              class="border rounded-3 p-1 m-0 fill-light classes-pic"
-              data-nimg="1"
-              decoding="async"
-              height="32"
-              loading="lazy"
-              src="/_next/image?url=%2Fimg.jpg&w=64&q=75"
-              srcset="/_next/image?url=%2Fimg.jpg&w=32&q=75 1x, /_next/image?url=%2Fimg.jpg&w=64&q=75 2x"
-              style="color: transparent;"
-              width="32"
-            />
-            <h3
-              class="m-0 align-middle text-primary"
-            >
-              Classes
-            </h3>
-          </div>
-        </div>
-        <button
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-          class="navbar-toggler"
-          data-bs-target="#navbarNav"
-          data-bs-toggle="collapse"
-          type="button"
-        >
-          <span
-            class="navbar-toggler-icon"
-          />
-        </button>
-        <div
-          class="collapse navbar-collapse col"
-          id="navbarNav"
-        >
-          <ul
-            class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
-          >
-            <li>
-              <a
-                class="nav-link px-2 text-dark"
-                href="/main/classes"
-              >
-                <b>
-                  Home
-                </b>
-              </a>
-            </li>
-          </ul>
-          <div
-            class="text-center text-lg-end"
-          >
-            <div
-              class="profile-pic-size d-inline"
-            >
-              <div
-                class="spinner-grow text-primary align-middle mx-2 p-3 spinner-size"
-                role="status"
-              >
-                <span
-                  class="visually-hidden"
-                >
-                  Loading...
-                </span>
-              </div>
-            </div>
-            <button
-              class="btn btn-primary"
-              type="button"
-            >
-              Logout
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
-  </div>,
-  "debug": [Function],
-  "findAllByAltText": [Function],
-  "findAllByDisplayValue": [Function],
-  "findAllByLabelText": [Function],
-  "findAllByPlaceholderText": [Function],
-  "findAllByRole": [Function],
-  "findAllByTestId": [Function],
-  "findAllByText": [Function],
-  "findAllByTitle": [Function],
-  "findByAltText": [Function],
-  "findByDisplayValue": [Function],
-  "findByLabelText": [Function],
-  "findByPlaceholderText": [Function],
-  "findByRole": [Function],
-  "findByTestId": [Function],
-  "findByText": [Function],
-  "findByTitle": [Function],
-  "getAllByAltText": [Function],
-  "getAllByDisplayValue": [Function],
-  "getAllByLabelText": [Function],
-  "getAllByPlaceholderText": [Function],
-  "getAllByRole": [Function],
-  "getAllByTestId": [Function],
-  "getAllByText": [Function],
-  "getAllByTitle": [Function],
-  "getByAltText": [Function],
-  "getByDisplayValue": [Function],
-  "getByLabelText": [Function],
-  "getByPlaceholderText": [Function],
-  "getByRole": [Function],
-  "getByTestId": [Function],
-  "getByText": [Function],
-  "getByTitle": [Function],
-  "queryAllByAltText": [Function],
-  "queryAllByDisplayValue": [Function],
-  "queryAllByLabelText": [Function],
-  "queryAllByPlaceholderText": [Function],
-  "queryAllByRole": [Function],
-  "queryAllByTestId": [Function],
-  "queryAllByText": [Function],
-  "queryAllByTitle": [Function],
-  "queryByAltText": [Function],
-  "queryByDisplayValue": [Function],
-  "queryByLabelText": [Function],
-  "queryByPlaceholderText": [Function],
-  "queryByRole": [Function],
-  "queryByTestId": [Function],
-  "queryByText": [Function],
-  "queryByTitle": [Function],
-  "rerender": [Function],
-  "store": {
-    "@@observable": [Function],
-    "dispatch": [Function],
-    "getState": [Function],
-    "replaceReducer": [Function],
-    "subscribe": [Function],
-  },
-  "unmount": [Function],
-}
-`;
-
-exports[`header test when ClassPage component, should match a snapshot 1`] = `
-{
-  "asFragment": [Function],
-  "baseElement": <body>
-    <div>
-      <header
-        class="p-3 text-white position-relative"
-      >
-        <div
-          class="blur-100"
-        >
-          <div
-            class="header-background"
-          />
-        </div>
-        <div
-          class="navbar navbar-expand-lg"
-        >
-          <div
-            class="navbar-brand rounded me-2"
-          >
-            <div
-              class="d-flex justify-content-center align-items-center gap-1 bg-dark p-2 rounded"
-            >
-              <img
-                alt="Classes Logo"
-                class="border rounded-3 p-1 m-0 fill-light classes-pic"
-                data-nimg="1"
-                decoding="async"
-                height="32"
-                loading="lazy"
-                src="/_next/image?url=%2Fimg.jpg&w=64&q=75"
-                srcset="/_next/image?url=%2Fimg.jpg&w=32&q=75 1x, /_next/image?url=%2Fimg.jpg&w=64&q=75 2x"
-                style="color: transparent;"
-                width="32"
-              />
-              <h3
-                class="m-0 align-middle text-primary"
-              >
-                Classes
-              </h3>
-            </div>
-          </div>
-          <button
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-            class="navbar-toggler"
-            data-bs-target="#navbarNav"
-            data-bs-toggle="collapse"
-            type="button"
-          >
-            <span
-              class="navbar-toggler-icon"
-            />
-          </button>
-          <div
-            class="collapse navbar-collapse col"
-            id="navbarNav"
-          >
-            <ul
-              class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
-            >
-              <li>
-                <a
-                  class="nav-link px-2 text-dark"
-                  href="/classes"
-                >
-                  <b>
-                    Home
-                  </b>
-                </a>
-              </li>
-            </ul>
-            <div
-              class="text-center text-lg-end"
-            >
-              <div
-                class="profile-pic-size d-inline"
-              >
-                <div
-                  class="spinner-grow text-primary align-middle mx-2 p-3 spinner-size"
-                  role="status"
-                >
-                  <span
-                    class="visually-hidden"
-                  >
-                    Loading...
-                  </span>
-                </div>
-              </div>
-              <button
-                class="btn btn-primary"
-                type="button"
-              >
-                Logout
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-    </div>
-  </body>,
-  "container": <div>
-    <header
-      class="p-3 text-white position-relative"
-    >
-      <div
-        class="blur-100"
-      >
-        <div
-          class="header-background"
-        />
-      </div>
-      <div
-        class="navbar navbar-expand-lg"
-      >
-        <div
-          class="navbar-brand rounded me-2"
-        >
-          <div
-            class="d-flex justify-content-center align-items-center gap-1 bg-dark p-2 rounded"
-          >
-            <img
-              alt="Classes Logo"
-              class="border rounded-3 p-1 m-0 fill-light classes-pic"
-              data-nimg="1"
-              decoding="async"
-              height="32"
-              loading="lazy"
-              src="/_next/image?url=%2Fimg.jpg&w=64&q=75"
-              srcset="/_next/image?url=%2Fimg.jpg&w=32&q=75 1x, /_next/image?url=%2Fimg.jpg&w=64&q=75 2x"
-              style="color: transparent;"
-              width="32"
-            />
-            <h3
-              class="m-0 align-middle text-primary"
-            >
-              Classes
-            </h3>
-          </div>
-        </div>
-        <button
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-          class="navbar-toggler"
-          data-bs-target="#navbarNav"
-          data-bs-toggle="collapse"
-          type="button"
-        >
-          <span
-            class="navbar-toggler-icon"
-          />
-        </button>
-        <div
-          class="collapse navbar-collapse col"
-          id="navbarNav"
-        >
-          <ul
-            class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
-          >
-            <li>
-              <a
-                class="nav-link px-2 text-dark"
-                href="/classes"
-              >
-                <b>
-                  Home
-                </b>
-              </a>
-            </li>
-          </ul>
-          <div
-            class="text-center text-lg-end"
-          >
-            <div
-              class="profile-pic-size d-inline"
-            >
-              <div
-                class="spinner-grow text-primary align-middle mx-2 p-3 spinner-size"
-                role="status"
-              >
-                <span
-                  class="visually-hidden"
-                >
-                  Loading...
-                </span>
-              </div>
-            </div>
-            <button
-              class="btn btn-primary"
-              type="button"
-            >
-              Logout
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
-  </div>,
-  "debug": [Function],
-  "findAllByAltText": [Function],
-  "findAllByDisplayValue": [Function],
-  "findAllByLabelText": [Function],
-  "findAllByPlaceholderText": [Function],
-  "findAllByRole": [Function],
-  "findAllByTestId": [Function],
-  "findAllByText": [Function],
-  "findAllByTitle": [Function],
-  "findByAltText": [Function],
-  "findByDisplayValue": [Function],
-  "findByLabelText": [Function],
-  "findByPlaceholderText": [Function],
-  "findByRole": [Function],
-  "findByTestId": [Function],
-  "findByText": [Function],
-  "findByTitle": [Function],
-  "getAllByAltText": [Function],
-  "getAllByDisplayValue": [Function],
-  "getAllByLabelText": [Function],
-  "getAllByPlaceholderText": [Function],
-  "getAllByRole": [Function],
-  "getAllByTestId": [Function],
-  "getAllByText": [Function],
-  "getAllByTitle": [Function],
-  "getByAltText": [Function],
-  "getByDisplayValue": [Function],
-  "getByLabelText": [Function],
-  "getByPlaceholderText": [Function],
-  "getByRole": [Function],
-  "getByTestId": [Function],
-  "getByText": [Function],
-  "getByTitle": [Function],
-  "queryAllByAltText": [Function],
-  "queryAllByDisplayValue": [Function],
-  "queryAllByLabelText": [Function],
-  "queryAllByPlaceholderText": [Function],
-  "queryAllByRole": [Function],
-  "queryAllByTestId": [Function],
-  "queryAllByText": [Function],
-  "queryAllByTitle": [Function],
-  "queryByAltText": [Function],
-  "queryByDisplayValue": [Function],
-  "queryByLabelText": [Function],
-  "queryByPlaceholderText": [Function],
-  "queryByRole": [Function],
-  "queryByTestId": [Function],
-  "queryByText": [Function],
-  "queryByTitle": [Function],
-  "rerender": [Function],
-  "store": {
-    "@@observable": [Function],
-    "dispatch": [Function],
-    "getState": [Function],
-    "replaceReducer": [Function],
-    "subscribe": [Function],
-  },
-  "unmount": [Function],
-}
-`;
-
-exports[`header test when no component, should match a snapshot 1`] = `
-{
-  "asFragment": [Function],
-  "baseElement": <body>
-    <div />
-  </body>,
-  "container": <div />,
-  "debug": [Function],
-  "findAllByAltText": [Function],
-  "findAllByDisplayValue": [Function],
-  "findAllByLabelText": [Function],
-  "findAllByPlaceholderText": [Function],
-  "findAllByRole": [Function],
-  "findAllByTestId": [Function],
-  "findAllByText": [Function],
-  "findAllByTitle": [Function],
-  "findByAltText": [Function],
-  "findByDisplayValue": [Function],
-  "findByLabelText": [Function],
-  "findByPlaceholderText": [Function],
-  "findByRole": [Function],
-  "findByTestId": [Function],
-  "findByText": [Function],
-  "findByTitle": [Function],
-  "getAllByAltText": [Function],
-  "getAllByDisplayValue": [Function],
-  "getAllByLabelText": [Function],
-  "getAllByPlaceholderText": [Function],
-  "getAllByRole": [Function],
-  "getAllByTestId": [Function],
-  "getAllByText": [Function],
-  "getAllByTitle": [Function],
-  "getByAltText": [Function],
-  "getByDisplayValue": [Function],
-  "getByLabelText": [Function],
-  "getByPlaceholderText": [Function],
-  "getByRole": [Function],
-  "getByTestId": [Function],
-  "getByText": [Function],
-  "getByTitle": [Function],
-  "queryAllByAltText": [Function],
-  "queryAllByDisplayValue": [Function],
-  "queryAllByLabelText": [Function],
-  "queryAllByPlaceholderText": [Function],
-  "queryAllByRole": [Function],
-  "queryAllByTestId": [Function],
-  "queryAllByText": [Function],
-  "queryAllByTitle": [Function],
-  "queryByAltText": [Function],
-  "queryByDisplayValue": [Function],
-  "queryByLabelText": [Function],
-  "queryByPlaceholderText": [Function],
-  "queryByRole": [Function],
-  "queryByTestId": [Function],
-  "queryByText": [Function],
-  "queryByTitle": [Function],
-  "rerender": [Function],
-  "store": {
-    "@@observable": [Function],
-    "dispatch": [Function],
-    "getState": [Function],
-    "replaceReducer": [Function],
-    "subscribe": [Function],
-  },
-  "unmount": [Function],
-}
+  </header>
+</div>
 `;

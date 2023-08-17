@@ -18,6 +18,6 @@ jest.mock('next/navigation', () => (
 describe('sign up page', () => {
     it('should match a snapshot', () => {
         const page = renderWithProviders(<SignUp/>);   
-        expect(page).toMatchSnapshot();
+        expect(page.container).toMatchSnapshot();
     })
 })

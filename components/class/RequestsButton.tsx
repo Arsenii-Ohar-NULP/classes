@@ -8,7 +8,7 @@ export function RequestsButton({ classId }: { classId: number }) {
   const role = useAppSelector((state) => state?.auth?.user?.role);
 
   function onClick() {
-    router.replace(`/main/requests/${classId}`);
+    router.replace(`/main/classes/requests/${classId}`);
   }
 
   if (role !== Role.Teacher){

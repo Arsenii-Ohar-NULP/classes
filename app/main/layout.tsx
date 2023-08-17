@@ -2,18 +2,20 @@
 import React, {useEffect} from 'react';
 import {ReactNode} from "react";
 import Header from "components/header/header";
-import {authActions, AuthStatus} from "../../components/redux/auth";
-import {fetchUserData} from "../../components/redux/classesActions";
-import {getAccessToken, useLogout} from "../../components/login/AuthService";
-import {getUserInfo} from "../../components/account/UserService";
-import InvalidCredentials from "../../components/errors/InvalidCredentials";
-import {useAppDispatch, useAppSelector} from "../../components/redux/store";
+import {authActions, AuthStatus} from "components/redux/auth";
+import {fetchUserData} from "components/redux/classesActions";
+import {getAccessToken, useLogout} from "components/login/AuthService";
+import {getUserInfo} from "components/account/UserService";
+import InvalidCredentials from "components/errors/InvalidCredentials";
+import {useAppDispatch, useAppSelector} from "components/redux/store";
+import {useLoginRedirect} from "components/utils/hooks";
 
 export default function MainPage({children}: { children: ReactNode }) {
     const authStatus = useAppSelector((state) => state.auth.status);
     const userId = useAppSelector((state) => state.auth.user?.id);
     const logout = useLogout();
     const dispatch = useAppDispatch();
+    useLoginRedirect();
 
     useEffect(() => {
         if (authStatus == AuthStatus.LOGGED_IN) {

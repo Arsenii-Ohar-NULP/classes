@@ -1,0 +1,338 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Students List should match a snapshot, when students are loaded 1`] = `
+<div>
+  <div
+    class="container"
+  >
+    <div
+      class="overflow-scroll hide-scrollbar smooth-shadow"
+    >
+      <table
+        class="table shadow m-0"
+      >
+        <thead
+          class="border px-2"
+        >
+          <tr>
+            <th
+              class="text-uppercase align-middle"
+              scope="col"
+            >
+              <div
+                class="ms-3"
+              >
+                Student
+              </div>
+            </th>
+            <th
+              class="text-uppercase align-middle"
+              scope="col"
+            >
+              Email
+            </th>
+            <th
+              class="text-uppercase align-middle"
+              scope="col"
+            >
+              Phone Number
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="p-2 w-100 text-start overflow-scroll neat-text student"
+            data-testid="student-card"
+          >
+            <td
+              class="d-flex text-center gap-2 align-items-center"
+              scope="row"
+            >
+              <img
+                alt="Profile picture for seniorohar"
+                class="rounded-circle bg-light border border-primary mx-2 "
+                height="48"
+                id="profilePic"
+                src="https://api.dicebear.com/6.x/lorelei/svg/seed=seniorohar"
+                width="48"
+              />
+              <div>
+                Arsenii
+                 
+                Ohar
+              </div>
+            </td>
+            <td
+              scope="row"
+            >
+              arsen.ogar@gmail.com
+            </td>
+            <td
+              scope="row"
+            >
+              <div
+                class="d-flex gap-3"
+              >
+                +380987669293
+                <div
+                  class="invisible"
+                  data-testid="invisible-button"
+                >
+                  <button
+                    class="p-1 btn btn-danger"
+                    type="button"
+                  >
+                    <img
+                      alt="Delete Icon"
+                      data-nimg="1"
+                      decoding="async"
+                      height="24"
+                      loading="lazy"
+                      src="/_next/image?url=%2Fimg.jpg&w=48&q=75"
+                      srcset="/_next/image?url=%2Fimg.jpg&w=32&q=75 1x, /_next/image?url=%2Fimg.jpg&w=48&q=75 2x"
+                      style="color: transparent;"
+                      width="24"
+                    />
+                  </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="p-2 w-100 text-start overflow-scroll neat-text student"
+            data-testid="student-card"
+          >
+            <td
+              class="d-flex text-center gap-2 align-items-center"
+              scope="row"
+            >
+              <img
+                alt="Profile picture for vitalikpikh"
+                class="rounded-circle bg-light border border-primary mx-2 "
+                height="48"
+                id="profilePic"
+                src="https://api.dicebear.com/6.x/lorelei/svg/seed=vitalikpikh"
+                width="48"
+              />
+              <div>
+                Vitalik
+                 
+                Pikhotskiy
+              </div>
+            </td>
+            <td
+              scope="row"
+            >
+              vitaliipik@gmail.com
+            </td>
+            <td
+              scope="row"
+            >
+              <div
+                class="d-flex gap-3"
+              >
+                +380967629253
+                <div
+                  class="invisible"
+                  data-testid="invisible-button"
+                >
+                  <button
+                    class="p-1 btn btn-danger"
+                    type="button"
+                  >
+                    <img
+                      alt="Delete Icon"
+                      data-nimg="1"
+                      decoding="async"
+                      height="24"
+                      loading="lazy"
+                      src="/_next/image?url=%2Fimg.jpg&w=48&q=75"
+                      srcset="/_next/image?url=%2Fimg.jpg&w=32&q=75 1x, /_next/image?url=%2Fimg.jpg&w=48&q=75 2x"
+                      style="color: transparent;"
+                      width="24"
+                    />
+                  </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="p-2 w-100 text-start overflow-scroll neat-text student"
+            data-testid="student-card"
+          >
+            <td
+              class="d-flex text-center gap-2 align-items-center"
+              scope="row"
+            >
+              <img
+                alt="Profile picture for svyatoslavshainoha"
+                class="rounded-circle bg-light border border-primary mx-2 "
+                height="48"
+                id="profilePic"
+                src="https://api.dicebear.com/6.x/lorelei/svg/seed=svyatoslavshainoha"
+                width="48"
+              />
+              <div>
+                Svyatoslav
+                 
+                Shainoha
+              </div>
+            </td>
+            <td
+              scope="row"
+            >
+              vitaliipik@gmail.com
+            </td>
+            <td
+              scope="row"
+            >
+              <div
+                class="d-flex gap-3"
+              >
+                +380967629253
+                <div
+                  class="invisible"
+                  data-testid="invisible-button"
+                >
+                  <button
+                    class="p-1 btn btn-danger"
+                    type="button"
+                  >
+                    <img
+                      alt="Delete Icon"
+                      data-nimg="1"
+                      decoding="async"
+                      height="24"
+                      loading="lazy"
+                      src="/_next/image?url=%2Fimg.jpg&w=48&q=75"
+                      srcset="/_next/image?url=%2Fimg.jpg&w=32&q=75 1x, /_next/image?url=%2Fimg.jpg&w=48&q=75 2x"
+                      style="color: transparent;"
+                      width="24"
+                    />
+                  </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="p-2 w-100 text-start overflow-scroll neat-text student"
+            data-testid="student-card"
+          >
+            <td
+              class="d-flex text-center gap-2 align-items-center"
+              scope="row"
+            >
+              <img
+                alt="Profile picture for olehrysin"
+                class="rounded-circle bg-light border border-primary mx-2 "
+                height="48"
+                id="profilePic"
+                src="https://api.dicebear.com/6.x/lorelei/svg/seed=olehrysin"
+                width="48"
+              />
+              <div>
+                Oleh
+                 
+                Rysin
+              </div>
+            </td>
+            <td
+              scope="row"
+            >
+              olehrysin@gmail.com
+            </td>
+            <td
+              scope="row"
+            >
+              <div
+                class="d-flex gap-3"
+              >
+                +380967323273
+                <div
+                  class="invisible"
+                  data-testid="invisible-button"
+                >
+                  <button
+                    class="p-1 btn btn-danger"
+                    type="button"
+                  >
+                    <img
+                      alt="Delete Icon"
+                      data-nimg="1"
+                      decoding="async"
+                      height="24"
+                      loading="lazy"
+                      src="/_next/image?url=%2Fimg.jpg&w=48&q=75"
+                      srcset="/_next/image?url=%2Fimg.jpg&w=32&q=75 1x, /_next/image?url=%2Fimg.jpg&w=48&q=75 2x"
+                      style="color: transparent;"
+                      width="24"
+                    />
+                  </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="p-2 w-100 text-start overflow-scroll neat-text student"
+            data-testid="student-card"
+          >
+            <td
+              class="d-flex text-center gap-2 align-items-center"
+              scope="row"
+            >
+              <img
+                alt="Profile picture for johnadams"
+                class="rounded-circle bg-light border border-primary mx-2 "
+                height="48"
+                id="profilePic"
+                src="https://api.dicebear.com/6.x/lorelei/svg/seed=johnadams"
+                width="48"
+              />
+              <div>
+                John
+                 
+                Adams
+              </div>
+            </td>
+            <td
+              scope="row"
+            >
+              johnadams@gmail.com
+            </td>
+            <td
+              scope="row"
+            >
+              <div
+                class="d-flex gap-3"
+              >
+                +380967723273
+                <div
+                  class="invisible"
+                  data-testid="invisible-button"
+                >
+                  <button
+                    class="p-1 btn btn-danger"
+                    type="button"
+                  >
+                    <img
+                      alt="Delete Icon"
+                      data-nimg="1"
+                      decoding="async"
+                      height="24"
+                      loading="lazy"
+                      src="/_next/image?url=%2Fimg.jpg&w=48&q=75"
+                      srcset="/_next/image?url=%2Fimg.jpg&w=32&q=75 1x, /_next/image?url=%2Fimg.jpg&w=48&q=75 2x"
+                      style="color: transparent;"
+                      width="24"
+                    />
+                  </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;

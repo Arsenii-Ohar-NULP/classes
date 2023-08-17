@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Students Stats should match a snapshot, when students number is not 0 or null 1`] = `
+<div>
+  <div
+    class="text-end p-2"
+  >
+    5
+     students
+  </div>
+</div>
+`;

@@ -18,7 +18,7 @@ describe('Student Card', () => {
         const onDelete = jest.fn();
         const card = renderWithProviders(<StudentCard student={user} onDelete={onDelete}/>);
 
-        expect(card).toMatchSnapshot();
+        expect(card.container).toMatchSnapshot();
     })
 
     it('should output user info', () => {
