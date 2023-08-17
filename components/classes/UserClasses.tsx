@@ -1,3 +1,4 @@
+"use client"
 import React, { useMemo } from 'react';
 import styles from 'components/classes/classes.module.scss';
 import Link from 'next/link';

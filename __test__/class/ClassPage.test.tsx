@@ -64,7 +64,7 @@ describe('class page test', () => {
         })
 
         await waitFor(() => {
-            expect(useRouter().replace).toHaveBeenCalledWith(`/main/requests/${cls.id}`);
+            expect(useRouter().replace).toHaveBeenCalledWith(`/main/classes/requests/${cls.id}`);
         });
     });
 });

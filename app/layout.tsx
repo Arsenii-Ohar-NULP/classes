@@ -1,11 +1,8 @@
-"use client";
 import React from 'react';
-import {useBootstrap} from "components/utils/hooks";
-import {Provider} from "react-redux";
-import store from "components/redux/store";
 import {Metadata} from "next";
 import 'components/_base.scss';
 import 'animate.css';
+import Providers from "components/Providers";
 
 export const metadata: Metadata = {
     icons: {
@@ -16,14 +13,13 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: {
     children: React.ReactNode;
 }) {
-    useBootstrap();
 
     return (
         <html lang={'en'}>
         <body>
-        <Provider store={store}>
+        <Providers>
             {children}
-        </Provider>
+        </Providers>
         </body>
         </html>
     )

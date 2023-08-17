@@ -1,4 +1,4 @@
-import LogoPic from 'components/utils/logo';
+import LogoPic from 'components/utils/Logo';
 import * as React from 'react';
 export default function Footer() {
     return (
