@@ -5,3 +5,4 @@
 scripts/**
 coverage/**
 **/.idea/**
+**/__snapshots__/**
