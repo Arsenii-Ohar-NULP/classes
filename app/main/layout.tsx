@@ -1,20 +1,22 @@
 "use client";
 import React, {useEffect} from 'react';
 import {ReactNode} from "react";
-import Header from "components/header/header";
+import Header from "components/header/Header";
 import {authActions, AuthStatus} from "components/redux/auth";
 import {fetchUserData} from "components/redux/classesActions";
-import {getAccessToken, useLogout} from "components/login/AuthService";
-import {getUserInfo} from "components/account/UserService";
-import InvalidCredentials from "components/errors/InvalidCredentials";
+import {useLogout} from "components/login/AuthService";
 import {useAppDispatch, useAppSelector} from "components/redux/store";
 import {useLoginRedirect} from "components/utils/hooks";
+import {useLazyGetCurrentUserQuery} from "../../components/redux/userApi";
+import {getAccessToken} from "components/account/TokenService";
 
 export default function MainPage({children}: { children: ReactNode }) {
     const authStatus = useAppSelector((state) => state.auth.status);
     const userId = useAppSelector((state) => state.auth.user?.id);
+    const [getUserInfo] = useLazyGetCurrentUserQuery();
     const logout = useLogout();
     const dispatch = useAppDispatch();
+
     useLoginRedirect();
 
     useEffect(() => {
@@ -25,11 +27,14 @@ export default function MainPage({children}: { children: ReactNode }) {
         if (authStatus == AuthStatus.LOGGED_OUT) {
             const token = getAccessToken();
             if (token) {
-                getUserInfo(token).then((user) =>
+                getUserInfo().unwrap().then((user) =>
                     dispatch(authActions.login(user))
                 ).catch(error => {
-                    if (error instanceof InvalidCredentials) {
-                        logout();
+                    if ('status' in error) {
+                        const status = error['status'];
+                        if (status === 401) {
+                            logout();
+                        }
                     }
                 })
             }

@@ -1,51 +1,28 @@
 import React from 'react';
 import styles from 'components/classes/classes.module.scss';
 import unknownPic from 'public/images/unknown.jpg';
-import { useState, useEffect } from 'react';
-import { findClassThumbnail } from 'components/header/ClassThumbnailService';
 import Class from './Class';
+import clsx from "clsx";
+import {useGetClassThumbnailQuery} from "../redux/classesApi";
+import {Loading} from "../class/Loading";
 
-function ImageLoading() {
-  return (
-    <div className="spinner-border text-primary" role="status">
-      <span className="visually-hidden">Loading...</span>
-    </div>
-  );
-}
+export default function ClassThumbnail({cls}: { cls: Class }) {
+    const {data, isLoading, error} = useGetClassThumbnailQuery(cls?.id);
+    const image = data ? `data:image/png; base64, ${data.thumbnail}` : unknownPic.src;
 
-export default function ClassThumbnail({ cls }: { cls: Class }) {
-  const [image, setImage] = useState(null);
+    if (isLoading)
+        return <Loading/>
 
-  useEffect(() => {
-    if (!image){
-      findClassThumbnail(cls.id)
-      .then((data) => {
-        if (data == null) {
-          throw new Error();
-        }
-        setImage(`data:image/png; base64, ${data}`);
-      })
-      .catch(() => {
-        setImage(unknownPic.src);
-      });
-    }
-    
-  }, [cls.id]);
-
-  return (
-    <>
-      {image ? (
-        <img
-          className={
-            'rounded text-center border border-dark shadow ' + styles['thumbnail']
-          }
-          alt={cls.title}
-          src={image}
-          data-testid={'thumbnail'}
-        />
-      ) : (
-        <ImageLoading />
-      )}
-    </>
-  );
+    return (
+        !isLoading && <div>
+            <img
+                className={
+                    clsx('rounded text-center border border-dark shadow', styles['thumbnail'])
+                }
+                alt={cls.title}
+                src={image}
+                data-testid={'thumbnail'}
+            />
+        </div>
+    );
 }

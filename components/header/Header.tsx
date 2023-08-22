@@ -8,6 +8,8 @@ import Loading from 'components/header/Loading';
 import AccountButton from 'components/header/AccountButton';
 import LogoutButton from 'components/header/LogoutButton';
 import styles from 'components/header/header.module.scss';
+import {Navbar, NavbarBrand} from "react-bootstrap";
+import NavbarToggle from "react-bootstrap/NavbarToggle";
 
 
 export default function Header() {
@@ -19,22 +21,17 @@ export default function Header() {
         <div className={styles['blur-100']}>
           <div className={styles['header-background']}></div>
         </div>
-        <div className="navbar navbar-expand-lg">
-          <div className="navbar-brand rounded me-2">
+        <Navbar expand={'lg'}>
+          <NavbarBrand className="rounded me-2">
             <LogoPic />
-          </div>
-          <button
-            className="navbar-toggler"
+          </NavbarBrand>
+          <NavbarToggle
             type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
             aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse col" id="navbarNav">
+          </NavbarToggle>
+          <Navbar.Collapse className="col" id="navbarNav">
             <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
               <li>
                 <Link
@@ -51,8 +48,8 @@ export default function Header() {
               {user ? <AccountButton user={user} /> : <Loading />}
               <LogoutButton />
             </div>
-          </div>
-        </div>
+          </Navbar.Collapse>
+        </Navbar>
       </header>
     );
 }

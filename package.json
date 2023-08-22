@@ -14,6 +14,7 @@
     "gulp": "^4.0.2",
     "gulp-less": "^5.0.0",
     "gulp-sass": "^5.1.0",
+    "msw": "^1.2.3",
     "next": "^13.4.15",
     "react": "18.2.0",
     "react-bootstrap": "^2.7.4",
@@ -25,6 +26,7 @@
     "socket.io-client": "^4.7.0",
     "style-loader": "^3.3.1",
     "uuid": "^9.0.0",
+    "whatwg-fetch": "^3.6.17",
     "yup": "^1.0.2"
   },
   "devDependencies": {

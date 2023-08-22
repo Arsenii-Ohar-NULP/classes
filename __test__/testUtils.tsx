@@ -10,6 +10,7 @@ import type { RootState, AppStore } from 'components/redux/store';
 import { authInitialState, authSlice } from 'components/redux/auth';
 import { classSlice, classesInitialState } from 'components/redux/classes';
 import { searchInitialState, searchSlice } from 'components/redux/search';
+import {setupStore} from "components/redux/store";
 
 // This type interface extends the default options for render from RTL, as well
 // as allows the user to specify other things such as initialState, store.
@@ -21,20 +22,9 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
 export function renderWithProviders(
   ui: React.ReactElement,
   {
-    preloadedState = {
-      auth: authInitialState,
-      classes: classesInitialState,
-      search: searchInitialState,
-    },
+    preloadedState = {},
     // Automatically create a store instance if no store was passed in
-    store = configureStore({
-      reducer: {
-        auth: authSlice.reducer,
-        classes: classSlice.reducer,
-        search: searchSlice.reducer,
-      },
-      preloadedState,
-    }),
+    store = setupStore(preloadedState),
     ...renderOptions
   }: ExtendedRenderOptions = {}
 ) {
@@ -49,20 +39,9 @@ export function renderWithProviders(
 export function renderHookWithProviders(
   ui,
   {
-    preloadedState = {
-      auth: authInitialState,
-      classes: classesInitialState,
-      search: searchInitialState,
-    },
+    preloadedState = {},
     // Automatically create a store instance if no store was passed in
-    store = configureStore({
-      reducer: {
-        auth: authSlice.reducer,
-        classes: classSlice.reducer,
-        search: searchSlice.reducer,
-      },
-      preloadedState,
-    }),
+    store = setupStore(preloadedState),
     ...renderOptions
   }: ExtendedRenderOptions = {}
 ) {

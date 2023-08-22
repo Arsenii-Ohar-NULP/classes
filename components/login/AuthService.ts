@@ -48,13 +48,6 @@ const getErrorMessage = async (response: Response): Promise<string> => {
   return Promise.reject(new InvalidCredentials(message));
 };
 
-export const getAccessToken = (): string => {
-  const localToken = localStorage.getItem(accessTokenKey);
-  const sessionToken = sessionStorage.getItem(accessTokenKey);
-
-  return localToken ? localToken : sessionToken;
-};
-
 export const login = async (credentials: Credentials) => {
   const response = await auth(credentials);
 
@@ -68,7 +61,7 @@ export const login = async (credentials: Credentials) => {
 export const logout = (dispatch, router) => {
   removeToken();
   dispatch(authActions.logout());
-  router.replace('auth/login');
+  router.replace('/auth/login');
 };
 
 export const useLogout = () => {

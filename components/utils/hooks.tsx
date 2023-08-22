@@ -1,13 +1,14 @@
 "use client";
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { AuthStatus, authActions } from 'components/redux/auth';
 import { useAppSelector, useAppDispatch } from 'components/redux/store';
-import User from 'components/account/User';
 import InvalidCredentials from 'components/errors/InvalidCredentials';
 import { getUserInfo } from 'components/account/UserService';
-import { getAccessToken, removeToken } from 'components/login/AuthService';
+import { removeToken } from 'components/login/AuthService';
 import { socket } from './socket';
+import {useGetCurrentUserQuery} from "components/redux/userApi";
+import {getAccessToken} from "../account/TokenService";
 
 function useLoginRedirect() {
   const router = useRouter();
@@ -27,23 +28,18 @@ function useLoginRedirect() {
 
 function useUserData() {
   const router = useRouter();
-  const [user, setUser] = useState<User>(null);
+  const {data: user, error} = useGetCurrentUserQuery();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!user) {
-      const token = getAccessToken();
-      getUserInfo(token)
-        .then((fetchedUser) => setUser(fetchedUser))
-        .catch((e) => {
-          if (e instanceof InvalidCredentials) {
+      if (error){
             removeToken();
             dispatch(authActions.logout());
-            router.push('/login');
-          }
-        });
+            router.push('/main/login');
+      }
     }
-  });
+  }, [user, error]);
 
   return user;
 }
@@ -55,6 +51,9 @@ function useMainPageRedirect(mainPageUrl?: string) {
   const dispatch = useAppDispatch();
   useEffect(() => {
     const token = getAccessToken();
+    if (authStatus !== AuthStatus.LOGGED_IN_FETCHED){
+      router.push(mainPagePath);
+    }
     if (token) {
       getUserInfo(token)
       .then((user) => {
@@ -87,12 +86,6 @@ function useMessageReplacer(replacers: object) {
   return normalize;
 }
 
-function useBootstrap() {
-  useEffect(() => {
-    require('bootstrap/dist/js/bootstrap.bundle.js');
-  });
-}
-
 function useSocket(){
   useEffect(() => {
     socket.connect();
@@ -108,6 +101,5 @@ export {
   useUserData,
   useMainPageRedirect,
   useMessageReplacer,
-  useBootstrap,
   useSocket
 };

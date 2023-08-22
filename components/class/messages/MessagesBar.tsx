@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
-import Message from 'components/class/Message';
+import Message from 'components/class/messages/Message';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch } from 'components/redux/store';
-import { getMessages } from 'components/class/MessageService';
-import { getAccessToken, removeToken } from 'components/login/AuthService';
+import { getMessages } from 'components/class/messages/MessageService';
+import { removeToken } from 'components/login/AuthService';
 import { authActions } from 'components/redux/auth';
-import { MessageInput } from 'components/class/MessageInput';
+import { MessageInput } from 'components/class/messages/MessageInput';
 import Class from 'components/classes/Class';
-import MessageCard from 'components/class/MessageCard';
-import DeleteMessageButtonModal from 'components/class/DeleteMessageButtonModal';
+import MessageCard from 'components/class/messages/MessageCard';
+import DeleteMessageButtonModal from 'components/class/messages/DeleteMessageButtonModal';
 import InvalidCredentials from 'components/errors/InvalidCredentials';
 import Forbidden from 'components/errors/Forbidden';
 import { MessageType } from './MessageType';
 import { socket } from 'components/utils/socket';
 import { useSocket } from 'components/utils/hooks';
+import {getAccessToken} from "components/account/TokenService";
 
 export function MessagesBar({
   cls,
@@ -27,9 +28,7 @@ export function MessagesBar({
 
   const [messages, setMessages] = useState<Message[]>(null);
   const [isForbidden, setForbidden] = useState<boolean>(false);
-
   const [deleteId, setDeleteId] = useState<number>(-1);
-
   const dispatch = useAppDispatch();
   const router = useRouter();
   useSocket();
@@ -42,7 +41,7 @@ export function MessagesBar({
           if (e instanceof InvalidCredentials) {
             removeToken();
             dispatch(authActions.logout());
-            router.push('/login');
+            router.push('/main/login');
           }
 
           if (e instanceof Forbidden) {

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import sendIcon from 'icons/send.svg';
-import Message from 'components/class/Message';
+import Message from 'components/class/messages/Message';
 import InvalidCredentials from 'components/errors/InvalidCredentials';
 import { useAppDispatch, useAppSelector } from 'components/redux/store';
-import { saveMessage } from 'components/class/MessageService';
+import { saveMessage } from 'components/class/messages/MessageService';
 import { authActions } from 'components/redux/auth';
 import { useRouter } from 'next/navigation';
 import { Button, Spinner } from 'react-bootstrap';
@@ -46,7 +46,7 @@ export function MessageInput({
       .catch((error) => {
         if (error instanceof InvalidCredentials) {
           dispatch(authActions.logout());
-          router.push('/login');
+          router.push('/main/login');
         }
       })
       .finally(() => {

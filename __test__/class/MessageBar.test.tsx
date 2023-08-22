@@ -1,14 +1,14 @@
 import React from 'react';
 import { renderWithProviders } from '__test__/testUtils';
-import { MessagesBar } from 'components/class/MessagesBar';
-import { getMessages } from 'components/class/MessageService';
+import { MessagesBar } from 'components/class/messages/MessagesBar';
+import { getMessages } from 'components/class/messages/MessageService';
 import InvalidCredentials from 'components/errors/InvalidCredentials';
 import Forbidden from 'components/errors/Forbidden';
 import { waitFor } from '@testing-library/react';
 import { sampleFiveClasses } from '__test__/data/classes';
 import { useRouter } from 'next/navigation';
 
-jest.mock('components/class/MessageService');
+jest.mock('components/class/messages/MessageService');
 const navigateMock = jest.fn((url) => console.log(url))
 jest.mock('next/navigation', () => ({
     useRouter: () => ({

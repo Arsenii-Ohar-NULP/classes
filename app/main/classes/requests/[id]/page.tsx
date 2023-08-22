@@ -1,97 +1,76 @@
 "use client";
-import { useRouter } from 'next/navigation';
-import { getJoinRequests } from 'components/class/ClassService';
-import { JoinRequest } from 'components/class/JoinRequest';
-import React, { useEffect, useState } from 'react';
+import {notFound, useRouter} from 'next/navigation';
+import React, {useEffect} from 'react';
 import RequestCard from 'components/requests/RequestCard';
-import InvalidCredentials from 'components/errors/InvalidCredentials';
-import { useDispatch } from 'react-redux';
-import { authActions } from 'components/redux/auth';
-import { removeToken } from 'components/login/AuthService';
+import {useDispatch} from 'react-redux';
+import {logout} from 'components/login/AuthService';
 import Head from 'next/head';
-import { Loading } from 'components/class/Loading';
-import { useAppSelector } from 'components/redux/store';
-import { Role } from 'components/account/User';
-import NotFound from "components/errors/NotFound";
+import {Loading} from 'components/class/Loading';
+import {useAppSelector} from 'components/redux/store';
+import {Role} from 'components/account/User';
+import {useGetRequestsQuery} from "../../../../../components/redux/requestsApi";
+import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
 
-// eslint-disable-next-line no-empty-pattern
-export default function RequestsPage({params: {id}}: {params: {id: string}}) {
-  const [isFetching, setIsFetching] = useState<boolean>(false);
+export default function RequestsPage({params: {id}}: { params: { id: string } }) {
+    const role = useAppSelector((state) => state?.auth?.user?.role);
+    const router = useRouter();
+    const {data: requests, error, isLoading} = useGetRequestsQuery(Number.parseInt(id));
+    const dispatch = useDispatch();
 
-  const role = useAppSelector((state) => state?.auth?.user?.role);
-  const router = useRouter();
-  const [requests, setRequests] = useState<JoinRequest[]>();
-  const dispatch = useDispatch();
-  function fetchRequests() {
-    const classId = id;
-    setIsFetching(true);
-    getJoinRequests(classId)
-      .then((data) => {
-        setRequests(data);
-      })
-      .catch((error) => {
-        if (error instanceof InvalidCredentials) {
-          dispatch(authActions.logout());
-          removeToken();
-          router.push('/login');
+    useEffect(() => {
+        if (error) {
+            if ('status' in error) {
+                const status = (error as FetchBaseQueryError).status;
+                if (status === 404)
+                    notFound();
+                if (status === 401){
+                    logout(dispatch, router);
+                }
+            }
+        }
+    }, [error]);
+
+    useEffect(() => {
+        if (role !== Role.Teacher && role !== undefined) {
+            notFound()
         }
 
-        if (error instanceof NotFound){
-          router.push('/404');
-        }
-      })
-      .finally(() => setIsFetching(false));
-  }
+    }, [role]);
 
-  useEffect(() => {
-    if (role !== Role.Teacher && role !== undefined){
-      router.push('/404')
+    if (isLoading) {
+        return <div className='flex justify-content-center w-100 align-items-center'>
+            <Loading/>;
+        </div>
     }
 
-    if (!requests){
-      fetchRequests();
-    }
-  }, [requests, role, router]);
+    return (
+        <div>
+            <Head>
+                <title>Requests for class</title>
+            </Head>
+            <div>
+                <h4 className="m-3 fs-2 text-center">Requests</h4>
+                {requests?.length !== 0 ? (
+                    <div className="d-flex justify-content-center">
+                        {requests?.map((request, index) => {
+                            return (
+                                <RequestCard
+                                    key={`${request?.userId}-${request?.classId}`}
+                                    userId={request?.userId}
+                                    classId={request?.classId}
+                                    onResolved={() =>
+                                        requests?.splice(index, index + 1) // &&
+                                        // setRequests([...requests])
+                                    }
+                                />
+                            );
+                        })}
+                    </div>
+                ) : <div className='text-center fs-4 align-items-center align-middle' data-testid={'no-join-requests'}>
+                    There are no join requests.
+                </div>}
 
-
-  if (!requests) {
-    return <></>
-  }
-
-  if(isFetching){
-    return <div className='flex justify-content-center w-100 align-items-center'>
-      <Loading/>;
-      </div>
-  }
-
-  return (
-    <div>
-      <Head>
-        <title>Requests for class</title>
-      </Head>
-      <div>
-        <h4 className="m-3 fs-2 text-center">Requests</h4>
-        {requests?.length !== 0 ? (
-          <div className="d-flex justify-content-center">
-            {requests?.map((request, index) => {
-              return (
-                <RequestCard
-                  key={`${request.userId}-${request.classId}`}
-                  userId={request.userId}
-                  classId={request.classId}
-                  onResolved={() =>
-                    requests?.splice(index, index + 1) &&
-                    setRequests([...requests])
-                  }
-                />
-              );
-            })}
-          </div>
-        ) : <div className='text-center fs-4 align-items-center align-middle' data-testid={'no-join-requests'}>
-            There are no join requests.
-            </div>}
-
-      </div>
-    </div>
-  );
+            </div>
+        </div>
+    );
 }

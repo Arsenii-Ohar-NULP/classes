@@ -117,7 +117,9 @@ exports[`Login Page should match a snapshot 1`] = `
         <p
           class="visually-hidden"
           data-testid="error"
-        />
+        >
+          Something went wrong, check the fields and try again later
+        </p>
         <div
           class="d-flex my-2 gap-2 h-50 justify-content-center"
         >

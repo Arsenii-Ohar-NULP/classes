@@ -1,5 +1,5 @@
 "use client"
-import React, { useMemo } from 'react';
+import React, {useDeferredValue, useMemo} from 'react';
 import styles from 'components/classes/classes.module.scss';
 import Link from 'next/link';
 import { ClassUI } from 'components/classes/ClassUI';
@@ -10,10 +10,11 @@ export default function UserClasses() {
   const user = useAppSelector((state) => state.auth.user);
   const loadedClasses = useAppSelector((state) => state.classes.userClasses);
   const search = useAppSelector((state) => state?.search?.classes);
+  const deferredSearch = useDeferredValue(search);
 
   const classes = useMemo(() => {
-    return searchClasses(loadedClasses, search);
-  }, [loadedClasses, search]);
+    return searchClasses(loadedClasses, deferredSearch);
+  }, [loadedClasses, deferredSearch]);
 
   if (!user || !classes || classes?.length === 0) {
     return <></>;

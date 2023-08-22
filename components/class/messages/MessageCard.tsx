@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAppSelector } from 'components/redux/store';
-import Message from 'components/class/Message';
+import Message from 'components/class/messages/Message';
 import { Role } from 'components/account/User';
 import DeleteMessageButtonAbsolute from './DeleteMessageButtonAbsolute';
 import clsx from 'clsx';

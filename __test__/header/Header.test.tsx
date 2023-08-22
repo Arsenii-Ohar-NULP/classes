@@ -1,6 +1,6 @@
 import React from 'react';
 import { renderWithProviders } from '__test__/testUtils';
-import Header from 'components/header/header';
+import Header from 'components/header/Header';
 
 const mockNavigate = jest.fn((url) => console.log(url));
 jest.mock('next/navigation', () => ({

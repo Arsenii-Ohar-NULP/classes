@@ -1,40 +1,32 @@
 "use client"
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {useDeferredValue, useMemo} from 'react';
 import Link from 'next/link';
 import styles from 'components/classes/classes.module.scss';
 import Class from 'components/classes/Class';
 import { ClassUI } from 'components/classes/ClassUI';
-import { findAllClasses } from 'components/class/ClassService';
 import { useAppSelector } from 'components/redux/store';
 import clsx from 'clsx';
 import { searchClasses } from './ClassSearch';
+import {useGetClassesQuery} from "../redux/classesApi";
 
 export default function RecommendedClasses() {
-  const [loadedClasses, initLoadedClasses] = useState<Class[]>([]);
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const {data: loadedClasses, error, isLoading} = useGetClassesQuery();
   const userClasses = useAppSelector((state) => state.classes.userClasses);
   const search = useAppSelector((state) => state?.search?.classes);
+  const deferredSearch = useDeferredValue(search);
 
   const classes = useMemo<Class[]>(() => {
+    if (isLoading || error)
+        return null;
+
     const currentClasses = loadedClasses.filter(
       (cls) => !userClasses?.some((userCls) => userCls.id === cls.id)
     );
-    return searchClasses(currentClasses, search);
-  }, [loadedClasses, search, userClasses]);
 
-  const loadClasses = async () => {
-    const loadedClasses = await findAllClasses();
-    initLoadedClasses(loadedClasses);
-    setIsLoaded(true);
-  };
+    return searchClasses(currentClasses, deferredSearch);
+  }, [loadedClasses, deferredSearch, userClasses]);
 
-  useEffect(() => {
-    if (!isLoaded) {
-      loadClasses();
-    }
-  });
-
-  if (classes.length === 0){
+  if (classes?.length === 0){
     return <div data-testid={'recommended-classes-empty'}>
       There are no classes available for you! Wait for new ones, please. 
     </div>
@@ -46,7 +38,7 @@ export default function RecommendedClasses() {
         className={'d-flex flex-wrap justify-content-center'}
         data-testid={'recommended-div'}
       >
-        {isLoaded &&
+        {classes &&
           classes.map((cls) => (
             <Link
               className={clsx(

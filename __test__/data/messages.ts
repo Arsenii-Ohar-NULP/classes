@@ -1,4 +1,4 @@
-import Message from 'components/class/Message';
+import Message from 'components/class/messages/Message';
 
 const sampleMessages : Message[] = [
     {

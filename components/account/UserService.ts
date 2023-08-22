@@ -1,7 +1,7 @@
 import { request } from 'components/utils/Service';
 import User, { Role } from 'components/account/User';
 import InvalidCredentials from 'components/errors/InvalidCredentials';
-import { getAccessToken } from 'components/login/AuthService';
+import { getAccessToken } from 'components/redux/utils';
 import Forbidden from 'components/errors/Forbidden';
 
 const getEndpointUrl = (id?: number) => {

@@ -1,8 +1,9 @@
 "use client";
-import {useUserData} from "../../../components/utils/hooks";
-import PersonalInfoBar from "../../../components/account/PersonalInfoBar";
+import {useUserData} from "components/utils/hooks";
+import PersonalInfoBar from "components/account/PersonalInfoBar";
 import Link from "next/link";
 import React from "react";
+import {Container} from "react-bootstrap";
 
 export default function AccountPage() {
   const user = useUserData();
@@ -11,7 +12,7 @@ export default function AccountPage() {
     return <></>;
   }
   return (
-    <div className="container">
+    <Container>
       <h1 className="p-2 text-center">Personal Information</h1>
       <div className="d-flex justify-content-center">
         <PersonalInfoBar user={user}/>
@@ -21,6 +22,6 @@ export default function AccountPage() {
           <button className="btn btn-primary">Edit</button>
         </Link>
       </div>
-    </div>
+    </Container>
   );
 }

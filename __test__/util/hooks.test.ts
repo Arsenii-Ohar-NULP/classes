@@ -1,10 +1,10 @@
-import { getAccessToken } from 'components/login/AuthService';
 import { getUserInfo } from 'components/account/UserService';
 import { sampleUser } from '__test__/data/user';
 import { useMainPageRedirect, useLoginRedirect } from 'components/utils/hooks';
 import { waitFor } from '@testing-library/react';
 import { renderHookWithProviders } from '__test__/testUtils';
 import { useRouter } from 'next/navigation';
+import {getAccessToken} from "components/account/TokenService";
 
 const navigateMock = jest.fn((url) => console.log(url));
 jest.mock('next/navigation', () => ({
@@ -16,6 +16,7 @@ jest.mock('next/navigation', () => ({
 
 jest.mock('components/login/AuthService');
 jest.mock('components/account/UserService');
+jest.mock("components/account/TokenService");
 
 describe('useMainPageRedirect hook test', () => {
   it('when access token is given, redirects to main page', async () => {

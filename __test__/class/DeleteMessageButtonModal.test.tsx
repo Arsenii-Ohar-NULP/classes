@@ -1,13 +1,13 @@
 import * as React from 'react';
 
-import DeleteMessageButtonModal from 'components/class/DeleteMessageButtonModal';
+import DeleteMessageButtonModal from 'components/class/messages/DeleteMessageButtonModal';
 import { renderWithProviders } from '__test__/testUtils';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
-import { removeMessage } from 'components/class/MessageService';
+import { removeMessage } from 'components/class/messages/MessageService';
 import { socket } from 'components/utils/socket';
-import { DeleteMessageStatus } from 'components/class/DeleteMessageStatus';
+import { DeleteMessageStatus } from 'components/class/messages/DeleteMessageStatus';
 
-jest.mock('components/class/MessageService')
+jest.mock('components/class/messages/MessageService')
 jest.mock('components/login/AuthService')
 jest.mock('components/utils/socket', () => ({
   socket: ({

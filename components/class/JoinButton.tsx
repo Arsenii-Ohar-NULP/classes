@@ -14,7 +14,6 @@ export default function JoinButton({
     userId: number;
     cls: Class;
 }) {
-    const router = useRouter();
     const joinRequests = useAppSelector((state) => state.classes.joinRequests);
     const userClasses = useAppSelector((state) => state.classes.userClasses);
     const dispatch = useAppDispatch();

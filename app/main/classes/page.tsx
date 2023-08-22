@@ -9,7 +9,6 @@ export const metadata: Metadata = {
 }
 
 export default function Classes(): React.ReactNode {
-
     return (
         <div>
             {/* {user && <Greeting firstName={user?.firstName}/>} */}
