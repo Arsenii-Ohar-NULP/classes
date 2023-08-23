@@ -1,6 +1,6 @@
 "use client";
 import React, {useEffect, useRef, useState} from 'react';
-import {useLoginForm} from "../../../components/login/useLoginForm";
+import {useLoginForm} from "components/login/useLoginForm";
 import {useRouter} from "next/navigation";
 import {useAppDispatch} from "components/redux/store";
 import {useMainPageRedirect} from "../../../components/utils/hooks";
@@ -15,7 +15,7 @@ import {SignUpButton} from "components/login/SignUpButton";
 import {useLazyGetCurrentUserQuery, useLoginMutation} from "components/redux/userApi";
 import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
 import {SerializedError} from "@reduxjs/toolkit";
-import LoginFormInputs from "../../../components/login/LoginFormInputs";
+import LoginFormInputs from "components/login/LoginFormInputs";
 
 export default function LoginPage() {
     const [login, loginResponse] = useLoginMutation();
