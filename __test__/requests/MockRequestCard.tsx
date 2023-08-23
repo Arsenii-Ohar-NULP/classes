@@ -1,15 +1,12 @@
 import * as React from 'react';
+import {JoinRequest} from "../../components/class/JoinRequest";
 
 export function MockRequestCard({
-                                    userId,
-                                    classId,
-                                    onResolved
+    request
                                 }: {
-    userId: number;
-    classId: number;
-    onResolved: VoidFunction;
+    request: JoinRequest
 }){
     return <div>
-        {userId}-{classId}
+        {request?.userId}-{request?.classId}
     </div>;
 }

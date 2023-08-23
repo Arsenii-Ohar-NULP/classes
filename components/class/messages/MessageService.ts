@@ -1,8 +1,8 @@
 import Forbidden from 'components/errors/Forbidden';
 import InvalidCredentials from 'components/errors/InvalidCredentials';
 import Message from 'components/class/messages/Message';
-import { getAccessToken } from 'components/login/AuthService';
 import { request } from 'components/utils/Service';
+import {getAccessToken} from "../../account/TokenService";
 
 const getApiUrl = () => {
   return process.env['NEXT_PUBLIC_API_URL'];

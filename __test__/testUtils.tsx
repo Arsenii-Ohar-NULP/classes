@@ -7,9 +7,6 @@ import { Provider } from 'react-redux';
 
 import type { RootState, AppStore } from 'components/redux/store';
 // As a basic setup, import your same slice reducers
-import { authInitialState, authSlice } from 'components/redux/auth';
-import { classSlice, classesInitialState } from 'components/redux/classes';
-import { searchInitialState, searchSlice } from 'components/redux/search';
 import {setupStore} from "components/redux/store";
 
 // This type interface extends the default options for render from RTL, as well

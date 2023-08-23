@@ -13,7 +13,11 @@ import {CLASSES_API_URL} from "components/redux/utils";
 import {rest} from "msw";
 
 jest.mock('components/account/TokenService')
-jest.mock('components/login/AuthService')
+jest.mock('components/login/AuthService', () => ({
+    useLogout: () => jest.fn(),
+    saveToken: jest.fn(),
+
+}))
 const mockNavigate = jest.fn();
 jest.mock('next/navigation', () => ({
     useRouter: () => ({

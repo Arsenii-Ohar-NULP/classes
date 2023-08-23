@@ -1,7 +1,7 @@
-import {getAccessToken} from "components/login/AuthService";
 import InvalidCredentials from "components/errors/InvalidCredentials";
 import {request} from "components/utils/Service";
 import User from "../../account/User";
+import {getAccessToken} from "../../account/TokenService";
 
 export interface ClassUserDTO{
         class: number;

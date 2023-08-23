@@ -4,7 +4,7 @@ import {useLoginForm} from "../../../components/login/useLoginForm";
 import {useRouter} from "next/navigation";
 import {useAppDispatch} from "components/redux/store";
 import {useMainPageRedirect} from "../../../components/utils/hooks";
-import {saveToken} from "components/login/AuthService";
+import {saveToken, useLogout} from "components/login/AuthService";
 import {authActions} from "components/redux/auth";
 import Head from "next/head";
 import {RememberMe} from "components/login/RememberMe";
@@ -18,14 +18,15 @@ import {SerializedError} from "@reduxjs/toolkit";
 import LoginFormInputs from "../../../components/login/LoginFormInputs";
 
 export default function LoginPage() {
+    const [login, loginResponse] = useLoginMutation();
+    const [getUser, userInfoResponse] = useLazyGetCurrentUserQuery();
     const {register, handleSubmit, errors, getValues} = useLoginForm();
     const [isRemember, setRememberMe] = useState(true);
-    const [login, loginResponse] = useLoginMutation();
-    const router = useRouter();
-    const [getUser, userInfoResponse] = useLazyGetCurrentUserQuery();
     const [serverError, setServerError] = useState<FetchBaseQueryError | SerializedError>();
-    const dispatch = useAppDispatch();
     const loginButton = useRef<HTMLButtonElement>();
+    const logout = useLogout();
+    const router = useRouter();
+    const dispatch = useAppDispatch();
 
     useMainPageRedirect();
 
@@ -37,23 +38,32 @@ export default function LoginPage() {
         login(credentials).unwrap()
             .then((accessToken) => {
                 saveToken(accessToken, isRemember);
-                getUser().unwrap().then((user) => {
-                    dispatch(authActions.login(user))
-                })
+                getUser()
+                    .unwrap()
+                    .then((user) => {
+                        dispatch(authActions.login(user))
+                        router.push('/main/classes');
+                    })
                     .catch((error) => {
-                        console.log("");
+                        console.log(error);
                     });
             })
-            .catch((error) => {});
+            .catch((error) => {
+                if ('status' in error) {
+                    const status = error['status'];
+
+                    if (status === 401) {
+                        logout();
+                    }
+                }
+            });
 
     };
 
     useEffect(() => {
         if (loginResponse.isError) {
             setServerError(loginResponse.error);
-            return;
-        }
-        if (userInfoResponse.error) {
+        } else if (userInfoResponse.error) {
             setServerError(userInfoResponse.error);
         }
     }, [loginResponse.error, userInfoResponse.error]);

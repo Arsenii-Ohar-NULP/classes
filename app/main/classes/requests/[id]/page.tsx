@@ -1,15 +1,15 @@
 "use client";
 import {notFound, useRouter} from 'next/navigation';
 import React, {useEffect} from 'react';
-import RequestCard from 'components/requests/RequestCard';
 import {useDispatch} from 'react-redux';
 import {logout} from 'components/login/AuthService';
 import Head from 'next/head';
 import {Loading} from 'components/class/Loading';
 import {useAppSelector} from 'components/redux/store';
 import {Role} from 'components/account/User';
-import {useGetRequestsQuery} from "../../../../../components/redux/requestsApi";
+import {useGetRequestsQuery} from "components/redux/requestsApi";
 import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
+import RequestsList from "components/requests/RequestsList";
 
 export default function RequestsPage({params: {id}}: { params: { id: string } }) {
     const role = useAppSelector((state) => state?.auth?.user?.role);
@@ -23,7 +23,7 @@ export default function RequestsPage({params: {id}}: { params: { id: string } })
                 const status = (error as FetchBaseQueryError).status;
                 if (status === 404)
                     notFound();
-                if (status === 401){
+                if (status === 401) {
                     logout(dispatch, router);
                 }
             }
@@ -51,25 +51,10 @@ export default function RequestsPage({params: {id}}: { params: { id: string } })
             <div>
                 <h4 className="m-3 fs-2 text-center">Requests</h4>
                 {requests?.length !== 0 ? (
-                    <div className="d-flex justify-content-center">
-                        {requests?.map((request, index) => {
-                            return (
-                                <RequestCard
-                                    key={`${request?.userId}-${request?.classId}`}
-                                    userId={request?.userId}
-                                    classId={request?.classId}
-                                    onResolved={() =>
-                                        requests?.splice(index, index + 1) // &&
-                                        // setRequests([...requests])
-                                    }
-                                />
-                            );
-                        })}
-                    </div>
+                    <RequestsList requests={requests}/>
                 ) : <div className='text-center fs-4 align-items-center align-middle' data-testid={'no-join-requests'}>
                     There are no join requests.
                 </div>}
-
             </div>
         </div>
     );

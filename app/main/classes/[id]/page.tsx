@@ -9,7 +9,7 @@ import {MessagesBar} from 'components/class/messages/MessagesBar';
 import ClassThumbnail from 'components/classes/ClassThumbnail';
 import {Loading} from 'components/class/Loading';
 import ClassInfo from 'components/class/ClassInfo';
-import ClassInfoManagement from 'components/class/ClassManagement';
+import ClassInfoManagement from 'components/class/ClassInfoManagement';
 import {socket} from 'components/utils/socket';
 import {useGetClassByIdQuery} from "components/redux/classesApi";
 

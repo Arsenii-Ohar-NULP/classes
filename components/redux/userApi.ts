@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {Credentials} from "components/login/AuthService";
-import User from "components/account/User";
+import User, {Role} from "components/account/User";
 import {getAccessToken} from "../account/TokenService";
 import {CLASSES_API_URL} from "./utils";
 
@@ -9,6 +9,20 @@ export interface EditUserData {
     password?: string;
     email?: string;
     phone?: string;
+}
+
+type UserResponse = {
+    [K in keyof Omit<User, 'role'>]: User[K];
+} & {
+    role: string;
+}
+
+function transformToLocalUser(response: UserResponse): User {
+    const {role} = response;
+    return {
+        ...response,
+        role: role === 'Role.teacher' ? Role.Teacher : Role.Student
+    }
 }
 
 export const userApi = createApi({
@@ -28,11 +42,13 @@ export const userApi = createApi({
     endpoints: (builder) => ({
         getCurrentUser: builder.query<User, void>({
             query: () => `/user`,
-            providesTags: (result, error) => (error ? [] : [{type: 'User', id: result.id}])
+            providesTags: (result, error) => (error ? [] : [{type: 'User', id: result.id}]),
+            transformResponse: transformToLocalUser
         }),
         getUserById: builder.query<User, number>({
             query: (id) => `/user/${id}`,
-            providesTags: (result, error, id) => error ? [] : [{type: 'User', id: id}]
+            providesTags: (result, error, id) => error ? [] : [{type: 'User', id: id}],
+            transformResponse: transformToLocalUser
         }),
         editUser: builder.mutation<void, EditUserData>({
             query: (payload) => ({

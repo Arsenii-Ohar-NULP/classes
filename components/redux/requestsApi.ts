@@ -3,13 +3,20 @@ import {authHeaders, CLASSES_API_URL} from "./utils";
 import {JoinRequest} from "../class/JoinRequest";
 import {DirtyJoinRequest} from "../class/ClassService";
 
+function toCleanRequests(requests: DirtyJoinRequest[]): JoinRequest[] {
+    return requests.map((request) => ({
+        userId: request.user_id,
+        classId: request.class_id
+    }));
+}
+
 export const requestsApi = createApi({
     reducerPath: 'requestsApi',
     baseQuery: fetchBaseQuery({
         baseUrl: CLASSES_API_URL,
         prepareHeaders: authHeaders
     }),
-    tagTypes: ['JoinRequest'],
+    tagTypes: ['JoinRequest', 'UserJoinRequest'],
     endpoints: builder => ({
         getRequests: builder.query<JoinRequest[], number>({
             query: (classId) => `/class/requests/${classId}`,
@@ -17,10 +24,15 @@ export const requestsApi = createApi({
                 if (error) return [];
                 return [{type: 'JoinRequest' as const, id}]
             },
-            transformResponse: (response: DirtyJoinRequest[]) => response.map((dirtyJoinRequest) => ({
-                userId: dirtyJoinRequest.user_id,
-                classId: dirtyJoinRequest.class_id
-            }))
+            transformResponse: toCleanRequests
+        }),
+        getCurrentUserRequests: builder.query<JoinRequest[], void>({
+            query: () => `/student/requests`,
+            providesTags: (result, error, id) => {
+                if (error) return [];
+                return result.map((request) => ({type: 'UserJoinRequest', id: request.classId}));
+            },
+            transformResponse: toCleanRequests
         }),
         acceptRequest: builder.mutation<void, JoinRequest>({
             query: (request) => ({
@@ -49,4 +61,9 @@ export const requestsApi = createApi({
     })
 })
 
-export const {useGetRequestsQuery, useAcceptRequestMutation, useDeclineRequestMutation} = requestsApi;
+export const {
+    useGetRequestsQuery,
+    useGetCurrentUserRequestsQuery,
+    useAcceptRequestMutation,
+    useDeclineRequestMutation
+} = requestsApi;

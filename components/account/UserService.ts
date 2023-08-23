@@ -1,8 +1,8 @@
 import { request } from 'components/utils/Service';
 import User, { Role } from 'components/account/User';
 import InvalidCredentials from 'components/errors/InvalidCredentials';
-import { getAccessToken } from 'components/redux/utils';
 import Forbidden from 'components/errors/Forbidden';
+import {getAccessToken} from "./TokenService";
 
 const getEndpointUrl = (id?: number) => {
   return (

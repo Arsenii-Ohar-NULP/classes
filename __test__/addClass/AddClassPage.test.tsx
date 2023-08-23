@@ -34,10 +34,6 @@ describe('add class page', () => {
                     status: AuthStatus.LOGGED_IN_FETCHED,
                     user: sampleUser
                 },
-                classes: {
-                    userClasses: [],
-                    joinRequests: []
-                },
                 search: {
                     students: null,
                     classes: null
@@ -62,10 +58,6 @@ describe('add class page', () => {
                 auth: {
                     status: AuthStatus.LOGGED_IN_FETCHED,
                     user
-                },
-                classes: {
-                    userClasses: [],
-                    joinRequests: []
                 },
                 search: {
                     students: null,
@@ -103,10 +95,6 @@ describe('add class page', () => {
                 auth: {
                     status: AuthStatus.LOGGED_IN_FETCHED,
                     user
-                },
-                classes: {
-                    userClasses: [],
-                    joinRequests: []
                 },
                 search: {
                     students: null,

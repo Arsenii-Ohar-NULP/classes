@@ -38,10 +38,6 @@ describe('class page test', () => {
         const page = renderWithProviders(<ClassPage params={{id: '1'}}/>, {
             preloadedState: {
                 auth: {status: AuthStatus.LOGGED_IN_FETCHED, user: sampleUser},
-                classes: {
-                    userClasses: sampleFiveClasses,
-                    joinRequests: [{classId: cls.id, userId: 2}],
-                }
             },
         });
         await waitFor(() => {
@@ -58,7 +54,6 @@ describe('class page test', () => {
         renderWithProviders(<ClassPage params={{id: '1'}}/>, {
             preloadedState: {
                 auth: {status: AuthStatus.LOGGED_IN_FETCHED, user: sampleUser},
-                classes: {userClasses: sampleFiveClasses, joinRequests: []},
             },
         });
         await waitFor(() => {

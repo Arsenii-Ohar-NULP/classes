@@ -13,71 +13,83 @@ type ThumbnailData = {
 }
 
 export const classesApi = createApi({
-        reducerPath: "classesApi",
-        baseQuery: fetchBaseQuery({
-            baseUrl: CLASSES_API_URL,
-            prepareHeaders: authHeaders
+    reducerPath: "classesApi",
+    baseQuery: fetchBaseQuery({
+        baseUrl: CLASSES_API_URL,
+        prepareHeaders: authHeaders
+    }),
+    tagTypes: ['Class', 'ClassThumbnail', "Student", "UserClass"],
+    endpoints: builder => ({
+        getClasses: builder.query<Class[], void>({
+            query: () => `/class`,
+            providesTags: ['Class']
         }),
-        tagTypes: ['Class', 'ClassThumbnail', "Student"],
-        endpoints: builder => ({
-            getClasses: builder.query<Class[], void>({
-                query: () => `/class`,
-                providesTags: ['Class']
-            }),
-            getClassById: builder.query<Class, number>({
-                query: (id: number) => `/class/${id}`,
-                providesTags: (result, error, arg) => {
-                    if (error) return null;
-                    return [{type: 'Class' as const, id: arg}]
-                }
-            }),
-            createClass: builder.mutation<CreateClassResponse, CreateClassData>({
-                query: (payload) => ({
-                    url: "/class",
-                    method: 'POST',
-                    body: payload
-                })
-            }),
-            editClass: builder.mutation<void, Partial<Class>>({
-                query: (cls) => ({
-                    url: `/class`,
-                    method: 'PATCH',
-                    body: cls
-                }),
-                invalidatesTags: (result, error, {id}) => {
-                    if (error) return null;
-                    return [{type: 'Class', id}]
-                }
-            }),
-            getClassThumbnail: builder.query<ThumbnailData, number>({
-                query: (id: number) => `/class/img/${id}`,
-                providesTags: (result, error, id) => ([{type: 'ClassThumbnail' as const, id}])
-            }),
-            postClassThumbnail: builder.mutation<void, UploadThumbnailData>({
-                query: (payload) => (
-                    {
-                        url: '/class/img',
-                        method: 'PUT',
-                        body: payload
-                    }),
-                invalidatesTags: (result, error, payload) =>
-                    ([
-                        {
-                            type: 'ClassThumbnail' as const, id: payload.id
-                        }
-                    ])
-            }),
-            getStudentsById: builder.query<User[], number>({
-                query: (id) => `/${id}/student`,
-                providesTags: ["Student"]
+        getClassById: builder.query<Class, number>({
+            query: (id: number) => `/class/${id}`,
+            providesTags: (result, error, arg) => {
+                if (error) return [];
+                return [{type: 'Class' as const, id: arg}]
+            }
+        }),
+        getUserClasses: builder.query<Class[], number>({
+            query: (id: number) => `/classes/${id}`,
+            providesTags: (result, error) => error ? [] : result.map((cls) => ({type: "UserClass", id: cls.id}))
+        }),
+        createClass: builder.mutation<CreateClassResponse, CreateClassData>({
+            query: (payload) => ({
+                url: "/class",
+                method: 'POST',
+                body: payload
             })
+        }),
+        editClass: builder.mutation<void, Partial<Class>>({
+            query: (cls) => ({
+                url: `/class`,
+                method: 'PATCH',
+                body: cls
+            }),
+            invalidatesTags: (result, error, {id}) => {
+                if (error) return [];
+                return [{type: 'Class', id}]
+            }
+        }),
+        deleteClassById: builder.mutation<void, number>({
+            query: (id) => ({
+                url: `/class/${id}`, method: 'DELETE'
+            }),
+            invalidatesTags: (result, error, id) => error ? [] : [{type: 'Class', id}]
+        }),
+        getClassThumbnail: builder.query<ThumbnailData, number>({
+            query: (id: number) => `/class/img/${id}`,
+            providesTags: (result, error, id) => ([{type: 'ClassThumbnail', id}])
+        }),
+        postClassThumbnail: builder.mutation<void, UploadThumbnailData>({
+            query: (payload) => (
+                {
+                    url: '/class/img',
+                    method: 'PUT',
+                    body: payload
+                }),
+            invalidatesTags: (result, error, payload) =>
+                error ? [] : ([
+                    {
+                        type: 'ClassThumbnail' as const, id: payload.id
+                    }
+                ])
+        }),
+        getStudentsById: builder.query<User[], number>({
+            query: (id) => `/${id}/student`,
+            providesTags: ["Student"]
         })
     })
+})
 export const {
     useGetClassesQuery,
     useGetClassByIdQuery,
+    useGetUserClassesQuery,
     useCreateClassMutation,
     useEditClassMutation,
+    useDeleteClassByIdMutation,
     useGetClassThumbnailQuery,
     usePostClassThumbnailMutation,
     useGetStudentsByIdQuery

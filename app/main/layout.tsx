@@ -3,7 +3,6 @@ import React, {useEffect} from 'react';
 import {ReactNode} from "react";
 import Header from "components/header/Header";
 import {authActions, AuthStatus} from "components/redux/auth";
-import {fetchUserData} from "components/redux/classesActions";
 import {useLogout} from "components/login/AuthService";
 import {useAppDispatch, useAppSelector} from "components/redux/store";
 import {useLoginRedirect} from "components/utils/hooks";
@@ -21,7 +20,7 @@ export default function MainPage({children}: { children: ReactNode }) {
 
     useEffect(() => {
         if (authStatus == AuthStatus.LOGGED_IN) {
-            dispatch(fetchUserData(userId));
+            dispatch(authActions.fetch());
         }
 
         if (authStatus == AuthStatus.LOGGED_OUT) {

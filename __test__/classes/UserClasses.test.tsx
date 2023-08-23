@@ -19,10 +19,6 @@ describe('classes page - user classes section test', () => {
                     status: AuthStatus.LOGGED_IN_FETCHED,
                     user: sampleUser,
                 },
-                classes: {
-                    userClasses: sampleFiveClasses,
-                    joinRequests: [],
-                },
                 search: {
                     students: null,
                     classes: null
@@ -41,10 +37,6 @@ describe('classes page - user classes section test', () => {
                 auth: {
                     status: AuthStatus.LOGGED_IN_FETCHED,
                     user: sampleUser,
-                },
-                classes: {
-                    userClasses: [],
-                    joinRequests: [],
                 },
                 search: {
                     students: null,

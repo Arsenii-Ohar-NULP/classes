@@ -51,9 +51,6 @@ function useMainPageRedirect(mainPageUrl?: string) {
   const dispatch = useAppDispatch();
   useEffect(() => {
     const token = getAccessToken();
-    if (authStatus !== AuthStatus.LOGGED_IN_FETCHED){
-      router.push(mainPagePath);
-    }
     if (token) {
       getUserInfo(token)
       .then((user) => {

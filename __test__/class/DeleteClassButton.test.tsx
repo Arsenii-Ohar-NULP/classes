@@ -18,10 +18,6 @@ describe('delete class button', () => {
                     status: AuthStatus.LOGGED_IN_FETCHED,
                     user
                 },
-                classes: {
-                    userClasses: [],
-                    joinRequests: []
-                },
                 search: {
                     students: null,
                     classes: null
@@ -41,10 +37,6 @@ describe('delete class button', () => {
                 auth: {
                     status: AuthStatus.LOGGED_IN_FETCHED,
                     user
-                },
-                classes: {
-                    userClasses: [],
-                    joinRequests: []
                 },
                 search: {
                     students: null,

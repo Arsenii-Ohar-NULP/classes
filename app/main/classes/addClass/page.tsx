@@ -13,11 +13,12 @@ import {useLogout} from "components/login/AuthService";
 
 export default function AddClassPage() {
     const [uploadThumbnail, uploadThumbnailResponse] = usePostClassThumbnailMutation();
+    const [createClass, createClassResponse] = useCreateClassMutation();
     const {register, handleSubmit, errors} = useClassForm();
     const userId = useAppSelector((state) => state.auth?.user?.id);
-    const [createClass, createClassResponse] = useCreateClassMutation();
     const router = useRouter();
     const logout = useLogout();
+
     const onSubmit = async (data: ClassData) => {
         try {
             createEntireClass({

@@ -11,6 +11,7 @@ import {
     MutationDefinition
 } from "@reduxjs/toolkit/query";
 import {MutationTrigger} from "@reduxjs/toolkit/src/query/react/buildHooks";
+import {getAccessToken} from "../account/TokenService";
 
 const classesEndpoint = '/api/v1/class';
 
@@ -318,32 +319,6 @@ export const createClass = async (cls: CreateClassData) => {
             JsonError: "Couldn't get JSON from response of create a class",
         },
         args: {data: cls},
-    });
-};
-
-export const uploadThumbnail = async (uploadData: UploadThumbnailData) => {
-    return await request({
-        fetchFunction: putThumbnail,
-        errors: {
-            InvalidCredentials: `You should be logged in to upload a thumbnail for class ${uploadData.id}`,
-            Forbidden: `You are not allowed to upload a thumbnail for class ${uploadData.id}`,
-            Error: `Something went wrong while uploading a thumbnail for class ${uploadData.id}`,
-            JsonError: `Couldn't fetch JSON from response of uploading a class`,
-        },
-        args: {data: uploadData},
-    });
-};
-
-export const editClass = async (editData: EditClassData) => {
-    return await request({
-        fetchFunction: patchClass,
-        errors: {
-            InvalidCredentials: `You should be logged in to edit a class id=${editData.id}`,
-            Forbidden: `You are not allowed to edit a class id=${editData.id}`,
-            Error: `Something went wrong while editing a class id=${editData.id}, try again later`,
-            JsonError: `Couldn't fetch JSON from response of editing a class id=${editData.id}`,
-        },
-        args: {data: editData},
     });
 };
 
