@@ -5,4 +5,4 @@ export function getAccessToken(): string {
     const sessionToken = sessionStorage.getItem(accessTokenKey);
 
     return localToken ? localToken : sessionToken;
-};
+}

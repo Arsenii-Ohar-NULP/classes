@@ -10,8 +10,8 @@ import {
     FetchBaseQueryMeta,
     MutationDefinition
 } from "@reduxjs/toolkit/query";
-import {MutationTrigger} from "@reduxjs/toolkit/src/query/react/buildHooks";
 import {getAccessToken} from "../account/TokenService";
+import {MutationTrigger} from "@reduxjs/toolkit/dist/query/react/buildHooks";
 
 const classesEndpoint = '/api/v1/class';
 
