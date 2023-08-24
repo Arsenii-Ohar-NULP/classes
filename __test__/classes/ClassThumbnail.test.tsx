@@ -8,7 +8,6 @@ import {server} from "../api/server";
 import {rest} from "msw";
 import {CLASSES_API_URL} from "components/redux/utils";
 
-jest.mock('components/header/ClassThumbnailService');
 describe('class thumbnail', () => {
     it('should render a pic, when fetched', async () => {
         const cls = sampleFiveClasses[0];

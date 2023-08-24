@@ -28,7 +28,7 @@ export const requestsApi = createApi({
         }),
         getCurrentUserRequests: builder.query<JoinRequest[], void>({
             query: () => `/student/requests`,
-            providesTags: (result, error, id) => {
+            providesTags: (result, error) => {
                 if (error) return [];
                 return result.map((request) => ({type: 'UserJoinRequest', id: request.classId}));
             },

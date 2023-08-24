@@ -1,6 +1,5 @@
 import Class from 'components/classes/Class';
 import React, {FunctionComponent, useState} from 'react';
-import {useAppSelector} from 'components/redux/store';
 import {EditClassInfoForm} from "./EditClassInfoForm";
 import TitleInfo from "components/class/TitleInfo";
 import NameInfo from "components/class/NameInfo";

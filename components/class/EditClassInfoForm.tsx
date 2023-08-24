@@ -6,7 +6,6 @@ import SaveEditButton from "./SaveEditButton";
 import CancelEditButton from "./CancelEditButton";
 import {IClassData, useClassForm} from "./useClassForm";
 import Class from "components/classes/Class";
-import {useAppSelector} from "../redux/store";
 import {useEditClassMutation} from "../redux/classesApi";
 
 interface EditClassInfoFormProps {
@@ -17,7 +16,6 @@ interface EditClassInfoFormProps {
 
 export function EditClassInfoForm({cls, joined, stop}: EditClassInfoFormProps) {
     const {register, handleSubmit} = useClassForm();
-    const userId = useAppSelector((state) => state.auth.user?.id);
     const [editClass, response] = useEditClassMutation();
 
     const cleanChangedData = (data: IClassData) => {

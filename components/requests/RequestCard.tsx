@@ -23,7 +23,7 @@ export default function RequestCard({
     );
     const [acceptRequest] = useAcceptRequestMutation();
     const [declineRequest] = useDeclineRequestMutation();
-    const {data: user, isLoading, error: userInfoError} = useGetUserByIdQuery(userId);
+    const {data: user,  error: userInfoError} = useGetUserByIdQuery(userId);
     const logout = useLogout();
 
     useEffect(() => {

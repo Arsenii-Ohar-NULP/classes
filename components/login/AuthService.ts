@@ -1,7 +1,7 @@
-import { useRouter } from 'next/navigation';
+import {useRouter} from 'next/navigation';
 import InvalidCredentials from 'components/errors/InvalidCredentials';
-import { authActions } from 'components/redux/auth';
-import { useAppDispatch } from 'components/redux/store';
+import {authActions} from 'components/redux/auth';
+import {useAppDispatch} from 'components/redux/store';
 
 export const accessTokenKey = 'accessToken';
 
@@ -27,13 +27,11 @@ const getLoginHeaders = (): HeadersInit => {
 const auth = async (credentials: Credentials) => {
   const url = getLoginUrl();
   const headers = getLoginHeaders();
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: 'POST',
     headers: headers,
     body: JSON.stringify(credentials),
   });
-
-  return response;
 };
 
 const getErrorMessage = async (response: Response): Promise<string> => {

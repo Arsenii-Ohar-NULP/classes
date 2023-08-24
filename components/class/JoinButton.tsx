@@ -1,6 +1,5 @@
 "use client";
 import Class from 'components/classes/Class';
-import {useAppDispatch} from 'components/redux/store';
 import React from 'react';
 import clsx from "clsx";
 import {useGetCurrentUserRequestsQuery} from "../redux/requestsApi";
@@ -17,7 +16,6 @@ export default function JoinButton({
         error: joinRequestsError,
         isLoading: isLoadingJoinRequests} = useGetCurrentUserRequestsQuery();
     const {data: classes, error: classesError, isLoading: isLoadingUserClasses} = useGetUserClassesQuery(userId);
-    const dispatch = useAppDispatch();
 
     function joinClass() {
         // if (cls) {

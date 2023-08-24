@@ -2,7 +2,7 @@ import Forbidden from 'components/errors/Forbidden';
 import InvalidCredentials from 'components/errors/InvalidCredentials';
 import Message from 'components/class/messages/Message';
 import { request } from 'components/utils/Service';
-import {getAccessToken} from "../../account/TokenService";
+import {getAccessToken} from "components/account/TokenService";
 
 const getApiUrl = () => {
   return process.env['NEXT_PUBLIC_API_URL'];
@@ -60,9 +60,6 @@ export const getMessages = async ({
   return (await response.json()) as Message[];
 };
 
-const saveMessageEndpoint = () => {
-  return getApiUrl() + '/api/v1/class/message';
-};
 const saveMessageHeader = () => {
   const token = getAccessToken();
   return {
@@ -71,16 +68,6 @@ const saveMessageHeader = () => {
   };
 };
 
-const postMessage = async ({ message }: {message: Message}) => {
-  const endpointUrl = saveMessageEndpoint();
-  const headers = saveMessageHeader();
-
-  return await fetch(endpointUrl, {
-    method: 'POST',
-    headers: headers,
-    body: JSON.stringify(message),
-  });
-};
 
 const deleteMessage = async ({ messageId }: { messageId: number }) => {
   const endpointUrl = `${getApiUrl()}/api/v1/class/message/${messageId}`;
@@ -89,23 +76,6 @@ const deleteMessage = async ({ messageId }: { messageId: number }) => {
   return await fetch(endpointUrl, {
     method: 'DELETE',
     headers,
-  });
-};
-
-export const saveMessage = async ({
-  message,
-}: {
-  message: Message;
-}): Promise<any> => {
-  return await request({
-    fetchFunction: postMessage,
-    errors: {
-      Error: 'Something went wrong, try again later',
-      JsonError: "Couldn't fetch JSON data.",
-      InvalidCredentials: 'You should be logged in to send a message',
-      Forbidden: "You don't have access to send a message",
-    },
-    args: { message },
   });
 };
 

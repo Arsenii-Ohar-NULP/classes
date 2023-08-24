@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import sendIcon from 'icons/send.svg';
 import Message from 'components/class/messages/Message';
-import InvalidCredentials from 'components/errors/InvalidCredentials';
-import { useAppDispatch, useAppSelector } from 'components/redux/store';
-import { saveMessage } from 'components/class/messages/MessageService';
-import { authActions } from 'components/redux/auth';
-import { useRouter } from 'next/navigation';
+import { useAppSelector } from 'components/redux/store';
 import { Button, Spinner } from 'react-bootstrap';
 import styles from 'components/class/class.module.scss';
 import clsx from 'clsx';
@@ -30,29 +26,6 @@ export function MessageInput({
   const username = useAppSelector((state) => state.auth.user?.username);
   const firstName = useAppSelector((state) => state.auth.user?.firstName);
   const lastName = useAppSelector((state) => state.auth.user?.lastName);
-
-  const dispatch = useAppDispatch();
-  const router = useRouter();
-
-  function send() {
-    const message = {
-      content: messageText,
-      user: userId,
-      cls: classId,
-    } as Message;
-    setIsSending(true);
-    saveMessage({ message })
-      .then((data) => onSuccess(message, data))
-      .catch((error) => {
-        if (error instanceof InvalidCredentials) {
-          dispatch(authActions.logout());
-          router.push('/main/login');
-        }
-      })
-      .finally(() => {
-        setIsSending(false);
-      });
-  }
 
   async function socketSend() {
     const message = {

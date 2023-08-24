@@ -45,5 +45,4 @@ export const authSlice = createSlice({
   },
 });
 
-export const authInitialState = initialState;
 export const authActions = authSlice.actions;

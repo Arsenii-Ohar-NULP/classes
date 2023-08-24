@@ -62,8 +62,8 @@ describe('edit account form', () => {
         ))
         renderWithProviders(<EditAccountForm/>, {
             preloadedState: {
-                auth: {user: sampleUser},
-            } as any,
+                auth: {user: sampleUser, status: AuthStatus.LOGGED_IN_FETCHED},
+            },
         });
         const emailInput = screen.getByTestId('Email');
         fireEvent.change(emailInput, {

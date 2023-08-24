@@ -8,7 +8,7 @@ interface RequestsListProps {
 
 export default function RequestsList({requests}: RequestsListProps) {
     return <div className="d-flex justify-content-center">
-        {requests?.map((request, index) => {
+        {requests?.map((request) => {
             return (
                 <RequestCard
                     key={`${request?.userId}-${request?.classId}`}

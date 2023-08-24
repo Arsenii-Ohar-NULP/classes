@@ -11,7 +11,6 @@ import {getAccessToken} from "components/account/TokenService";
 
 export default function MainPage({children}: { children: ReactNode }) {
     const authStatus = useAppSelector((state) => state.auth.status);
-    const userId = useAppSelector((state) => state.auth.user?.id);
     const [getUserInfo] = useLazyGetCurrentUserQuery();
     const logout = useLogout();
     const dispatch = useAppDispatch();

@@ -7,7 +7,6 @@ import {AuthStatus} from 'components/redux/auth';
 import {ClassUI} from 'components/classes/ClassUI';
 import ClassMock from './ClassMock';
 import {screen} from '@testing-library/react';
-import {RootState, useAppSelector} from 'components/redux/store';
 
 jest.mock('components/classes/ClassUI');
 describe('classes page - user classes section test', () => {

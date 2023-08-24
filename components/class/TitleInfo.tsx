@@ -1,6 +1,5 @@
 import React from 'react';
 import Class from "components/classes/Class";
-import {useAppSelector} from "components/redux/store";
 import JoinedBadge from "./JoinedBadge";
 import TeacherBadge from "./TeacherBadge";
 

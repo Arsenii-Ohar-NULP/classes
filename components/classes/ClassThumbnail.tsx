@@ -7,7 +7,7 @@ import {useGetClassThumbnailQuery} from "../redux/classesApi";
 import {Loading} from "../class/Loading";
 
 export default function ClassThumbnail({cls}: { cls: Class }) {
-    const {data, isLoading, error} = useGetClassThumbnailQuery(cls?.id);
+    const {data, isLoading} = useGetClassThumbnailQuery(cls?.id);
     const image = data ? `data:image/png; base64, ${data.thumbnail}` : unknownPic.src;
 
     if (isLoading)

@@ -1,4 +1,4 @@
-import {useRouter, useSearchParams} from 'next/navigation';
+import {useSearchParams} from 'next/navigation';
 import { useEffect, useState } from 'react';
 export default function useUsername() {
     const searchParams = useSearchParams();

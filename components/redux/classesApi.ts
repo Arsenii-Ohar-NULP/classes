@@ -7,6 +7,7 @@ import {
 } from "components/class/ClassService";
 import {authHeaders, CLASSES_API_URL} from "./utils";
 import User from "../account/User";
+import {ClassUserDTO} from "../class/students/ClassUserDTO";
 
 type ThumbnailData = {
     thumbnail: string;
@@ -79,7 +80,17 @@ export const classesApi = createApi({
         }),
         getStudentsById: builder.query<User[], number>({
             query: (id) => `/${id}/student`,
-            providesTags: ["Student"]
+            providesTags: (result, error) =>
+                error ? [] : result.map((student) => ({type: 'Student', id: student.id}))
+        }),
+        deleteStudentById: builder.mutation<void, ClassUserDTO>({
+            query: (payload) => ({
+                url: '/class/student',
+                method: 'DELETE',
+                body: payload
+            }),
+            invalidatesTags: (result, error, arg) =>
+                error ? [] : ([{type: 'Student', id: arg.student}])
         })
     })
 })
@@ -92,5 +103,6 @@ export const {
     useDeleteClassByIdMutation,
     useGetClassThumbnailQuery,
     usePostClassThumbnailMutation,
-    useGetStudentsByIdQuery
+    useGetStudentsByIdQuery,
+    useDeleteStudentByIdMutation
 } = classesApi;

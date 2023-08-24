@@ -55,15 +55,11 @@ export default function EditAccountForm() {
         return userDifference && hasKeysNumber(userDifference, 1) ? userDifference : null;
     };
 
-    const hasKeysNumber = (data, target: number) => {
+    const hasKeysNumber = (data: object, target: number) => {
         return Object.keys(data).length !== target;
     };
 
-    const onSubmit = (data: {
-        Password: string;
-        Phone: string;
-        Email: string;
-    }) => {
+    const onSubmit = () => {
         const userChanges = getUserChanges();
         if (!userChanges) {
             alert('Data has not been changed');

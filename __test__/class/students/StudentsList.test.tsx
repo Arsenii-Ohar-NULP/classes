@@ -10,6 +10,8 @@ const navigateMock = jest.fn();
 jest.mock('next/navigation', () => ({
   useRouter: () => ({
     pathname: '/',
+      replace: navigateMock,
+      push: navigateMock
   }),
 }));
 

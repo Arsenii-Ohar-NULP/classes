@@ -1,5 +1,4 @@
 "use client"
-import clsx from 'clsx';
 import { searchActions } from 'components/redux/search';
 import { useAppDispatch } from 'components/redux/store';
 import React, { FunctionComponent, useEffect } from 'react';

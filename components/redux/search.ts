@@ -7,7 +7,7 @@ export interface ISearchState {
 
 const initialState: ISearchState = { classes: null, students: null };
 
-const changeSearchText = (state: ISearchState, field: keyof ISearchState, value: any) => {
+function changeSearchText(state: ISearchState, field: keyof ISearchState, value: string){
   const nextState = {...state};
   nextState[field] = !value || (value as string).trim() === ''
             ? null
@@ -31,5 +31,4 @@ export const searchSlice = createSlice({
   },
 });
 
-export const searchInitialState = initialState;
 export const searchActions = searchSlice.actions;

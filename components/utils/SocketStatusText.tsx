@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react'
-import { Socket } from 'socket.io-client';
 import styles from './SocketStatus.module.scss';
 
 interface SocketStatusTextProps {
