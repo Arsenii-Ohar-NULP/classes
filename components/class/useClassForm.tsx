@@ -7,7 +7,7 @@ function useClassForm() {
         {
             Title: yup.string(),
             Description: yup.string(),
-            Image: yup.object().required()
+            Image: yup.mixed().required("File is required")
         }
     ).required();
     const {register, handleSubmit, formState: {errors}, getValues} = useForm({

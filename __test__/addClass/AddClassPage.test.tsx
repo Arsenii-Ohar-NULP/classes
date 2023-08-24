@@ -45,8 +45,9 @@ describe('add class page', () => {
     })
 
     it('should navigate to the main page, when user typed in valid data and clicked the button', async () => {
+        const classPostResponse = {id: 1};
         server.use(rest.post(`${CLASSES_API_URL}/class`, (req, res, clx) =>
-            res(clx.status(200), clx.json(200))
+            res(clx.status(200), clx.json(classPostResponse))
         ))
         server.use(rest.post(`${CLASSES_API_URL}/class/img`, (req, res, ctx) =>
             res(ctx.status(201))
