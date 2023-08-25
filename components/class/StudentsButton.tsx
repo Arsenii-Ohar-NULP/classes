@@ -1,4 +1,4 @@
-import React, {MouseEvent} from 'react';
+import React from 'react';
 import {useRouter} from "next/navigation";
 import {Button} from "react-bootstrap";
 import Image from "next/image";
@@ -9,7 +9,7 @@ interface StudentsButtonProps{
 }
 export const StudentsButton = ({classId}: StudentsButtonProps) => {
     const router = useRouter();
-    const navigateToStudentsPage = (e: MouseEvent<HTMLButtonElement>) => {
+    const navigateToStudentsPage = () => {
         router.push(`students/${classId}`);
     }
     return <div>

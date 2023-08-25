@@ -1,14 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {string} from "yup";
 
-interface SearchState {
+export interface ISearchState {
   classes: string;
   students: string;
 }
 
-const initialState: SearchState = { classes: null, students: null };
+const initialState: ISearchState = { classes: null, students: null };
 
-const changeSearchText = (state: SearchState, field: keyof SearchState, value: any) => {
+function changeSearchText(state: ISearchState, field: keyof ISearchState, value: string){
   const nextState = {...state};
   nextState[field] = !value || (value as string).trim() === ''
             ? null
@@ -32,5 +31,4 @@ export const searchSlice = createSlice({
   },
 });
 
-export const searchInitialState = initialState;
 export const searchActions = searchSlice.actions;

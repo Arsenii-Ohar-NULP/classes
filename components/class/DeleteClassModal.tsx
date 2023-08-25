@@ -1,61 +1,57 @@
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAppDispatch } from 'components/redux/store';
-import { Button, Modal } from 'react-bootstrap';
-import { classesActions } from 'components/redux/classes';
-import { removeClass } from './ClassService';
-import InvalidCredentials from 'components/errors/InvalidCredentials';
-import { logout } from 'components/login/AuthService';
+import React from 'react';
+import {useRouter} from 'next/navigation';
+import {Button, Modal} from 'react-bootstrap';
+import {useLogout} from 'components/login/AuthService';
+import {useDeleteClassByIdMutation} from "../redux/classesApi";
 
 
 export default function DeleteClassModal({
-    classId,
-    onDelete,
-    show,
-    close
-  }: {
+                                             classId,
+                                             show,
+                                             close
+                                         }: {
     classId: number;
-    onDelete: () => void;
     show: boolean;
     close: () => void;
-  }) {
-    const [isDeleting, setIsDeleting] = useState<boolean>(false);
+}) {
+    const [removeClass, {isLoading: isDeleting}] = useDeleteClassByIdMutation();
     const router = useRouter();
-    const dispatch = useAppDispatch();
-  
+    const logout = useLogout();
+
     function deleteClass() {
-      setIsDeleting(true);
-        removeClass(classId).then(() => {
-            dispatch(classesActions.deleteUserClass(classId));
-            router.push('/classes');
-          })
-          .catch((error) => {
-            if (error instanceof InvalidCredentials){
-              logout(dispatch, router);
-            }
-            setIsDeleting(false)
-          })
+        removeClass(classId).unwrap().then(() => {
+            router.push('/main/classes');
+        })
+            .catch((error) => {
+                if ("status" in error){
+                    const status = error['status'];
+
+                    if (status === 401){
+                        logout()
+                    }
+                }
+            })
     }
-  
+
     return (
-      <>
-        <Modal show={show} backdrop={true} onHide={close} keyboard={false}>
-          <Modal.Header closeButton={!isDeleting}>
-            <Modal.Title>Are you sure?</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            The class will be deleted and there is no way to undo this. Are you
-            sure?
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="danger" onClick={deleteClass} disabled={isDeleting}>
-              Delete
-            </Button>
-            <Button variant="success" onClick={close} disabled={isDeleting}>
-              No, take me back
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </>
+        <>
+            <Modal show={show} backdrop={true} onHide={close} keyboard={false}>
+                <Modal.Header closeButton={!isDeleting}>
+                    <Modal.Title>Are you sure?</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    The class will be deleted and there is no way to undo this. Are you
+                    sure?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="danger" onClick={deleteClass} disabled={isDeleting}>
+                        Delete
+                    </Button>
+                    <Button variant="success" onClick={close} disabled={isDeleting}>
+                        No, take me back
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </>
     );
-  }
+}

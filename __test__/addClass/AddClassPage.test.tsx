@@ -5,9 +5,11 @@ import AddClassPage from 'app/main/classes/addClass/page';
 import {sampleUser} from '__test__/data/user';
 import {AuthStatus} from 'components/redux/auth';
 import {fireEvent, screen, waitFor} from '@testing-library/react';
-import {createClass, uploadThumbnail} from 'components/class/ClassService';
-import InvalidCredentials from 'components/errors/InvalidCredentials';
 import {useLogout} from 'components/login/AuthService';
+import {server} from "../api/server";
+import {rest} from "msw";
+import {CLASSES_API_URL} from "../../components/redux/utils";
+import {useRouter} from "next/navigation";
 
 
 const pushMock = jest.fn();
@@ -18,7 +20,6 @@ jest.mock('next/navigation', () => ({
     })
 }))
 
-jest.mock('components/class/ClassService')
 jest.mock('components/login/AuthService')
 
 describe('add class page', () => {
@@ -33,10 +34,6 @@ describe('add class page', () => {
                     status: AuthStatus.LOGGED_IN_FETCHED,
                     user: sampleUser
                 },
-                classes: {
-                    userClasses: [],
-                    joinRequests: []
-                },
                 search: {
                     students: null,
                     classes: null
@@ -47,19 +44,21 @@ describe('add class page', () => {
         expect(page.container).toMatchSnapshot();
     })
 
-    it('should create class and upload a thumbnail, when user typed in valid data', async () => {
+    it('should navigate to the main page, when user typed in valid data and clicked the button', async () => {
+        const classPostResponse = {id: 1};
+        server.use(rest.post(`${CLASSES_API_URL}/class`, (req, res, clx) =>
+            res(clx.status(200), clx.json(classPostResponse))
+        ))
+        server.use(rest.post(`${CLASSES_API_URL}/class/img`, (req, res, ctx) =>
+            res(ctx.status(201))
+        ))
         const user = sampleUser;
         const testFile = new File(['hello'], 'hello.png', {type: 'image/png'})
-        jest.mocked(createClass).mockResolvedValueOnce({id: 1, msg: 'success'})
         renderWithProviders(<AddClassPage/>, {
             preloadedState: {
                 auth: {
                     status: AuthStatus.LOGGED_IN_FETCHED,
                     user
-                },
-                classes: {
-                    userClasses: [],
-                    joinRequests: []
                 },
                 search: {
                     students: null,
@@ -80,16 +79,17 @@ describe('add class page', () => {
         fireEvent.click(createButton);
 
         await waitFor(() => {
-            expect(jest.mocked(createClass)).toHaveBeenCalled();
-            expect(jest.mocked(uploadThumbnail)).toHaveBeenCalled();
+            expect(useRouter().replace).toHaveBeenCalledWith("/main/classes");
         })
     })
 
-    it('should logout a user, when one of API requests returns 401', async () => {
+    it('should logout a user, when one of the API requests returns 401', async () => {
+        server.use(rest.post(`${CLASSES_API_URL}/class`, (req, res, clx) =>
+            res(clx.status(401))
+        ))
         const user = sampleUser;
         const testFile = new File(['hello'], 'hello.png', {type: 'image/png'})
         const mockedLogout = jest.fn();
-        jest.mocked(createClass).mockRejectedValueOnce(new InvalidCredentials('You should be logged in to do this'))
         jest.mocked(useLogout).mockReturnValue(mockedLogout);
         renderWithProviders(<AddClassPage/>, {
             preloadedState: {
@@ -97,10 +97,6 @@ describe('add class page', () => {
                     status: AuthStatus.LOGGED_IN_FETCHED,
                     user
                 },
-                classes: {
-                    userClasses: [],
-                    joinRequests: []
-                },
                 search: {
                     students: null,
                     classes: null
@@ -120,8 +116,6 @@ describe('add class page', () => {
         fireEvent.click(createButton);
 
         await waitFor(() => {
-            expect(jest.mocked(createClass)).toHaveBeenCalled();
-            expect(jest.mocked(uploadThumbnail)).not.toHaveBeenCalled();
             expect(mockedLogout).toHaveBeenCalled();
         })
 

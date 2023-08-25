@@ -4,10 +4,10 @@ exports[`sign up page should match a snapshot 1`] = `
 <div>
   <div>
     <div
-      class="container w-100 h-100 d-relative"
+      class="h-100 d-relative container"
     >
       <div
-        class="grid p-3"
+        class="grid p-3 row"
       >
         <div
           class="d-flex align-middle"
@@ -176,9 +176,12 @@ exports[`sign up page should match a snapshot 1`] = `
                 />
               </div>
             </div>
-            <div
-              class="invalid"
-            />
+            <p
+              class="visually-hidden"
+              data-testid="error"
+            >
+              Something went wrong, check the fields and try again later
+            </p>
             <hr />
             <div
               class="container d-flex gap-2 justify-content-center mx-auto my-3 text-center p-3 start-0"

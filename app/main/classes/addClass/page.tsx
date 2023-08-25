@@ -1,81 +1,43 @@
 "use client";
-import React, {useState} from 'react';
-import * as yup from 'yup';
-import {useForm} from 'react-hook-form';
-import {yupResolver} from '@hookform/resolvers/yup';
-import {createClass, uploadThumbnail} from 'components/class/ClassService';
+import React from 'react';
+import {ClassData, createEntireClass} from 'components/class/ClassService';
 import {useAppSelector} from 'components/redux/store';
-import {useLogout} from 'components/login/AuthService';
-import InvalidCredentials from 'components/errors/InvalidCredentials';
 import TitleInput from 'components/addClass/TitleInput';
 import FileInput from 'components/addClass/FileInput';
 import AddClassButton from 'components/addClass/AddClassButton';
-import {BadRequest} from 'components/errors/BadRequest';
-import {useRouter} from 'next/navigation';
 import DescriptionInput from 'components/addClass/DescriptionInput';
-
-type ClassData = {
-    Title: string;
-    Description: string;
-    Image: File[];
-};
-
-function useClassForm() {
-    const schema = yup
-        .object({
-            Title: yup.string().required(),
-            Description: yup.string().required(),
-        })
-        .required();
-    const {
-        register,
-        handleSubmit,
-        formState: {errors},
-    } = useForm({
-        resolver: yupResolver(schema),
-    });
-
-    return {register, handleSubmit, errors};
-}
+import {useCreateClassMutation, usePostClassThumbnailMutation} from "components/redux/classesApi";
+import {useClassForm} from "components/class/useClassForm";
+import {useRouter} from "next/navigation";
+import {useLogout} from "components/login/AuthService";
 
 export default function AddClassPage() {
+    const [uploadThumbnail, uploadThumbnailResponse] = usePostClassThumbnailMutation();
+    const [createClass, createClassResponse] = useCreateClassMutation();
     const {register, handleSubmit, errors} = useClassForm();
     const userId = useAppSelector((state) => state.auth?.user?.id);
-    const logout = useLogout();
     const router = useRouter();
-    const [isAdding, setIsAdding] = useState<boolean>(false);
-    const onSubmit = (data: ClassData) => {
+    const logout = useLogout();
+
+    const onSubmit = async (data: ClassData) => {
         try {
-            const file = data.Image[0];
-            const reader = new FileReader();
-
-            reader.onload = async () => {
-                const base64String = (reader.result as string).split(',')[1];
-                try {
-                    setIsAdding(true);
-                    const classResponse = await createClass({
-                        title: data.Title,
-                        description: data.Description,
-                        teacher_id: userId,
-                    });
-                    await uploadThumbnail({image: base64String, id: classResponse.id});
-                    router.push('/main/classes');
-                } catch (error) {
-                    if (error instanceof InvalidCredentials) {
-                        logout();
+            createEntireClass({
+                data,
+                userId,
+                createClassFn: createClass,
+                uploadThumbnailFn: uploadThumbnail
+            }).then(
+                () => router.replace("/main/classes")
+            )
+                .catch((error) => {
+                    if ("status" in error){
+                        if (error['status'] === 401){
+                            logout();
+                        }
                     }
-
-                    if (error instanceof BadRequest) {
-                        alert(error.message);
-                    }
-                } finally {
-                    setIsAdding(false);
-                }
-            };
-
-            reader.readAsDataURL(file);
+                })
         } catch (error) {
-            console.error(error);
+            console.log(error);
         }
     };
 
@@ -98,8 +60,7 @@ export default function AddClassPage() {
                 registration={register('Image')}
             />
             <hr/>
-            <AddClassButton disabled={isAdding}/>
+            <AddClassButton disabled={createClassResponse.isLoading || uploadThumbnailResponse.isLoading}/>
         </form>
-
     );
 }

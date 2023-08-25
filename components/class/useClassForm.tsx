@@ -6,7 +6,8 @@ function useClassForm() {
     const schema = yup.object(
         {
             Title: yup.string(),
-            Description: yup.string()
+            Description: yup.string(),
+            Image: yup.mixed().required("File is required")
         }
     ).required();
     const {register, handleSubmit, formState: {errors}, getValues} = useForm({

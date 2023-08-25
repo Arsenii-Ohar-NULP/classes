@@ -1,12 +1,12 @@
 import React from 'react';
 import {renderWithProviders} from "../../testUtils";
 import {sampleUser} from "../../data/user";
-import {StudentCard} from "../../../components/class/students/StudentCard";
+import {StudentCard} from "components/class/students/StudentCard";
 import {fireEvent, screen, waitFor} from "@testing-library/react";
 import {act} from "react-dom/test-utils";
 
 const pushMock = jest.fn();
-jest.mock('next/router', () => ({
+jest.mock('next/navigation', () => ({
   useRouter: () => ({
     pathname: '/',
     push: pushMock,

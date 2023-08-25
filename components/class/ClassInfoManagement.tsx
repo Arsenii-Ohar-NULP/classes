@@ -15,9 +15,12 @@ interface ClassInfoManagementProps {
 export default function ClassInfoManagement({
   cls
 }: ClassInfoManagementProps) {
-  const [showDelete, setShowDelete] = useState<boolean>();
+  const [showDelete, setShowDelete] = useState<boolean>(false);
   const userId = useAppSelector((state) => state?.auth?.user?.id);
 
+  if (!userId)
+    return <></>;
+    
   return (
     <div
       className={clsx(
@@ -31,7 +34,6 @@ export default function ClassInfoManagement({
         <DeleteClassButton onDelete={() => setShowDelete(true)} />
         <DeleteClassModal
           classId={cls.id}
-          onDelete={() => null}
           show={showDelete}
           close={() => setShowDelete(false)}
         />

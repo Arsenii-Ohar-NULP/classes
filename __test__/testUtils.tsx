@@ -1,15 +1,12 @@
 import React, { PropsWithChildren } from 'react';
 import { render, renderHook } from '@testing-library/react';
 import type { RenderOptions } from '@testing-library/react';
-import { configureStore } from '@reduxjs/toolkit';
 import type { PreloadedState } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 
 import type { RootState, AppStore } from 'components/redux/store';
 // As a basic setup, import your same slice reducers
-import { authInitialState, authSlice } from 'components/redux/auth';
-import { classSlice, classesInitialState } from 'components/redux/classes';
-import { searchInitialState, searchSlice } from 'components/redux/search';
+import {setupStore} from "components/redux/store";
 
 // This type interface extends the default options for render from RTL, as well
 // as allows the user to specify other things such as initialState, store.
@@ -21,20 +18,9 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
 export function renderWithProviders(
   ui: React.ReactElement,
   {
-    preloadedState = {
-      auth: authInitialState,
-      classes: classesInitialState,
-      search: searchInitialState,
-    },
+    preloadedState = {},
     // Automatically create a store instance if no store was passed in
-    store = configureStore({
-      reducer: {
-        auth: authSlice.reducer,
-        classes: classSlice.reducer,
-        search: searchSlice.reducer,
-      },
-      preloadedState,
-    }),
+    store = setupStore(preloadedState),
     ...renderOptions
   }: ExtendedRenderOptions = {}
 ) {
@@ -49,20 +35,9 @@ export function renderWithProviders(
 export function renderHookWithProviders(
   ui,
   {
-    preloadedState = {
-      auth: authInitialState,
-      classes: classesInitialState,
-      search: searchInitialState,
-    },
+    preloadedState = {},
     // Automatically create a store instance if no store was passed in
-    store = configureStore({
-      reducer: {
-        auth: authSlice.reducer,
-        classes: classSlice.reducer,
-        search: searchSlice.reducer,
-      },
-      preloadedState,
-    }),
+    store = setupStore(preloadedState),
     ...renderOptions
   }: ExtendedRenderOptions = {}
 ) {

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { socket } from 'components/utils/socket';
 import { DeleteMessageStatus } from './DeleteMessageStatus';
+import {useLogout} from "../../login/AuthService";
 
 export default function DeleteMessageButtonModal({
   messageId,
@@ -15,16 +16,17 @@ export default function DeleteMessageButtonModal({
   close: () => void;
 }) {
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
-
+  const logout = useLogout();
   async function deleteMessageSocket() {
     setIsDeleting(true);
     const response = await socket.emitWithAck('deleteMessage', messageId);
-    console.log(response);
     if (response.status === DeleteMessageStatus.OK) {
       onDelete();
       close();
     }
-    // TODO: Handle stuff here
+    else if (response.status === DeleteMessageStatus.FAILED){
+      logout();
+    }
     setIsDeleting(false);
   }
 

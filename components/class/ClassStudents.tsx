@@ -1,25 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Class from "components/classes/Class";
-import User from "components/account/User";
 import clsx from "clsx";
-import {getClassStudents} from "./ClassService";
 import ProfilePicture from "../ProfilePicture";
+import {useGetStudentsByIdQuery} from "../redux/classesApi";
 
 interface ClassStudentsProps {
     cls: Class
 }
 
 export const ClassStudents = ({cls}: ClassStudentsProps) => {
-    const [students, setStudents] = useState<User[]>();
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    useEffect(() => {
-        const stub = 5;
-        getClassStudents(cls.id, 5)
-            .then((fetchedStudents) => setStudents(fetchedStudents))
-            .catch((error) => {
-                console.log(error);
-            })
-    }, []);
+    const {data: students} = useGetStudentsByIdQuery(cls?.id);
 
     return <div className={clsx('d-flex flex-wrap justify-content-center align-items-center')}>
         {students?.map((student) =>

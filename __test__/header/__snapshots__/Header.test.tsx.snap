@@ -12,11 +12,11 @@ exports[`header test should match a snapshot 1`] = `
         class="header-background"
       />
     </div>
-    <div
-      class="navbar navbar-expand-lg"
+    <nav
+      class="navbar navbar-expand-lg navbar-light"
     >
-      <div
-        class="navbar-brand rounded me-2"
+      <span
+        class="rounded me-2 navbar-brand"
       >
         <div
           class="d-flex justify-content-center align-items-center gap-1 bg-dark p-2 rounded"
@@ -39,14 +39,11 @@ exports[`header test should match a snapshot 1`] = `
             Classes
           </h3>
         </div>
-      </div>
+      </span>
       <button
         aria-controls="navbarNav"
-        aria-expanded="false"
         aria-label="Toggle navigation"
-        class="navbar-toggler"
-        data-bs-target="#navbarNav"
-        data-bs-toggle="collapse"
+        class="navbar-toggler collapsed"
         type="button"
       >
         <span
@@ -54,7 +51,7 @@ exports[`header test should match a snapshot 1`] = `
         />
       </button>
       <div
-        class="collapse navbar-collapse col"
+        class="col navbar-collapse collapse"
         id="navbarNav"
       >
         <ul
@@ -96,7 +93,7 @@ exports[`header test should match a snapshot 1`] = `
           </button>
         </div>
       </div>
-    </div>
+    </nav>
   </header>
 </div>
 `;
