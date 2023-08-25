@@ -91,7 +91,7 @@ export default function LoginPage() {
                     <div className="d-flex my-2 gap-2 h-50 justify-content-center">
                         <LoginButton
                             onSubmit={handleSubmit(onLoginClick)}
-                            isLogging={loginResponse.isLoading}
+                            isLogging={loginResponse.isLoading || userInfoResponse.isLoading}
                             ref={loginButton}
                         />
                         <div className="vr m-1"></div>

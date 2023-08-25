@@ -8,6 +8,7 @@ import {
 import {authHeaders, CLASSES_API_URL} from "./utils";
 import User from "../account/User";
 import {ClassUserDTO} from "../class/students/ClassUserDTO";
+import Message from "../class/messages/Message";
 
 type ThumbnailData = {
     thumbnail: string;
@@ -19,7 +20,7 @@ export const classesApi = createApi({
         baseUrl: CLASSES_API_URL,
         prepareHeaders: authHeaders
     }),
-    tagTypes: ['Class', 'ClassThumbnail', "Student", "UserClass"],
+    tagTypes: ['Class', 'ClassThumbnail', "Student", "UserClass", 'Message'],
     endpoints: builder => ({
         getClasses: builder.query<Class[], void>({
             query: () => `/class`,
@@ -91,6 +92,10 @@ export const classesApi = createApi({
             }),
             invalidatesTags: (result, error, arg) =>
                 error ? [] : ([{type: 'Student', id: arg.student}])
+        }),
+        getMessages: builder.query<Message[], number>({
+            query: (payload) => `/class/messages/${payload}`,
+            providesTags: (result, error) => error ? [] : result.map((message) => ({type: 'Message', id: message.id}))
         })
     })
 })
@@ -104,5 +109,6 @@ export const {
     useGetClassThumbnailQuery,
     usePostClassThumbnailMutation,
     useGetStudentsByIdQuery,
-    useDeleteStudentByIdMutation
+    useDeleteStudentByIdMutation,
+    useLazyGetMessagesQuery
 } = classesApi;

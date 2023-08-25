@@ -6,7 +6,6 @@ interface StudentsNumberInfo {
 }
 
 export default function StudentsNumberInfo({classInfo}: StudentsNumberInfo) {
-
     function getStudentsNumber() {
         const noun = classInfo?.students_number == 1
             ? 'student' :

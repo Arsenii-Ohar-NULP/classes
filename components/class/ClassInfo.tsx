@@ -5,6 +5,7 @@ import TitleInfo from "components/class/TitleInfo";
 import NameInfo from "components/class/NameInfo";
 import DescriptionInfo from "components/class/DescriptionInfo";
 import TeacherButtons from "./TeacherButtons";
+import StudentsNumberInfo from "./StudentsNumberInfo";
 
 interface ClassInfoProps {
     classInfo: Class;
@@ -27,6 +28,7 @@ const ClassInfo: FunctionComponent<ClassInfoProps> = ({classInfo, isJoined}) => 
         <div className="d-flex flex-column align-items-start flex-grow-1 px-3">
             <TitleInfo classInfo={classInfo} isJoined={isJoined}/>
             <NameInfo classInfo={classInfo}/>
+            <StudentsNumberInfo classInfo={classInfo}/>
             <DescriptionInfo classInfo={classInfo}/>
             <TeacherButtons classInfo={classInfo} switchEditMode={() => setEditMode(!editMode)}/>
         </div>

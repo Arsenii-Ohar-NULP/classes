@@ -38,7 +38,7 @@ export default function RequestsPage({params: {id}}: { params: { id: string } })
     }, [role]);
 
     if (isLoading) {
-        return <div className='flex justify-content-center w-100 align-items-center'>
+        return <div className='flex justify-content-center w-100 align-items-center h-100'>
             <Loading/>;
         </div>
     }
