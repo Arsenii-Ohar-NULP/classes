@@ -5,7 +5,9 @@
 
 
 ## What is it?
-This is an online platform app built with Next.js and more
+This is an online platform app built with Next.js and more.
+![image](https://github.com/Arsenii-Ohar-NULP/classes/assets/46402350/3c351abb-76c2-4572-a347-210a0b861afb)
+
 ### Logic
 To built an app that has following educational functionality:
 - there are two types of users: student and teacher
